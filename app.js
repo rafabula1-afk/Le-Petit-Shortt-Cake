@@ -1551,7 +1551,7 @@
       successNote.textContent =
         order.payment?.method === "efectivo"
           ? "Guardá este número. Coordinaremos el pago al recibir por WhatsApp."
-          : "Guardá este número. Ya recibimos tus capturas del pago; la dueña las verificará y te confirmará por WhatsApp.";
+          : "Guardá este número. Ya recibimos tus capturas del pago; el equipo las verificará y te confirmará por WhatsApp.";
     }
     const successWa = $("#successWa");
     successWa.href = waLink(orderWhatsAppMessage(order));

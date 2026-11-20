@@ -159,10 +159,12 @@
 
       <nav class="nav" id="mainNav" aria-label="Navegación principal">
         <a href="#inicio">Inicio</a>
+        <a href="#pedidos">Cómo pedir</a>
+        <a href="#nosotras">Nuestra receta</a>
         <a href="#catalogo">Catálogo</a>
-        <a href="#nosotras">Nosotras</a>
+        <a href="#tutorial">Tutorial</a>
+        <a href="#musica">Playlist</a>
         <a href="#redes">Redes</a>
-        <a href="#pedidos">Pedidos</a>
       </nav>
 
       <div class="header-actions">
@@ -237,6 +239,42 @@
       </div>
     </div>
 
+    <!-- ==================== CÓMO PEDIR ==================== -->
+    <section class="section layout" id="pedidos">
+      <div class="card steps-card" data-reveal>
+        <p class="eyebrow">Cómo pedir</p>
+        <h2>Tu casita, en cuatro pasos</h2>
+        <div class="steps-grid">
+          <div class="step">
+            <span class="step-num">1</span>
+            <h3>Elegí tus cajitas</h3>
+            <p>Sumá al carrito tus kits y extras favoritos.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <h3>Coordinamos</h3>
+            <p>Confirmamos disponibilidad, fecha y entrega por WhatsApp.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <h3>Pagá</h3>
+            <p>Pago Móvil, Zelle, Binance o efectivo.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <h3>Disfrutá</h3>
+            <p>Recibí tu kit y armá tu casita con una pizca de magia.</p>
+          </div>
+        </div>
+        <div class="steps-actions">
+          <a href="#catalogo" class="btn btn-primary">Armar mi pedido <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" data-link="whatsapp" data-wa-message="Hola! Tengo una consulta sobre los kits de Le Petit Shortt Cake." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-whatsapp"/></svg> Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== RECETA / NOSOTRAS ==================== -->
     <section class="section layout" id="nosotras">
       <div class="card recipe-card" data-reveal>
@@ -247,7 +285,7 @@
         <div class="recipe-copy">
           <p class="eyebrow">Nuestra receta secreta</p>
           <h2>Jengibre, canela<br>y limón</h2>
-          <p class="lead">Hemos perfeccionado la mezcla de glaseado para intensificar el sabor del jengibre, conseguir la textura perfecta y alargar la vida útil de las mangas.</p>
+          <p class="lead">Perfeccionamos la mezcla de glaseado para intensificar el sabor del jengibre, conseguir la textura perfecta y alargar la vida útil de las mangas.</p>
           <div class="ingredient-row">
             <span class="ingredient"><svg aria-hidden="true"><use href="#i-ginger"/></svg> Jengibre</span>
             <span class="ingredient"><svg aria-hidden="true"><use href="#i-star"/></svg> Canela</span>
@@ -281,7 +319,7 @@
     <!-- ==================== GALERÍA ==================== -->
     <section class="gallery-strip" aria-label="Galería de creaciones">
       <div class="gallery-track">
-        <img src="assets/productos/nosotras.webp" alt="Emprendedora de Le Petit Shortt Cake con una casita de jengibre" loading="lazy">
+        <img src="assets/productos/nosotras.webp" alt="Persona del equipo de Le Petit Shortt Cake con una casita de jengibre" loading="lazy">
         <img src="assets/productos/galeria-1.webp" alt="Mostrador navideño de Le Petit Shortt Cake" loading="lazy">
         <img src="assets/productos/galeria-2.webp" alt="Equipo de Le Petit Shortt Cake con osito de jengibre" loading="lazy">
         <img src="assets/productos/galeria-3.webp" alt="Familia decorando casitas de jengibre" loading="lazy">
@@ -293,6 +331,36 @@
         <img src="assets/productos/galeria-3.webp" alt="" loading="lazy">
         <img src="assets/productos/galeria-4.webp" alt="" loading="lazy">
         <img src="assets/productos/munecos.webp" alt="" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ==================== YOUTUBE ==================== -->
+    <section class="section layout" id="tutorial">
+      <div class="card embed-card embed-card-reverse" data-reveal>
+        <div class="embed-copy">
+          <p class="eyebrow">Paso a paso</p>
+          <h2>Cómo armar<br>tu casita</h2>
+          <p>Muy pronto vas a poder ver el video tutorial con todos los secretos para armar y decorar tu casita como una profesional.</p>
+          <a class="btn btn-youtube" id="youtubeLink" target="_blank" rel="noopener" hidden>
+            <svg aria-hidden="true"><use href="#i-youtube"/></svg> Ver en YouTube
+          </a>
+        </div>
+        <div class="embed-media" id="youtubeSlot"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SPOTIFY ==================== -->
+    <section class="section layout" id="musica">
+      <div class="card embed-card" data-reveal>
+        <div class="embed-copy">
+          <p class="eyebrow">Música para la cocina</p>
+          <h2>La playlist de<br>Le Petit</h2>
+          <p>Poné música navideña mientras armás tu casita. Una playlist para entrar en clima y endulzar el momento.</p>
+          <a class="btn btn-spotify" id="spotifyLink" target="_blank" rel="noopener" hidden>
+            <svg aria-hidden="true"><use href="#i-spotify"/></svg> Abrir en Spotify
+          </a>
+        </div>
+        <div class="embed-media" id="spotifySlot"></div>
       </div>
     </section>
 
@@ -334,71 +402,7 @@
       </div>
     </section>
 
-    <!-- ==================== SPOTIFY ==================== -->
-    <section class="section layout" id="musica">
-      <div class="card embed-card" data-reveal>
-        <div class="embed-copy">
-          <p class="eyebrow">Música para la cocina</p>
-          <h2>La playlist de<br>Le Petit</h2>
-          <p>Poné música navideña mientras armás tu casita. Una playlist para entrar en clima y endulzar el momento.</p>
-          <a class="btn btn-spotify" id="spotifyLink" target="_blank" rel="noopener" hidden>
-            <svg aria-hidden="true"><use href="#i-spotify"/></svg> Abrir en Spotify
-          </a>
-        </div>
-        <div class="embed-media" id="spotifySlot"></div>
-      </div>
-    </section>
 
-    <!-- ==================== YOUTUBE ==================== -->
-    <section class="section layout" id="tutorial">
-      <div class="card embed-card embed-card-reverse" data-reveal>
-        <div class="embed-copy">
-          <p class="eyebrow">Paso a paso</p>
-          <h2>Cómo armar<br>tu casita</h2>
-          <p>Muy pronto vas a poder ver el video tutorial con todos los secretos para armar y decorar tu casita como una profesional.</p>
-          <a class="btn btn-youtube" id="youtubeLink" target="_blank" rel="noopener" hidden>
-            <svg aria-hidden="true"><use href="#i-youtube"/></svg> Ver en YouTube
-          </a>
-        </div>
-        <div class="embed-media" id="youtubeSlot"></div>
-      </div>
-    </section>
-
-    <!-- ==================== CÓMO PEDIR ==================== -->
-    <section class="section layout" id="pedidos">
-      <div class="card steps-card" data-reveal>
-        <p class="eyebrow">Cómo pedir</p>
-        <h2>Tu casita, en cuatro pasos</h2>
-        <div class="steps-grid">
-          <div class="step">
-            <span class="step-num">1</span>
-            <h3>Elegí tus cajitas</h3>
-            <p>Sumá al carrito tus kits y extras favoritos.</p>
-          </div>
-          <div class="step">
-            <span class="step-num">2</span>
-            <h3>Coordinamos</h3>
-            <p>Confirmamos disponibilidad, fecha y entrega por WhatsApp.</p>
-          </div>
-          <div class="step">
-            <span class="step-num">3</span>
-            <h3>Pagá</h3>
-            <p>Pago Móvil, Zelle, Binance o efectivo.</p>
-          </div>
-          <div class="step">
-            <span class="step-num">4</span>
-            <h3>Disfrutá</h3>
-            <p>Recibí tu kit y armá tu casita con una pizca de magia.</p>
-          </div>
-        </div>
-        <div class="steps-actions">
-          <a href="#catalogo" class="btn btn-primary">Armar mi pedido <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          <a class="btn btn-ghost" data-link="whatsapp" data-wa-message="Hola! Tengo una consulta sobre los kits de Le Petit Shortt Cake." target="_blank" rel="noopener">
-            <svg aria-hidden="true"><use href="#i-whatsapp"/></svg> Consultar por WhatsApp
-          </a>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- ==================== FOOTER ==================== -->
@@ -412,17 +416,19 @@
       </div>
       <div class="footer-links">
         <h3>Explorar</h3>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#nosotras">Nuestra receta</a>
-        <a href="#redes">Redes sociales</a>
         <a href="#pedidos">Cómo pedir</a>
+        <a href="#nosotras">Nuestra receta</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#tutorial">Tutorial</a>
+        <a href="#musica">Playlist</a>
+        <a href="#redes">Redes sociales</a>
       </div>
       <div class="footer-links">
         <h3>Contacto</h3>
         <a data-link="whatsapp" data-wa-message="Hola! Quiero consultar por los kits de Le Petit Shortt Cake." target="_blank" rel="noopener">WhatsApp</a>
         <a data-link="instagram" target="_blank" rel="noopener">Instagram</a>
         <a data-link="tiktok" target="_blank" rel="noopener">TikTok</a>
-        <a href="#admin" class="footer-admin"><svg aria-hidden="true"><use href="#i-lock"/></svg> Acceso administradora</a>
+        <a href="#admin" class="footer-admin"><svg aria-hidden="true"><use href="#i-lock"/></svg> Acceso al panel</a>
       </div>
       <div class="footer-bottom">
         <p>© <span id="year"></span> Le Petit Shortt Cake. Hecho con amor y mucho jengibre.</p>
@@ -559,7 +565,7 @@
         <h2>¡Gracias por tu compra!</h2>
         <p>Tu número de pedido es</p>
         <div class="order-number" id="successOrderNumber">LPSC-2026-001</div>
-        <p class="success-note" id="successNote">Guardá este número. Ya recibimos tu comprobante; la dueña verificará el pago y te confirmará por WhatsApp.</p>
+        <p class="success-note" id="successNote">Guardá este número. Ya recibimos tu comprobante; el equipo verificará el pago y te confirmará por WhatsApp.</p>
         <div class="success-actions">
           <a class="btn btn-wa" id="successWa" target="_blank" rel="noopener">
             <svg aria-hidden="true"><use href="#i-whatsapp"/></svg> Enviar pedido por WhatsApp
@@ -589,7 +595,7 @@
 
       <div class="card admin-login" id="adminLogin">
         <div class="login-icon"><svg aria-hidden="true"><use href="#i-lock"/></svg></div>
-        <h2>Acceso de administradora</h2>
+        <h2>Acceso al panel de órdenes</h2>
         <p id="adminLoginHint">Ingresá la contraseña para ver el calendario de pedidos.</p>
         <form id="adminLoginForm">
           <div class="field" id="adminEmailField" hidden>

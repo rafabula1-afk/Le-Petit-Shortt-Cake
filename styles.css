@@ -33,7 +33,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -44,7 +44,7 @@ body {
   line-height: 1.65;
   color: var(--ink);
   background: #c41568;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body::before {
@@ -305,9 +305,13 @@ p {
 
 .site-header {
   position: sticky;
-  top: 14px;
+  top: 0;
   z-index: 60;
   padding-top: 14px;
+}
+
+main section[id] {
+  scroll-margin-top: 96px;
 }
 
 .header-inner {
@@ -3466,8 +3470,47 @@ body.admin-open .site-footer {
     height: 180px;
   }
 
+  .steps-card {
+    padding: 22px 18px;
+  }
+
+  .steps-card h2 {
+    margin-bottom: 16px;
+  }
+
   .steps-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    align-items: start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+
+  .step-num {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .step h3 {
+    margin-bottom: 2px;
+    font-size: 0.92rem;
+  }
+
+  .step p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .steps-actions {
+    margin-top: 16px;
   }
 
   .footer-card {
