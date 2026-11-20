@@ -86,6 +86,51 @@
     };
   }
 
+  const plainAmount = (n) =>
+    Number(n || 0).toLocaleString("en-US", {
+      useGrouping: false,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  function paymentCopyData() {
+    const key = state.checkout.method;
+    const method = (CFG.payment || {})[key] || {};
+    const amount = paymentAmountInfo();
+
+    if (key === "pagoMovil") {
+      let phone = String(method.phone || "").replace(/\D/g, "");
+      if (phone.length === 12 && phone.startsWith("58")) phone = phone.slice(2);
+      const fields = [
+        { key: "bank", label: "Banco", value: String(method.bankCode || "").trim() },
+        { key: "id", label: "Cédula", value: String(method.idNumber || "").trim() },
+        { key: "phone", label: "Celular", value: phone },
+        {
+          key: "amount",
+          label: "Monto",
+          value: plainAmount(amount.amount),
+          disabled: state.checkout.rateLoading,
+        },
+      ];
+      return {
+        fields,
+        all: fields.map((field) => field.value).join("\n"),
+        allDisabled: state.checkout.rateLoading,
+      };
+    }
+
+    if (key === "zelle" || key === "binance") {
+      const email = String(method.email || "").trim();
+      return {
+        fields: [{ key: "email", label: "Correo", value: email }],
+        all: email,
+        allDisabled: false,
+      };
+    }
+
+    return null;
+  }
+
   const formatDate = (iso) => {
     if (!iso) return "Sin fecha";
     const date = new Date(`${iso}T12:00:00`);
@@ -538,6 +583,38 @@
     toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3200);
   }
 
+  function legacyCopy(text) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    area.remove();
+    return ok;
+  }
+
+  async function copyToClipboard(text) {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else if (!legacyCopy(text)) {
+        throw new Error("No se pudo copiar");
+      }
+      showToast("Copiado al portapapeles");
+    } catch (error) {
+      try {
+        if (!legacyCopy(text)) throw new Error("No se pudo copiar");
+        showToast("Copiado al portapapeles");
+      } catch (fallbackError) {
+        console.warn("No se pudo copiar al portapapeles", error, fallbackError);
+        showToast("No se pudo copiar. Intentá de nuevo.");
+      }
+    }
+  }
+
   function burstConfetti(count = 20) {
     const colors = ["#DB1D74", "#F5AEBA", "#CD8EDF", "#58E477", "#FFA9DD", "#2DABD0", "#FFC94D"];
     for (let index = 0; index < count; index += 1) {
@@ -943,6 +1020,35 @@
     if (!method) return;
 
     const amount = paymentAmountInfo();
+    const copyData = paymentCopyData();
+    const copyAllLabel = copyData?.fields.length === 1 ? "Copiar correo" : "Copiar todos";
+    const copyBlock = copyData
+      ? `
+        <div class="pay-copy">
+          <p class="pay-copy-title">Copiar datos</p>
+          <div class="pay-copy-actions">
+            ${copyData.fields
+              .map(
+                (field) => `
+                  <button type="button" class="copy-btn" data-copy-field="${field.key}"${field.disabled ? " disabled" : ""}>
+                    <svg aria-hidden="true"><use href="#i-copy"/></svg>
+                    <span>${esc(field.label)}</span>
+                  </button>`
+              )
+              .join("")}
+            <button type="button" class="copy-btn copy-all" data-copy-field="all"${copyData.allDisabled ? " disabled" : ""}>
+              <svg aria-hidden="true"><use href="#i-copy"/></svg>
+              <span>${copyAllLabel}</span>
+            </button>
+          </div>
+          ${
+            copyData.allDisabled
+              ? '<p class="pay-copy-hint">Esperando la tasa para copiar el monto…</p>'
+              : ""
+          }
+        </div>`
+      : "";
+
     payInstructions.innerHTML = `
       <h3>Datos para pagar</h3>
       <ul>${(method.instructions || [])
@@ -952,7 +1058,8 @@
         <span>Monto a pagar</span>
         <strong>${esc(amount.label)}</strong>
         <span>${esc(amount.note)}</span>
-      </p>`;
+      </p>
+      ${copyBlock}`;
 
     const isCash = state.checkout.method === "efectivo";
     if (proofSection) proofSection.hidden = isCash;
@@ -2169,6 +2276,18 @@
       if (closer) {
         const modal = closer.closest(".modal");
         if (modal) closeModal(modal);
+        return;
+      }
+
+      const copyButton = event.target.closest("[data-copy-field]");
+      if (copyButton && !copyButton.disabled) {
+        const data = paymentCopyData();
+        const key = copyButton.dataset.copyField;
+        const value =
+          key === "all"
+            ? data?.all
+            : data?.fields.find((field) => field.key === key)?.value;
+        if (value) copyToClipboard(value);
         return;
       }
 

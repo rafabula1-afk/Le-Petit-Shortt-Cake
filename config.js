@@ -59,6 +59,10 @@ window.LPSC_CONFIG = {
       label: "Pago Móvil",
       icon: "PM",
       hint: "Monto en bolívares",
+      /* Datos exactos para copiar al banco (sin formato visual). */
+      bankCode: "0108",
+      idNumber: "32012336",
+      phone: "04246043896",
       instructions: [
         "Banco: Mercantil",
         "Teléfono: +58 424-6043896",
@@ -69,12 +73,14 @@ window.LPSC_CONFIG = {
       label: "Zelle",
       icon: "Z",
       hint: "Pago en dólares",
+      email: "malaurashortt@gmail.com",
       instructions: ["Correo: malaurashortt@gmail.com"],
     },
     binance: {
       label: "Binance",
       icon: "₿",
       hint: "USDT / cripto",
+      email: "malaurashortt@gmail.com",
       instructions: ["Correo: malaurashortt@gmail.com"],
     },
     efectivo: {

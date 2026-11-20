@@ -2629,6 +2629,80 @@ main section[id] {
   color: var(--magenta-deep);
 }
 
+.pay-copy {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(219, 29, 116, 0.25);
+}
+
+.pay-copy-title {
+  margin: 0 0 8px;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--magenta);
+}
+
+.pay-copy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(219, 29, 116, 0.25);
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--font-label);
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--magenta-deep);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.copy-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.copy-btn:hover:not(:disabled) {
+  background: var(--pink-light);
+  border-color: var(--magenta);
+}
+
+.copy-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.copy-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.copy-btn.copy-all {
+  background: var(--magenta);
+  border-color: var(--magenta);
+  color: #fff;
+}
+
+.copy-btn.copy-all:hover:not(:disabled) {
+  background: var(--magenta-deep);
+}
+
+.pay-copy-hint {
+  margin: 8px 0 0;
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+}
+
 .upload svg {
   width: 38px;
   height: 38px;
