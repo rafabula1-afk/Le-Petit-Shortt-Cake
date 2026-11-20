@@ -4040,16 +4040,15 @@ body.admin-open .site-footer {
 
   .hero-copy {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 50%;
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       "eyebrow eyebrow"
       "title title"
       "sub sub"
       "actions photo"
       "trust photo";
-    grid-template-rows: auto auto auto minmax(35vw, auto) minmax(29vw, auto);
     align-content: start;
-    padding: 18px 14px;
+    padding: 16px 14px;
   }
 
   .hero-copy > .eyebrow {
@@ -4058,7 +4057,7 @@ body.admin-open .site-footer {
 
   .hero-title {
     grid-area: title;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .hero-title-top,
@@ -4069,7 +4068,7 @@ body.admin-open .site-footer {
 
   .hero-sub {
     grid-area: sub;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     font-size: 0.92rem;
   }
 
@@ -4078,14 +4077,14 @@ body.admin-open .site-footer {
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: nowrap;
-    justify-content: space-between;
-    gap: 8px;
+    justify-content: flex-start;
+    gap: 10px;
     margin-bottom: 0;
   }
 
   .hero-actions .btn {
     width: auto;
-    min-height: clamp(38px, 9vw, 48px);
+    min-height: clamp(36px, 8vw, 42px);
     padding: 0 13px;
     font-size: 0.7rem;
   }
@@ -4096,7 +4095,9 @@ body.admin-open .site-footer {
     place-items: center;
     align-self: stretch;
     justify-self: end;
-    width: 100%;
+    width: auto;
+    max-width: 44%;
+    aspect-ratio: 935 / 1400;
   }
 
   .hero-photo-mobile img {
@@ -4112,15 +4113,15 @@ body.admin-open .site-footer {
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     justify-self: start;
-    gap: 6px;
-    margin-top: 0;
+    gap: 8px;
+    margin-top: 10px;
     text-align: left;
   }
 
   .hero-trust li {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
   }
 
   .marquee {
