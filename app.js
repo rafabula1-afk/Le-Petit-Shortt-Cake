@@ -23,6 +23,7 @@
       })
     : null;
   const proofBucket = SB.proofBucket || "comprobantes";
+  const FX = CFG.exchange || {};
 
   /* ---------- Utilidades ---------- */
 
@@ -50,6 +51,39 @@
     });
 
   const money = (n) => `${CFG.currency || "Ref."} ${fmtNum(n)}`;
+
+  const fmtAmount = (n) =>
+    Number(n || 0).toLocaleString("es-VE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  function paymentAmountInfo() {
+    const total = Number(cartTotalValue() || 0);
+    if (state.checkout.method === "pagoMovil") {
+      const rate =
+        Number(state.checkout.euroRate) || Number(FX.manualEuroRate) || 0;
+      return {
+        amount: total * rate,
+        currency: "VES",
+        label: `Bs ${fmtAmount(total * rate)}`,
+        rate,
+        note: state.checkout.rateLoading
+          ? "Calculando la tasa euro…"
+          : `Tasa euro: Bs ${fmtAmount(rate)} por cada EUR · ${state.checkout.rateSource}.`,
+      };
+    }
+    return {
+      amount: total,
+      currency: "USD",
+      label: `USD ${fmtAmount(total)}`,
+      rate: null,
+      note:
+        state.checkout.method === "efectivo"
+          ? "Se paga al recibir el pedido."
+          : "Precio en dólares.",
+    };
+  }
 
   const formatDate = (iso) => {
     if (!iso) return "Sin fecha";
@@ -403,8 +437,9 @@
       proof: null,
       proofName: "",
       paymentNote: "",
-      reference: "",
-      extra: "",
+      euroRate: Number(FX.manualEuroRate) || 0,
+      rateSource: "tasa de respaldo",
+      rateLoading: FX.useLiveRate !== false,
       customer: null,
     },
     admin: {
@@ -454,15 +489,16 @@
   const checkoutNext = $("#checkoutNext");
   const checkoutConfirm = $("#checkoutConfirm");
   const checkoutSummary = $("#checkoutSummary");
+  const orderPreview = $("#orderPreview");
   const methodGrid = $("#methodGrid");
   const payInstructions = $("#payInstructions");
-  const methodFields = $("#methodFields");
+  const proofSection = $("#proofSection");
+  const uploadBox = $("#uploadBox");
+  const proofHint = $("#proofHint");
   const proofInput = $("#proofInput");
   const proofPreview = $("#proofPreview");
   const paymentNote = $("#paymentNote");
   const deliveryType = $("#deliveryType");
-  const deliveryService = $("#custDeliveryService");
-  const deliveryContact = $("#custDeliveryContact");
   const addressField = $("#addressField");
   const deliveryDate = $("#deliveryDate");
 
@@ -858,10 +894,6 @@
   /* ---------- Checkout ---------- */
 
   function capturePaymentFields() {
-    const reference = $("#payReference");
-    const extra = $("#payExtra");
-    if (reference) state.checkout.reference = reference.value.trim();
-    if (extra) state.checkout.extra = extra.value.trim();
     if (paymentNote) state.checkout.paymentNote = paymentNote.value.trim();
   }
 
@@ -886,28 +918,26 @@
     const method = (CFG.payment || {})[state.checkout.method];
     if (!method) return;
 
+    const amount = paymentAmountInfo();
     payInstructions.innerHTML = `
       <h3>Datos para pagar</h3>
-      <ul>${method.instructions.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>`;
+      <ul>${(method.instructions || [])
+        .map((line) => `<li>${esc(line)}</li>`)
+        .join("")}</ul>
+      <p class="pay-amount">
+        <span>Monto a pagar</span>
+        <strong>${esc(amount.label)}</strong>
+        <span>${esc(amount.note)}</span>
+      </p>`;
 
-    let fields = "";
-    if (method.referenceLabel) {
-      fields += `
-        <div class="field">
-          <label for="payReference">${esc(method.referenceLabel)} *</label>
-          <input id="payReference" value="${esc(state.checkout.reference)}" placeholder="${esc(method.referencePlaceholder || "")}" autocomplete="off">
-        </div>`;
+    const isCash = state.checkout.method === "efectivo";
+    if (proofSection) proofSection.hidden = isCash;
+    if (proofHint) {
+      proofHint.textContent = isCash
+        ? "En efectivo no necesitás subir captura: pagás al recibir."
+        : "La captura del pago es obligatoria para confirmar el pedido.";
     }
-    if (method.extraLabel) {
-      fields += `
-        <div class="field">
-          <label for="payExtra">${esc(method.extraLabel)}</label>
-          <input id="payExtra" value="${esc(state.checkout.extra)}" placeholder="${esc(method.extraPlaceholder || "")}" autocomplete="off">
-        </div>`;
-    }
-
-    methodFields.innerHTML =
-      fields || `<p class="form-hint">No necesitás datos adicionales. Coordinamos el pago por WhatsApp.</p>`;
+    if (isCash) markUploadError(false);
   }
 
   function setCheckoutStep(step) {
@@ -924,16 +954,20 @@
     });
 
     checkoutBack.hidden = step === 1;
-    checkoutNext.hidden = step === 4;
-    checkoutConfirm.hidden = step !== 4;
+    checkoutNext.hidden = step === 3;
+    checkoutConfirm.hidden = step !== 3;
 
-    if (step === 4) renderCheckoutSummary();
+    if (step === 3) renderCheckoutSummary();
     if (checkoutCard) checkoutCard.scrollTop = 0;
   }
 
   function markFieldError(input, hasError) {
     const field = input?.closest(".field");
     if (field) field.classList.toggle("has-error", hasError);
+  }
+
+  function markUploadError(hasError) {
+    uploadBox?.classList.toggle("has-error", Boolean(hasError));
   }
 
   function validateStep(step) {
@@ -972,8 +1006,6 @@
         email: $("#custEmail").value.trim(),
         date: date.value,
         deliveryType: deliveryType.value,
-        deliveryService: deliveryService.value.trim(),
-        deliveryContact: deliveryContact.value.trim(),
         address: address.value.trim(),
         notes: $("#custNotes").value.trim(),
       };
@@ -982,8 +1014,6 @@
         name: state.checkout.customer.name,
         phone: state.checkout.customer.phone,
         email: state.checkout.customer.email,
-        deliveryService: state.checkout.customer.deliveryService,
-        deliveryContact: state.checkout.customer.deliveryContact,
         address: state.checkout.customer.address,
         notes: state.checkout.customer.notes,
       });
@@ -993,14 +1023,13 @@
 
     if (step === 2) {
       capturePaymentFields();
-      const method = (CFG.payment || {})[state.checkout.method];
-      if (method?.referenceLabel && !state.checkout.reference) {
-        const reference = $("#payReference");
-        markFieldError(reference, true);
-        reference?.focus();
-        showToast("Ingresá el número de referencia del pago.");
+      if (state.checkout.method !== "efectivo" && !state.checkout.proof) {
+        markUploadError(true);
+        uploadBox?.scrollIntoView({ behavior: "smooth", block: "center" });
+        showToast("Subí la captura del pago para continuar.");
         return false;
       }
+      markUploadError(false);
       return true;
     }
 
@@ -1019,8 +1048,9 @@
       proof: null,
       proofName: "",
       paymentNote: "",
-      reference: "",
-      extra: "",
+      euroRate: Number(FX.manualEuroRate) || 0,
+      rateSource: "tasa de respaldo",
+      rateLoading: FX.useLiveRate !== false,
       customer: null,
     };
 
@@ -1031,8 +1061,6 @@
     $("#custAddress").value = saved.address || "";
     $("#custNotes").value = saved.notes || "";
     $("#custPhone").value = saved.phone || "";
-    deliveryService.value = saved.deliveryService || "";
-    deliveryContact.value = saved.deliveryContact || "";
     deliveryType.value = "Coordinar por WhatsApp";
     deliveryDate.value = "";
     deliveryDate.min = todayIso();
@@ -1041,6 +1069,7 @@
     paymentNote.value = "";
     proofPreview.innerHTML = "";
     proofInput.value = "";
+    markUploadError(false);
 
     $$(".field.has-error").forEach((field) => field.classList.remove("has-error"));
 
@@ -1049,12 +1078,55 @@
     checkoutActions.hidden = false;
     checkoutSuccess.hidden = true;
 
+    renderOrderPreview();
     renderMethods();
     renderMethodDetails();
     setCheckoutStep(1);
   }
 
-  function openCheckout() {
+  async function loadExchangeRate() {
+    if (FX.useLiveRate === false || state.checkout.method !== "pagoMovil") return;
+    state.checkout.rateLoading = true;
+    renderMethodDetails();
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 7000);
+    try {
+      const [usdResponse, fxResponse] = await Promise.all([
+        fetch(FX.bcvUsdApi, { signal: controller.signal }),
+        fetch(FX.eurUsdApi, { signal: controller.signal }),
+      ]);
+      if (!usdResponse.ok || !fxResponse.ok) throw new Error("Tasa no disponible");
+
+      const [usdData, fxData] = await Promise.all([
+        usdResponse.json(),
+        fxResponse.json(),
+      ]);
+      const bcvUsd = Number(
+        (usdData || []).find(
+          (item) => item?.fuente === "oficial" && item?.moneda === "USD"
+        )?.promedio
+      );
+      const eurToUsd = Number(fxData?.rates?.USD);
+      if (!Number.isFinite(bcvUsd) || !Number.isFinite(eurToUsd)) {
+        throw new Error("Tasa inválida");
+      }
+
+      state.checkout.euroRate = Math.round(bcvUsd * eurToUsd * 100) / 100;
+      state.checkout.rateSource = "dólar oficial BCV";
+    } catch (error) {
+      console.warn("No se pudo actualizar la tasa", error);
+      state.checkout.euroRate = Number(FX.manualEuroRate) || 0;
+      state.checkout.rateSource = "tasa de respaldo";
+      showToast("No pudimos actualizar la tasa; usamos la de respaldo.");
+    } finally {
+      clearTimeout(timeout);
+      state.checkout.rateLoading = false;
+      renderMethodDetails();
+    }
+  }
+
+  async function openCheckout() {
     if (!state.cart.length) {
       showToast("Tu carrito está vacío. Sumá un kit para continuar.");
       return;
@@ -1062,6 +1134,25 @@
     closeCart();
     resetCheckout();
     openModal(checkoutModal);
+    await loadExchangeRate();
+  }
+
+  function renderOrderPreview() {
+    if (!orderPreview) return;
+    const items = cartDetails();
+    orderPreview.innerHTML = `
+      <div class="summary-box">
+        <h3>Tu pedido</h3>
+        <ul class="summary-items">
+          ${items
+            .map(
+              (item) =>
+                `<li><span>${item.qty} × ${esc(item.name)}</span><strong>${money(item.price * item.qty)}</strong></li>`
+            )
+            .join("")}
+        </ul>
+        <div class="summary-total"><span>Total</span><strong>${money(cartTotalValue())}</strong></div>
+      </div>`;
   }
 
   function renderCheckoutSummary() {
@@ -1069,21 +1160,23 @@
     const items = cartDetails();
     const method = (CFG.payment || {})[state.checkout.method];
     const total = cartTotalValue();
+    const amount = paymentAmountInfo();
+    const isCash = state.checkout.method === "efectivo";
 
     const paymentRows = [
       method ? `<div class="summary-row"><span>Método</span><strong>${esc(method.label)}</strong></div>` : "",
-      state.checkout.reference
-        ? `<div class="summary-row"><span>Referencia</span><strong>${esc(state.checkout.reference)}</strong></div>`
-        : "",
-      state.checkout.extra
-        ? `<div class="summary-row"><span>${esc(method?.extraLabel || "Detalle")}</span><strong>${esc(state.checkout.extra)}</strong></div>`
+      `<div class="summary-row"><span>Monto a pagar</span><strong>${esc(amount.label)}</strong></div>`,
+      state.checkout.method === "pagoMovil"
+        ? `<div class="summary-row"><span>Tasa euro</span><strong>${esc(`Bs ${fmtAmount(amount.rate || 0)}`)}</strong></div>`
         : "",
       state.checkout.paymentNote
         ? `<div class="summary-row"><span>Nota</span><strong>${esc(state.checkout.paymentNote)}</strong></div>`
         : "",
-      state.checkout.proof
-        ? `<div class="summary-row"><span>Comprobante</span><strong>Cargado ✓</strong></div>`
-        : `<div class="summary-row"><span>Comprobante</span><strong>Pendiente</strong></div>`,
+      isCash
+        ? `<div class="summary-row"><span>Pago</span><strong>Al recibir</strong></div>`
+        : state.checkout.proof
+          ? `<div class="summary-row"><span>Captura del pago</span><strong>Cargada ✓</strong></div>`
+          : `<div class="summary-row"><span>Captura del pago</span><strong>Faltante</strong></div>`,
     ]
       .filter(Boolean)
       .join("");
@@ -1108,8 +1201,6 @@
         ${customer?.email ? `<div class="summary-row"><span>Correo</span><strong>${esc(customer.email)}</strong></div>` : ""}
         <div class="summary-row"><span>Fecha deseada</span><strong>${formatDate(customer?.date)}</strong></div>
         <div class="summary-row"><span>Entrega</span><strong>${esc(customer?.deliveryType || "")}</strong></div>
-        ${customer?.deliveryService ? `<div class="summary-row"><span>Servicio</span><strong>${esc(customer.deliveryService)}</strong></div>` : ""}
-        ${customer?.deliveryContact ? `<div class="summary-row"><span>Repartidor</span><strong>${esc(customer.deliveryContact)}</strong></div>` : ""}
         ${customer?.address ? `<div class="summary-row"><span>Dirección</span><strong>${esc(customer.address)}</strong></div>` : ""}
         ${customer?.notes ? `<div class="summary-row"><span>Notas</span><strong>${esc(customer.notes)}</strong></div>` : ""}
       </div>
@@ -1135,12 +1226,8 @@
       customer_address: customer.address || null,
       customer_notes: customer.notes || null,
       delivery_type: customer.deliveryType || null,
-      delivery_service: customer.deliveryService || null,
-      delivery_contact: customer.deliveryContact || null,
       total: Number(order.total || 0),
       payment_method: payment.method || "efectivo",
-      payment_reference: payment.reference || null,
-      payment_extra: payment.extra || null,
       payment_note: payment.note || null,
       proof_path: payment.proofPath || null,
       status: order.status || "pendiente_verificacion",
@@ -1157,8 +1244,6 @@
       email: row.customer_email || "",
       date: row.delivery_date,
       deliveryType: row.delivery_type || "",
-      deliveryService: row.delivery_service || "",
-      deliveryContact: row.delivery_contact || "",
       address: row.customer_address || "",
       notes: row.customer_notes || "",
     };
@@ -1177,8 +1262,6 @@
       total: Number(row.total),
       payment: {
         method: row.payment_method,
-        reference: row.payment_reference || "",
-        extra: row.payment_extra || "",
         note: row.payment_note || "",
         proof: null,
         proofPath: row.proof_path || null,
@@ -1271,6 +1354,11 @@
   }
 
   async function saveOrder(order) {
+    const needsProof = order.payment?.method !== "efectivo";
+    if (needsProof && !order.payment?.proof && !order.payment?.proofPath) {
+      throw new Error("Falta la captura del pago");
+    }
+
     if (!useSupabase) {
       const orders = getOrders();
       orders.unshift(order);
@@ -1278,45 +1366,48 @@
       if (!saved && order.payment?.proof) {
         order.payment.proof = null;
         order.payment.proofDropped = true;
-        saveJSON(KEYS.orders, orders);
-        showToast("El comprobante era muy pesado. El pedido se guardó sin la imagen.");
+        throw new Error("No se pudo guardar la captura del pago");
       }
       state.admin.orders = orders;
       return order;
     }
 
-    // El comprobante es opcional: si falla, el pedido igual se registra.
+    let uploadedPath = null;
     if (order.payment?.proof) {
-      try {
-        const blob = await dataUrlToBlob(order.payment.proof);
-        const path = `${order.id}.${proofExtension(order.payment.proofName, blob.type)}`;
-        const { error: uploadError } = await supabase.storage
-          .from(proofBucket)
-          .upload(path, blob, {
-            contentType: blob.type || "image/jpeg",
-            upsert: false,
-          });
-        if (uploadError) throw uploadError;
-        order.payment.proofPath = path;
-      } catch (error) {
-        console.warn("No se pudo subir el comprobante", error);
-        order.payment.proof = null;
-        order.payment.proofPath = null;
-        order.payment.proofDropped = true;
-        showToast("El comprobante no se pudo subir. El pedido se guardó sin la imagen.");
-      }
+      const blob = await dataUrlToBlob(order.payment.proof);
+      const path = `${order.id}.${proofExtension(order.payment.proofName, blob.type)}`;
+      const { error: uploadError } = await supabase.storage
+        .from(proofBucket)
+        .upload(path, blob, {
+          contentType: blob.type || "image/jpeg",
+          upsert: false,
+        });
+      if (uploadError) throw uploadError;
+      uploadedPath = path;
+      order.payment.proofPath = path;
     }
 
-    // Sin .select(): el público no tiene permiso de lectura (RLS).
-    const { error: orderError } = await supabase
-      .from("ordenes")
-      .insert(orderToRow(order));
-    if (orderError) throw orderError;
+    try {
+      // Sin .select(): el público no tiene permiso de lectura (RLS).
+      const { error: orderError } = await supabase
+        .from("ordenes")
+        .insert(orderToRow(order));
+      if (orderError) throw orderError;
 
-    const rows = itemsToRows(order.id, order.items);
-    if (rows.length) {
-      const { error: itemsError } = await supabase.from("orden_items").insert(rows);
-      if (itemsError) throw itemsError;
+      const rows = itemsToRows(order.id, order.items);
+      if (rows.length) {
+        const { error: itemsError } = await supabase.from("orden_items").insert(rows);
+        if (itemsError) throw itemsError;
+      }
+    } catch (error) {
+      if (uploadedPath) {
+        try {
+          await supabase.storage.from(proofBucket).remove([uploadedPath]);
+        } catch (cleanupError) {
+          console.warn("No se pudo limpiar la captura", cleanupError);
+        }
+      }
+      throw error;
     }
 
     // El cliente anónimo no puede leer pedidos (RLS). El alta ya terminó:
@@ -1376,17 +1467,14 @@
       `Total: ${money(order.total)}`,
       `Nombre: ${order.customer.name}`,
       `Entrega: ${formatDate(order.deliveryDate)} · ${order.customer.deliveryType}`,
-      order.customer.deliveryService
-        ? `Servicio de entrega: ${order.customer.deliveryService}`
-        : "",
-      order.customer.deliveryContact
-        ? `Teléfono del repartidor: ${order.customer.deliveryContact}`
-        : "",
       `Método de pago: ${CFG.payment?.[order.payment.method]?.label || order.payment.method}`,
-      order.payment.reference ? `Referencia: ${order.payment.reference}` : "",
-      order.payment.proof
-        ? "Comprobante cargado en la web."
-        : "Quiero enviar el comprobante por acá.",
+      order.payment.amountLabel ? `Monto a pagar: ${order.payment.amountLabel}` : "",
+      order.payment.method === "pagoMovil" && order.payment.euroRate
+        ? `Tasa euro: Bs ${fmtAmount(order.payment.euroRate)}`
+        : "",
+      order.payment.method === "efectivo"
+        ? "Pago al recibir."
+        : "Captura del pago cargada en la web.",
       order.customer.notes ? `Notas: ${order.customer.notes}` : "",
     ];
     return lines.filter((line) => line !== null && line !== undefined).join("\n");
@@ -1401,10 +1489,17 @@
       showToast("Faltan datos del pedido. Revisá el carrito e intentá de nuevo.");
       return;
     }
+    if (state.checkout.method !== "efectivo" && !state.checkout.proof) {
+      markUploadError(true);
+      setCheckoutStep(2);
+      showToast("Subí la captura del pago antes de confirmar.");
+      return;
+    }
     if (state.checkout.submitting) return;
     state.checkout.submitting = true;
     checkoutConfirm.disabled = true;
 
+    const amountInfo = paymentAmountInfo();
     const order = {
       id:
         (window.crypto && window.crypto.randomUUID && window.crypto.randomUUID()) ||
@@ -1422,9 +1517,19 @@
       total: cartTotalValue(),
       payment: {
         method: state.checkout.method,
-        reference: state.checkout.reference,
-        extra: state.checkout.extra,
-        note: state.checkout.paymentNote,
+        amount: amountInfo.amount,
+        amountLabel: amountInfo.label,
+        currency: amountInfo.currency,
+        euroRate: amountInfo.rate,
+        note: [
+          state.checkout.paymentNote,
+          `Monto a pagar: ${amountInfo.label}`,
+          state.checkout.method === "pagoMovil"
+            ? `Tasa euro: Bs ${fmtAmount(amountInfo.rate || 0)} (${state.checkout.rateSource})`
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" · "),
         proof: state.checkout.proof,
         proofName: state.checkout.proofName,
       },
@@ -1461,6 +1566,13 @@
     checkoutSuccess.hidden = false;
 
     $("#successOrderNumber").textContent = order.number;
+    const successNote = $("#successNote");
+    if (successNote) {
+      successNote.textContent =
+        order.payment?.method === "efectivo"
+          ? "Guardá este número. Coordinaremos el pago al recibir por WhatsApp."
+          : "Guardá este número. Ya recibimos la captura del pago; la dueña lo verificará y te confirmará por WhatsApp.";
+    }
     const successWa = $("#successWa");
     successWa.href = waLink(orderWhatsAppMessage(order));
 
@@ -1514,6 +1626,7 @@
       state.checkout.proof = null;
       state.checkout.proofName = "";
       proofInput.value = "";
+      markUploadError(false);
       renderProofPreview();
     });
   }
@@ -1592,8 +1705,6 @@
           order.customer?.name,
           order.customer?.phone,
           order.customer?.email,
-          order.customer?.deliveryService,
-          order.customer?.deliveryContact,
           ...(order.items || []).map((item) => item.name),
         ]
           .join(" ")
@@ -1699,7 +1810,7 @@
             <strong>${esc(order.number)}</strong>
             <span>${esc(order.customer?.name || "Sin nombre")}</span>
             <small>${formatDate(order.deliveryDate)} · ${money(order.total)}</small>
-            ${order.customer?.deliveryService ? `<small class="admin-order-delivery">${esc(order.customer.deliveryService)} · ${esc(deliveryStatusLabel(order))}</small>` : ""}
+            <small class="admin-order-delivery">${esc(deliveryStatusLabel(order))}</small>
           </div>
           <span class="status-pill ${STATUSES[order.status]?.className || ""}">
             ${esc(STATUSES[order.status]?.label || order.status)}
@@ -1781,8 +1892,7 @@
           <h3>Entrega</h3>
           <p><strong>${formatDate(order.deliveryDate)}</strong><br>
           ${esc(order.customer?.deliveryType || "")}<br>
-          ${order.customer?.deliveryService ? `Servicio: ${esc(order.customer.deliveryService)} · ${esc(deliveryStatusLabel(order))}<br>` : ""}
-          ${order.customer?.deliveryContact ? `Repartidor: ${esc(order.customer.deliveryContact)}<br>` : ""}
+          ${esc(deliveryStatusLabel(order))}<br>
           ${order.customer?.address ? esc(order.customer.address) : "Sin dirección"}</p>
         </div>
       </div>
@@ -1804,10 +1914,9 @@
         <div class="order-info">
           <h3>Pago</h3>
           <p><strong>${esc(method?.label || order.payment?.method || "—")}</strong><br>
-          ${order.payment?.reference ? `Referencia: ${esc(order.payment.reference)}<br>` : ""}
-          ${order.payment?.extra ? `${esc(method?.extraLabel || "Detalle")}: ${esc(order.payment.extra)}<br>` : ""}
-          ${order.payment?.note ? `Nota: ${esc(order.payment.note)}<br>` : ""}
-          ${proof ? "Comprobante cargado ✓" : "Sin comprobante"}</p>
+          ${order.payment?.amountLabel ? `Monto a pagar: ${esc(order.payment.amountLabel)}<br>` : ""}
+          ${order.payment?.note ? `Detalle: ${esc(order.payment.note)}<br>` : ""}
+          ${proof ? "Captura del pago cargada ✓" : order.payment?.method === "efectivo" ? "Pago al recibir" : "Sin comprobante"}</p>
         </div>
         <div class="order-info">
           <h3>Registro</h3>
@@ -1819,14 +1928,6 @@
       ${proof ? `<div class="order-proof"><h3 class="includes-title">Comprobante</h3><img src="${proof}" alt="Comprobante del pedido ${esc(order.number)}"><br><a href="${proof}" download="comprobante-${esc(order.number)}.jpg" class="btn btn-ghost btn-sm" style="margin-top:8px"><svg aria-hidden="true"><use href="#i-download"/></svg> Descargar comprobante</a></div>` : ""}
 
       <div class="order-admin-actions">
-        <div class="field">
-          <label for="orderDeliveryServiceInput">Servicio de entrega</label>
-          <input id="orderDeliveryServiceInput" value="${esc(order.customer?.deliveryService || "")}" placeholder="Ej. Quik">
-        </div>
-        <div class="field">
-          <label for="orderDeliveryContactInput">Teléfono del repartidor</label>
-          <input id="orderDeliveryContactInput" value="${esc(order.customer?.deliveryContact || "")}" placeholder="Ej. 0414-0000000" inputmode="tel">
-        </div>
         <div class="field">
           <label for="orderStatusSelect">Estado del pedido</label>
           <select id="orderStatusSelect">${statusOptions}</select>
@@ -1855,8 +1956,6 @@
       const nextStatus = $("#orderStatusSelect").value;
       const nextDate = $("#orderDateInput").value;
       const nextDeliveryStatus = $("#orderDeliverySelect").value;
-      const nextDeliveryService = $("#orderDeliveryServiceInput").value.trim();
-      const nextDeliveryContact = $("#orderDeliveryContactInput").value.trim();
       const updated = getOrders().map((entry) => {
         if (entry.number !== order.number) return entry;
         const changed = entry.status !== nextStatus;
@@ -1866,11 +1965,6 @@
           status: nextStatus,
           deliveryDate: nextDate || entry.deliveryDate,
           deliveryStatus: nextDeliveryStatus || deliveryStatusKey(entry),
-          customer: {
-            ...entry.customer,
-            deliveryService: nextDeliveryService,
-            deliveryContact: nextDeliveryContact,
-          },
           history: changed
             ? [
                 ...(entry.history || []),
@@ -1923,15 +2017,14 @@
         "Número",
         "Creado",
         "Entrega",
-        "Servicio de entrega",
-        "Teléfono del repartidor",
         "Estado de entrega",
         "Cliente",
         "Teléfono",
         "Productos",
         "Total",
         "Método",
-        "Referencia",
+        "Monto a pagar",
+        "Detalle de pago",
         "Estado",
         "Notas",
       ],
@@ -1942,15 +2035,14 @@
         order.number,
         formatDateTime(order.createdAt),
         order.deliveryDate,
-        order.customer?.deliveryService || "",
-        order.customer?.deliveryContact || "",
         deliveryStatusLabel(order),
         order.customer?.name || "",
         order.customer?.phone || "",
         (order.items || []).map((item) => `${item.qty} × ${item.name}`).join("; "),
         order.total,
         CFG.payment?.[order.payment?.method]?.label || order.payment?.method || "",
-        order.payment?.reference || "",
+        order.payment?.amountLabel || "",
+        order.payment?.note || "",
         STATUSES[order.status]?.label || order.status,
         order.customer?.notes || "",
       ]);
@@ -2093,6 +2185,12 @@
       if (methodButton) {
         capturePaymentFields();
         state.checkout.method = methodButton.dataset.method;
+        if (state.checkout.method === "efectivo") {
+          state.checkout.proof = null;
+          state.checkout.proofName = "";
+          proofInput.value = "";
+          renderProofPreview();
+        }
         renderMethods();
         renderMethodDetails();
         return;
@@ -2162,7 +2260,7 @@
 
     checkoutNext?.addEventListener("click", () => {
       if (!validateStep(state.checkout.step)) return;
-      setCheckoutStep(Math.min(4, state.checkout.step + 1));
+      setCheckoutStep(Math.min(3, state.checkout.step + 1));
     });
 
     checkoutBack?.addEventListener("click", () => {
@@ -2183,8 +2281,9 @@
       try {
         state.checkout.proof = await compressImage(file);
         state.checkout.proofName = file.name;
+        markUploadError(false);
         renderProofPreview();
-        showToast("Comprobante cargado.");
+        showToast("Captura del pago cargada.");
       } catch (error) {
         console.error(error);
         showToast("No pudimos procesar la imagen. Probá con otra.");

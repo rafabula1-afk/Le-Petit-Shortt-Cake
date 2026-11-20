@@ -20,14 +20,10 @@ create table if not exists public.ordenes (
   customer_notes text,
 
   delivery_type text,
-  delivery_service text,
-  delivery_contact text,
 
   total numeric(10, 2) not null default 0,
 
   payment_method text not null,
-  payment_reference text,
-  payment_extra text,
   payment_note text,
   proof_path text,
 

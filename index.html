@@ -476,14 +476,15 @@
       </div>
 
       <ol class="checkout-steps" id="checkoutSteps">
-        <li data-step-dot="1"><span>1</span> Datos</li>
+        <li data-step-dot="1"><span>1</span> Pedido</li>
         <li data-step-dot="2"><span>2</span> Pago</li>
-        <li data-step-dot="3"><span>3</span> Comprobante</li>
-        <li data-step-dot="4"><span>4</span> Confirmar</li>
+        <li data-step-dot="3"><span>3</span> Confirmación</li>
       </ol>
 
       <form id="checkoutForm" novalidate>
         <section class="checkout-panel is-active" data-step="1">
+          <div id="orderPreview"></div>
+          <p class="panel-title">Datos de entrega</p>
           <div class="form-grid">
             <div class="field">
               <label for="custName">Nombre y apellido *</label>
@@ -509,14 +510,6 @@
                 <option value="Retiro">Retiro</option>
               </select>
             </div>
-            <div class="field">
-              <label for="custDeliveryService">Servicio de entrega (opcional)</label>
-              <input id="custDeliveryService" name="custDeliveryService" placeholder="Ej. Quik, delivery propio, retiro">
-            </div>
-            <div class="field">
-              <label for="custDeliveryContact">Teléfono del repartidor (opcional)</label>
-              <input id="custDeliveryContact" name="custDeliveryContact" inputmode="tel" placeholder="Ej. 0414-0000000">
-            </div>
             <div class="field field-full" id="addressField" hidden>
               <label for="custAddress">Dirección de entrega *</label>
               <input id="custAddress" name="custAddress" placeholder="Calle, edificio, punto de referencia">
@@ -534,30 +527,27 @@
           <p class="panel-title">¿Cómo preferís pagar?</p>
           <div class="method-grid" id="methodGrid"></div>
           <div class="pay-instructions" id="payInstructions"></div>
-          <div class="form-grid" id="methodFields"></div>
-          <p class="form-hint">Elegí el método, hacé el pago y guardá el número de referencia para completar el pedido.</p>
+          <div id="proofSection">
+            <p class="panel-title">Captura del pago</p>
+            <label class="upload" id="uploadBox" for="proofInput">
+              <svg aria-hidden="true"><use href="#i-upload"/></svg>
+              <strong>Subí la captura de tu pago *</strong>
+              <span>Imagen o captura de pantalla (JPG, PNG o WebP)</span>
+            </label>
+            <input type="file" id="proofInput" accept="image/*" hidden>
+            <div class="proof-preview" id="proofPreview"></div>
+          </div>
+          <div class="form-grid">
+            <div class="field field-full">
+              <label for="paymentNote">Nota adicional (opcional)</label>
+              <input id="paymentNote" placeholder="Ej. banco emisor, nombre de quien envía...">
+            </div>
+          </div>
+          <p class="form-hint" id="proofHint">La captura del pago es obligatoria para este método.</p>
         </section>
 
         <section class="checkout-panel" data-step="3">
-          <p class="panel-title">Comprobante de pago</p>
-          <label class="upload" id="uploadBox" for="proofInput">
-            <svg aria-hidden="true"><use href="#i-upload"/></svg>
-            <strong>Subí tu comprobante</strong>
-            <span>Imagen o captura de pantalla (JPG, PNG o WebP)</span>
-          </label>
-          <input type="file" id="proofInput" accept="image/*" hidden>
-          <div class="proof-preview" id="proofPreview"></div>
-          <div class="form-grid">
-            <div class="field field-full">
-              <label for="paymentNote">Referencia o nota adicional</label>
-              <input id="paymentNote" placeholder="Nº de referencia, banco, monto, etc.">
-            </div>
-          </div>
-          <p class="form-hint">Si todavía no pagaste, podés enviar el comprobante después por WhatsApp. Tu pedido quedará como <strong>pendiente de verificación</strong>.</p>
-        </section>
-
-        <section class="checkout-panel" data-step="4">
-          <p class="panel-title">Revisá tu pedido</p>
+          <p class="panel-title">Confirmá tu pedido y pago</p>
           <div id="checkoutSummary"></div>
         </section>
       </form>
@@ -574,10 +564,10 @@
         <h2>¡Gracias por tu compra!</h2>
         <p>Tu número de pedido es</p>
         <div class="order-number" id="successOrderNumber">LPSC-2026-001</div>
-        <p class="success-note">Guardá este número. La dueña verificará el pago y te confirmará por WhatsApp.</p>
+        <p class="success-note" id="successNote">Guardá este número. Ya recibimos tu comprobante; la dueña verificará el pago y te confirmará por WhatsApp.</p>
         <div class="success-actions">
           <a class="btn btn-wa" id="successWa" target="_blank" rel="noopener">
-            <svg aria-hidden="true"><use href="#i-whatsapp"/></svg> Enviar comprobante por WhatsApp
+            <svg aria-hidden="true"><use href="#i-whatsapp"/></svg> Enviar pedido por WhatsApp
           </a>
           <button class="btn btn-ghost" id="successClose" type="button">Seguir explorando</button>
         </div>

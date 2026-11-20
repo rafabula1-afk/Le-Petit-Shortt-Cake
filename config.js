@@ -42,42 +42,40 @@ window.LPSC_CONFIG = {
     proofBucket: "comprobantes",
   },
 
-  /* ---------- Métodos de pago ----------
-     Reemplazar los datos de ejemplo por los reales. */
+  /* ---------- Tasa para Pago Móvil ----------
+     El precio del catálogo se multiplica por la tasa euro → bolívares.
+     La tasa se deriva del dólar oficial BCV publicado por DolarApi y del
+     cambio EUR/USD. Si falla la consulta, se usa manualEuroRate. */
+  exchange: {
+    useLiveRate: true,
+    manualEuroRate: 1009,
+    bcvUsdApi: "https://ve.dolarapi.com/v1/dolares",
+    eurUsdApi: "https://open.er-api.com/v6/latest/EUR",
+  },
+
+  /* ---------- Métodos de pago ---------- */
   payment: {
     pagoMovil: {
       label: "Pago Móvil",
       icon: "PM",
-      hint: "Transferencia inmediata",
+      hint: "Monto en bolívares",
       instructions: [
         "Banco: Mercantil",
-        "Teléfono: 584246043896",
+        "Teléfono: +58 424-6043896",
         "Cédula: 32012336",
       ],
-      referenceLabel: "Número de referencia",
-      referencePlaceholder: "Ej. 123456789",
-      extraLabel: "Banco emisor (opcional)",
-      extraPlaceholder: "Ej. Mercantil",
     },
     zelle: {
       label: "Zelle",
       icon: "Z",
       hint: "Pago en dólares",
       instructions: ["Correo: malaurashortt@gmail.com"],
-      referenceLabel: "Número de referencia",
-      referencePlaceholder: "Ej. 987654321",
-      extraLabel: "Nombre de quien envía",
-      extraPlaceholder: "Nombre y apellido",
     },
     binance: {
       label: "Binance",
       icon: "₿",
       hint: "USDT / cripto",
       instructions: ["Correo: malaurashortt@gmail.com"],
-      referenceLabel: "TXID / hash de la transacción",
-      referencePlaceholder: "Pegá el hash de Binance",
-      extraLabel: "Monto en USDT",
-      extraPlaceholder: "Ej. 25.00",
     },
     efectivo: {
       label: "Efectivo",
@@ -87,10 +85,6 @@ window.LPSC_CONFIG = {
         "Pagás al momento de la entrega.",
         "Coordinamos punto y hora por WhatsApp.",
       ],
-      referenceLabel: "",
-      referencePlaceholder: "",
-      extraLabel: "",
-      extraPlaceholder: "",
     },
   },
 
