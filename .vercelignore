@@ -1,0 +1,5 @@
+*.pdf
+assets/catalogo/
+scripts/
+supabase/
+README.md

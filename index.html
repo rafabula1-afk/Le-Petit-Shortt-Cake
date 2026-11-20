@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Petit Shortt Cake — Casitas de jengibre y dulces artesanales</title>
+  <meta name="description" content="Casitas de jengibre, pesebres, coronas de Adviento y kits para armar y decorar. Repostería creativa hecha a mano. Pedidos al mayor y personalizaciones.">
+  <meta property="og:title" content="Le Petit Shortt Cake — Repostería creativa">
+  <meta property="og:description" content="Casitas de jengibre y kits navideños hechos con una pizca de magia y mucho amor.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23DB1D74'/%3E%3Cpath d='M12 32 32 14l20 18v18a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4z' fill='%23fff'/%3E%3Crect x='24' y='38' width='16' height='16' rx='3' fill='%23DB1D74'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Montserrat:wght@500;600;700&family=Questrial&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==================== ICONOS ==================== -->
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-house" viewBox="0 0 64 64">
+      <path d="M9 31 32 11l23 20v22a5 5 0 0 1-5 5H14a5 5 0 0 1-5-5z" fill="currentColor"/>
+      <rect x="22" y="39" width="20" height="19" rx="4" fill="#fff"/>
+      <path d="M26 45h12M26 50h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+      <circle cx="32" cy="26" r="4" fill="#fff" opacity=".9"/>
+    </symbol>
+    <symbol id="i-ginger" viewBox="0 0 64 64">
+      <path d="M32 7c5.5 0 9.5 4 9.5 9 0 3-1.2 5.3-3 7l8 3c5.5 2 9 7.5 9 12.5 0 4-3 7-7 7-3 0-5.2-1.3-7-3.2l-2 8.4c3.7 2 6 5.2 6 9.1 0 4-3 7.2-7 7.2-3 0-5.2-1.6-6.5-3.8l-1-5.6-1 5.6c-1.3 2.2-3.5 3.8-6.5 3.8-4 0-7-3.2-7-7.2 0-3.9 2.3-7.1 6-9.1l-2-8.4C20.2 46.7 18 48 15 48c-4 0-7-3-7-7 0-5 3.5-10.5 9-12.5l8-3c-1.8-1.7-3-4-3-7 0-5 4-9 9.5-9z" fill="currentColor"/>
+      <circle cx="28.5" cy="15" r="1.8" fill="#fff"/><circle cx="35.5" cy="15" r="1.8" fill="#fff"/>
+      <path d="M28 20c2 2.2 6 2.2 8 0" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-tree" viewBox="0 0 64 64">
+      <path d="M32 5 18 27h8L14 43h12v9h12v-9h12L38 27h8z" fill="currentColor"/>
+      <rect x="29" y="52" width="6" height="7" rx="2" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-candy" viewBox="0 0 64 64">
+      <path d="M25 58V31a11 11 0 0 1 22 0v5" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+      <path d="M25 58V31a11 11 0 0 1 22 0v5" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-dasharray="4 8" opacity=".7"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 64 64">
+      <path d="m32 5 8 19 21 2-16 14 4.5 20.5L32 49 14.5 60.5 19 40 3 26l21-2z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-snow" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+        <path d="M32 5v54M8 18l48 28M56 18 8 46"/>
+        <path d="M32 14 24 7M32 14l8-7M32 50l-8 7M32 50l8 7"/>
+      </g>
+    </symbol>
+    <symbol id="i-crown" viewBox="0 0 64 64">
+      <path d="M7 47 12 18l12 12L32 9l8 21 12-12 5 29z" fill="currentColor"/>
+      <rect x="7" y="50" width="50" height="7" rx="3" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-gift" viewBox="0 0 64 64">
+      <rect x="8" y="24" width="48" height="32" rx="4" fill="currentColor"/>
+      <rect x="5" y="17" width="54" height="12" rx="3" fill="currentColor" opacity=".8"/>
+      <path d="M32 17v39M32 17c-5-2-12-4-12-9 0-3 3-5 6-4 4 1 6 7 6 13zm0 0c5-2 12-4 12-9 0-3-3-5-6-4-4 1-6 7-6 13z" fill="none" stroke="#fff" stroke-width="3"/>
+    </symbol>
+    <symbol id="i-bag" viewBox="0 0 64 64">
+      <path d="M13 14h38L43 46a7 7 0 0 1-7 6H28a7 7 0 0 1-7-6z" fill="currentColor"/>
+      <path d="M27 52h10v6l-5 4-5-4z" fill="currentColor" opacity=".7"/>
+      <path d="M23 8c0 5 9 5 9 0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24">
+      <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.5L21 8H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="10" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24">
+      <path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24">
+      <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24">
+      <rect x="4" y="10" width="16" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="m16 16 4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+      <path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 11v5M14 11v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24">
+      <path d="M12 3v12M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24">
+      <path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24">
+      <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24">
+      <path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5z" fill="currentColor"/>
+      <path d="M8.4 6.7c-.3 0-.7.1-1 .4-.4.4-1.3 1.2-1.3 2.9s1.3 3.4 1.5 3.6c.2.2 2.5 4 6.2 5.4 3.1 1.2 3.7 1 4.4.9.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.6-.3l-2.3-1.1c-.3-.1-.5-.2-.7.1l-1 1.3c-.2.2-.4.2-.7.1-.3-.1-1.4-.5-2.7-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5L10.4 7c-.2-.5-.4-.4-.6-.4h-.5z" fill="#fff"/>
+    </symbol>
+    <symbol id="i-tiktok" viewBox="0 0 24 24">
+      <path d="M15.5 3c.3 2.2 1.7 3.6 4 3.8v2.9c-1.6 0-2.9-.5-4-1.4v6.2a5.9 5.9 0 1 1-5.9-5.9c.4 0 .8 0 1.2.1v3a3 3 0 1 0 2.1 2.9V3h2.6z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-spotify" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.5" fill="currentColor"/>
+      <path d="M6.8 9.6c3.4-1 7.1-.6 10 1M7.3 12.6c2.8-.8 5.9-.5 8.3.8M7.8 15.4c2.2-.6 4.6-.4 6.5.7" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24">
+      <rect x="2.5" y="5" width="19" height="14" rx="4" fill="currentColor"/>
+      <path d="m10 9 5 3-5 3z" fill="#fff"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24">
+      <path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24">
+      <path d="m12 2 2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="currentColor"/>
+    </symbol>
+  </svg>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="layout header-inner">
+      <a class="brand" href="#inicio" aria-label="Le Petit Shortt Cake, ir al inicio">
+        <img class="brand-logo" src="assets/logo-magenta.png" alt="Le Petit Shortt Cake">
+      </a>
+
+      <nav class="nav" id="mainNav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#nosotras">Nosotras</a>
+        <a href="#redes">Redes</a>
+        <a href="#pedidos">Pedidos</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-wa btn-sm header-wa" data-link="whatsapp" data-wa-message="Hola! Quiero hacer un pedido en Le Petit Shortt Cake." target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <button class="cart-btn" id="cartBtn" aria-label="Abrir carrito">
+          <svg aria-hidden="true"><use href="#i-cart"/></svg>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
+          <svg aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="siteMain">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero layout" id="inicio">
+      <div class="hero-copy card" data-reveal>
+        <p class="eyebrow"><svg class="eyebrow-icon" aria-hidden="true"><use href="#i-sparkle"/></svg> Repostería creativa · Edición navideña</p>
+        <h1 class="hero-title">
+          <span class="hero-title-top">Le Petit</span>
+          <span class="hero-title-main">Shortt Cake</span>
+        </h1>
+        <p class="hero-sub">Casitas de jengibre y kits para armar, decorar y compartir. Hechos a mano, con una pizca de magia y mucho amor.</p>
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn btn-primary">
+            Ver catálogo
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+          <a href="#pedidos" class="btn btn-ghost">Hacer un pedido</a>
+        </div>
+        <ul class="hero-trust">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg> Hecho a mano</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg> Kits completos</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg> Entrega coordinada</li>
+        </ul>
+      </div>
+
+      <div class="hero-art" data-reveal>
+        <div class="hero-photo card">
+          <img src="assets/productos/hero.webp" alt="Casita de jengibre navideña decorada por Le Petit Shortt Cake" fetchpriority="high">
+          <span class="float-badge float-badge-top">100% artesanal</span>
+          <span class="float-badge float-badge-bottom">2 a 4 personas</span>
+        </div>
+        <svg class="deco deco-ginger" aria-hidden="true"><use href="#i-ginger"/></svg>
+        <svg class="deco deco-star" aria-hidden="true"><use href="#i-star"/></svg>
+        <svg class="deco deco-candy" aria-hidden="true"><use href="#i-candy"/></svg>
+        <svg class="deco deco-snow" aria-hidden="true"><use href="#i-snow"/></svg>
+      </div>
+    </section>
+
+    <!-- ==================== MARQUEE ==================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Casitas de jengibre</span><svg><use href="#i-star"/></svg>
+        <span>Kits completos</span><svg><use href="#i-star"/></svg>
+        <span>Hecho a mano</span><svg><use href="#i-star"/></svg>
+        <span>Pedidos al mayor</span><svg><use href="#i-star"/></svg>
+        <span>Personalizaciones</span><svg><use href="#i-star"/></svg>
+        <span>Repostería creativa</span><svg><use href="#i-star"/></svg>
+        <span>Casitas de jengibre</span><svg><use href="#i-star"/></svg>
+        <span>Kits completos</span><svg><use href="#i-star"/></svg>
+        <span>Hecho a mano</span><svg><use href="#i-star"/></svg>
+        <span>Pedidos al mayor</span><svg><use href="#i-star"/></svg>
+        <span>Personalizaciones</span><svg><use href="#i-star"/></svg>
+        <span>Repostería creativa</span><svg><use href="#i-star"/></svg>
+      </div>
+    </div>
+
+    <!-- ==================== RECETA / NOSOTRAS ==================== -->
+    <section class="section layout" id="nosotras">
+      <div class="card recipe-card" data-reveal>
+        <div class="recipe-media">
+          <img src="assets/productos/receta.webp" alt="Jengibre, canela y limón: los ingredientes de la receta secreta" loading="lazy">
+          <span class="media-sticker">Receta secreta</span>
+        </div>
+        <div class="recipe-copy">
+          <p class="eyebrow">Nuestra receta secreta</p>
+          <h2>Jengibre, canela<br>y limón</h2>
+          <p class="lead">Hemos perfeccionado la mezcla de glaseado para intensificar el sabor del jengibre, conseguir la textura perfecta y alargar la vida útil de las mangas.</p>
+          <div class="ingredient-row">
+            <span class="ingredient"><svg aria-hidden="true"><use href="#i-ginger"/></svg> Jengibre</span>
+            <span class="ingredient"><svg aria-hidden="true"><use href="#i-star"/></svg> Canela</span>
+            <span class="ingredient"><svg aria-hidden="true"><use href="#i-snow"/></svg> Limón</span>
+          </div>
+          <p class="signature">“Una pizca de magia y mucho amor.”</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CATÁLOGO ==================== -->
+    <section class="section layout" id="catalogo">
+      <div class="section-head card" data-reveal>
+        <div>
+          <p class="eyebrow">Catálogo navideño 2026</p>
+          <h2>Elegí tu kit favorito</h2>
+          <p>Todos los kits vienen completos: galletas, dulces, mangas de glaseado e instrucciones. También hacemos pedidos al mayor y personalizaciones.</p>
+        </div>
+        <div class="section-head-art" aria-hidden="true">
+          <svg><use href="#i-house"/></svg>
+          <svg><use href="#i-ginger"/></svg>
+          <svg><use href="#i-candy"/></svg>
+        </div>
+      </div>
+
+      <div class="filters" id="filters" role="tablist" aria-label="Filtrar catálogo"></div>
+      <div class="catalog-grid" id="catalogGrid"></div>
+      <p class="price-note"><span aria-hidden="true">*</span> <span id="priceNote"></span></p>
+    </section>
+
+    <!-- ==================== GALERÍA ==================== -->
+    <section class="gallery-strip" aria-label="Galería de creaciones">
+      <div class="gallery-track">
+        <img src="assets/productos/nosotras.webp" alt="Emprendedora de Le Petit Shortt Cake con una casita de jengibre" loading="lazy">
+        <img src="assets/productos/galeria-1.webp" alt="Mostrador navideño de Le Petit Shortt Cake" loading="lazy">
+        <img src="assets/productos/galeria-2.webp" alt="Equipo de Le Petit Shortt Cake con osito de jengibre" loading="lazy">
+        <img src="assets/productos/galeria-3.webp" alt="Familia decorando casitas de jengibre" loading="lazy">
+        <img src="assets/productos/galeria-4.webp" alt="Niña con una casita de jengibre" loading="lazy">
+        <img src="assets/productos/munecos.webp" alt="Muñecos de jengibre pintados a mano" loading="lazy">
+        <img src="assets/productos/nosotras.webp" alt="" loading="lazy">
+        <img src="assets/productos/galeria-1.webp" alt="" loading="lazy">
+        <img src="assets/productos/galeria-2.webp" alt="" loading="lazy">
+        <img src="assets/productos/galeria-3.webp" alt="" loading="lazy">
+        <img src="assets/productos/galeria-4.webp" alt="" loading="lazy">
+        <img src="assets/productos/munecos.webp" alt="" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ==================== REDES ==================== -->
+    <section class="section layout" id="redes">
+      <div class="section-head card" data-reveal>
+        <div>
+          <p class="eyebrow">Nuestras redes</p>
+          <h2>Seguinos la pista</h2>
+          <p>Detrás de cada casita hay un proceso lleno de color. Mirá las novedades, sorteos y creaciones nuevas.</p>
+        </div>
+      </div>
+
+      <div class="social-grid">
+        <a class="social-card social-instagram" data-link="instagram" target="_blank" rel="noopener" data-reveal>
+          <span class="social-icon"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span>
+          <span class="social-body">
+            <strong>Instagram</strong>
+            <small>@lepetitshorttcake</small>
+          </span>
+          <svg class="social-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="social-card social-whatsapp" data-link="whatsapp" data-wa-message="Hola! Vi la página de Le Petit Shortt Cake y quiero hacer un pedido." target="_blank" rel="noopener" data-reveal>
+          <span class="social-icon"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
+          <span class="social-body">
+            <strong>WhatsApp</strong>
+            <small>Hacé tu pedido directo</small>
+          </span>
+          <svg class="social-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="social-card social-tiktok" data-link="tiktok" target="_blank" rel="noopener" data-reveal>
+          <span class="social-icon"><svg aria-hidden="true"><use href="#i-tiktok"/></svg></span>
+          <span class="social-body">
+            <strong>TikTok</strong>
+            <small>@lepetitshorttcake</small>
+          </span>
+          <svg class="social-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== SPOTIFY ==================== -->
+    <section class="section layout" id="musica">
+      <div class="card embed-card" data-reveal>
+        <div class="embed-copy">
+          <p class="eyebrow">Música para la cocina</p>
+          <h2>La playlist de<br>Le Petit</h2>
+          <p>Poné música navideña mientras armás tu casita. Una playlist para entrar en clima y endulzar el momento.</p>
+          <a class="btn btn-spotify" id="spotifyLink" target="_blank" rel="noopener" hidden>
+            <svg aria-hidden="true"><use href="#i-spotify"/></svg> Abrir en Spotify
+          </a>
+        </div>
+        <div class="embed-media" id="spotifySlot"></div>
+      </div>
+    </section>
+
+    <!-- ==================== YOUTUBE ==================== -->
+    <section class="section layout" id="tutorial">
+      <div class="card embed-card embed-card-reverse" data-reveal>
+        <div class="embed-copy">
+          <p class="eyebrow">Paso a paso</p>
+          <h2>Cómo armar<br>tu casita</h2>
+          <p>Muy pronto vas a poder ver el video tutorial con todos los secretos para armar y decorar tu casita como una profesional.</p>
+          <a class="btn btn-youtube" id="youtubeLink" target="_blank" rel="noopener" hidden>
+            <svg aria-hidden="true"><use href="#i-youtube"/></svg> Ver en YouTube
+          </a>
+        </div>
+        <div class="embed-media" id="youtubeSlot"></div>
+      </div>
+    </section>
+
+    <!-- ==================== CÓMO PEDIR ==================== -->
+    <section class="section layout" id="pedidos">
+      <div class="card steps-card" data-reveal>
+        <p class="eyebrow">Cómo pedir</p>
+        <h2>Tu casita, en cuatro pasos</h2>
+        <div class="steps-grid">
+          <div class="step">
+            <span class="step-num">1</span>
+            <h3>Elegí tus cajitas</h3>
+            <p>Sumá al carrito tus kits y extras favoritos.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <h3>Coordinamos</h3>
+            <p>Confirmamos disponibilidad, fecha y entrega por WhatsApp.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <h3>Pagá</h3>
+            <p>Pago Móvil, Zelle, Binance o efectivo.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <h3>Disfrutá</h3>
+            <p>Recibí tu kit y armá tu casita con una pizca de magia.</p>
+          </div>
+        </div>
+        <div class="steps-actions">
+          <a href="#catalogo" class="btn btn-primary">Armar mi pedido <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" data-link="whatsapp" data-wa-message="Hola! Tengo una consulta sobre los kits de Le Petit Shortt Cake." target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-whatsapp"/></svg> Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer layout">
+    <div class="card footer-card">
+      <div class="footer-brand">
+        <a class="brand brand-footer" href="#inicio">
+          <img class="brand-logo" src="assets/logo-magenta.png" alt="Le Petit Shortt Cake">
+        </a>
+        <p>Repostería creativa. Casitas de jengibre, dulces y kits para compartir en familia.</p>
+      </div>
+      <div class="footer-links">
+        <h3>Explorar</h3>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#nosotras">Nuestra receta</a>
+        <a href="#redes">Redes sociales</a>
+        <a href="#pedidos">Cómo pedir</a>
+      </div>
+      <div class="footer-links">
+        <h3>Contacto</h3>
+        <a data-link="whatsapp" data-wa-message="Hola! Quiero consultar por los kits de Le Petit Shortt Cake." target="_blank" rel="noopener">WhatsApp</a>
+        <a data-link="instagram" target="_blank" rel="noopener">Instagram</a>
+        <a data-link="tiktok" target="_blank" rel="noopener">TikTok</a>
+        <a href="#admin" class="footer-admin"><svg aria-hidden="true"><use href="#i-lock"/></svg> Acceso administradora</a>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Le Petit Shortt Cake. Hecho con amor y mucho jengibre.</p>
+        <p class="footer-credit">Precios de referencia · Entrega coordinada</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== OVERLAY ==================== -->
+  <div class="overlay" id="overlay" hidden></div>
+
+  <!-- ==================== CARRITO ==================== -->
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Carrito de compras">
+    <div class="drawer-head">
+      <div>
+        <p class="eyebrow">Tu pedido</p>
+        <h2>Carrito <span id="cartCountLabel" class="count-pill">0</span></h2>
+      </div>
+      <button class="icon-btn" id="cartClose" aria-label="Cerrar carrito">
+        <svg aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cartTotal">Ref. 0</strong>
+      </div>
+      <p class="cart-note">La disponibilidad y la entrega se confirman por WhatsApp.</p>
+      <button class="btn btn-primary btn-block" id="checkoutBtn">Finalizar pedido</button>
+    </div>
+  </aside>
+
+  <!-- ==================== MODAL PRODUCTO ==================== -->
+  <div class="modal" id="productModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Detalle del producto">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card product-modal-card" id="productModalBody"></div>
+  </div>
+
+  <!-- ==================== CHECKOUT ==================== -->
+  <div class="modal" id="checkoutModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Finalizar pedido">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card checkout-card">
+      <button class="modal-close" data-close-modal aria-label="Cerrar checkout">
+        <svg aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+
+      <div class="checkout-head">
+        <p class="eyebrow">Pedido</p>
+        <h2>Finalizar compra</h2>
+      </div>
+
+      <ol class="checkout-steps" id="checkoutSteps">
+        <li data-step-dot="1"><span>1</span> Datos</li>
+        <li data-step-dot="2"><span>2</span> Pago</li>
+        <li data-step-dot="3"><span>3</span> Comprobante</li>
+        <li data-step-dot="4"><span>4</span> Confirmar</li>
+      </ol>
+
+      <form id="checkoutForm" novalidate>
+        <section class="checkout-panel is-active" data-step="1">
+          <div class="form-grid">
+            <div class="field">
+              <label for="custName">Nombre y apellido *</label>
+              <input id="custName" name="custName" autocomplete="name" placeholder="Tu nombre" required>
+            </div>
+            <div class="field">
+              <label for="custPhone">WhatsApp *</label>
+              <input id="custPhone" name="custPhone" inputmode="tel" autocomplete="tel" placeholder="0412-0000000" required>
+            </div>
+            <div class="field">
+              <label for="custEmail">Correo (opcional)</label>
+              <input id="custEmail" name="custEmail" type="email" autocomplete="email" placeholder="tucorreo@email.com">
+            </div>
+            <div class="field">
+              <label for="deliveryDate">Fecha de entrega deseada *</label>
+              <input id="deliveryDate" name="deliveryDate" type="date" required>
+            </div>
+            <div class="field">
+              <label for="deliveryType">Tipo de entrega *</label>
+              <select id="deliveryType" name="deliveryType">
+                <option value="Coordinar por WhatsApp">Coordinar por WhatsApp</option>
+                <option value="Entrega a domicilio">Entrega a domicilio</option>
+                <option value="Retiro">Retiro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="custDeliveryService">Servicio de entrega (opcional)</label>
+              <input id="custDeliveryService" name="custDeliveryService" placeholder="Ej. Quik, delivery propio, retiro">
+            </div>
+            <div class="field">
+              <label for="custDeliveryContact">Teléfono del repartidor (opcional)</label>
+              <input id="custDeliveryContact" name="custDeliveryContact" inputmode="tel" placeholder="Ej. 0414-0000000">
+            </div>
+            <div class="field field-full" id="addressField" hidden>
+              <label for="custAddress">Dirección de entrega *</label>
+              <input id="custAddress" name="custAddress" placeholder="Calle, edificio, punto de referencia">
+            </div>
+            <div class="field field-full">
+              <label for="custNotes">Notas especiales (opcional)</label>
+              <textarea id="custNotes" name="custNotes" rows="3" placeholder="Personalizaciones, dedicatoria, alergias..."></textarea>
+            </div>
+          </div>
+          <p class="form-hint">Te contactamos por WhatsApp para confirmar disponibilidad y entrega.</p>
+          <p class="form-hint" id="deliveryNote"></p>
+        </section>
+
+        <section class="checkout-panel" data-step="2">
+          <p class="panel-title">¿Cómo preferís pagar?</p>
+          <div class="method-grid" id="methodGrid"></div>
+          <div class="pay-instructions" id="payInstructions"></div>
+          <div class="form-grid" id="methodFields"></div>
+          <p class="form-hint">Elegí el método, hacé el pago y guardá el número de referencia para completar el pedido.</p>
+        </section>
+
+        <section class="checkout-panel" data-step="3">
+          <p class="panel-title">Comprobante de pago</p>
+          <label class="upload" id="uploadBox" for="proofInput">
+            <svg aria-hidden="true"><use href="#i-upload"/></svg>
+            <strong>Subí tu comprobante</strong>
+            <span>Imagen o captura de pantalla (JPG, PNG o WebP)</span>
+          </label>
+          <input type="file" id="proofInput" accept="image/*" hidden>
+          <div class="proof-preview" id="proofPreview"></div>
+          <div class="form-grid">
+            <div class="field field-full">
+              <label for="paymentNote">Referencia o nota adicional</label>
+              <input id="paymentNote" placeholder="Nº de referencia, banco, monto, etc.">
+            </div>
+          </div>
+          <p class="form-hint">Si todavía no pagaste, podés enviar el comprobante después por WhatsApp. Tu pedido quedará como <strong>pendiente de verificación</strong>.</p>
+        </section>
+
+        <section class="checkout-panel" data-step="4">
+          <p class="panel-title">Revisá tu pedido</p>
+          <div id="checkoutSummary"></div>
+        </section>
+      </form>
+
+      <div class="checkout-actions" id="checkoutActions">
+        <button class="btn btn-ghost" id="checkoutBack" type="button" hidden>Atrás</button>
+        <button class="btn btn-primary" id="checkoutNext" type="button">Continuar <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <button class="btn btn-primary" id="checkoutConfirm" type="button" hidden>Confirmar pedido</button>
+      </div>
+
+      <div class="checkout-success" id="checkoutSuccess" hidden>
+        <div class="success-check"><svg aria-hidden="true"><use href="#i-check"/></svg></div>
+        <p class="eyebrow">Pedido recibido</p>
+        <h2>¡Gracias por tu compra!</h2>
+        <p>Tu número de pedido es</p>
+        <div class="order-number" id="successOrderNumber">LPSC-2026-001</div>
+        <p class="success-note">Guardá este número. La dueña verificará el pago y te confirmará por WhatsApp.</p>
+        <div class="success-actions">
+          <a class="btn btn-wa" id="successWa" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-whatsapp"/></svg> Enviar comprobante por WhatsApp
+          </a>
+          <button class="btn btn-ghost" id="successClose" type="button">Seguir explorando</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ADMIN ==================== -->
+  <div class="admin" id="adminView" hidden>
+    <div class="admin-shell">
+      <div class="admin-top card">
+        <div class="admin-brand">
+          <img class="brand-logo brand-logo-admin" src="assets/logo-magenta.png" alt="Le Petit Shortt Cake">
+          <div>
+            <p class="eyebrow">Le Petit Shortt Cake</p>
+            <h1>Panel de órdenes</h1>
+          </div>
+        </div>
+        <div class="admin-top-actions">
+          <a class="btn btn-ghost btn-sm" href="#" data-admin-exit>Ver sitio</a>
+          <button class="btn btn-ghost btn-sm" id="adminLogout" hidden>Salir</button>
+        </div>
+      </div>
+
+      <div class="card admin-login" id="adminLogin">
+        <div class="login-icon"><svg aria-hidden="true"><use href="#i-lock"/></svg></div>
+        <h2>Acceso de administradora</h2>
+        <p id="adminLoginHint">Ingresá la contraseña para ver el calendario de pedidos.</p>
+        <form id="adminLoginForm">
+          <div class="field" id="adminEmailField" hidden>
+            <label for="adminEmail">Correo</label>
+            <input type="email" id="adminEmail" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="adminPass">Contraseña</label>
+            <input type="password" id="adminPass" autocomplete="current-password" placeholder="••••••••" required>
+          </div>
+          <p class="form-error" id="adminError" hidden>Correo o contraseña incorrectos. Intentá de nuevo.</p>
+          <button class="btn btn-primary btn-block" type="submit"><svg aria-hidden="true"><use href="#i-lock"/></svg> Entrar</button>
+        </form>
+        <a href="#" class="login-back" data-admin-exit>Volver al sitio</a>
+      </div>
+
+      <div class="admin-panel" id="adminPanel" hidden>
+        <div class="stat-grid" id="adminStats"></div>
+
+        <div class="admin-toolbar card">
+          <div class="toolbar-field toolbar-search">
+            <svg aria-hidden="true"><use href="#i-search"/></svg>
+            <input type="search" id="adminSearch" placeholder="Buscar por cliente, teléfono o pedido..." aria-label="Buscar pedidos">
+          </div>
+          <div class="toolbar-field">
+            <select id="adminStatusFilter" aria-label="Filtrar por estado">
+              <option value="todos">Todos los estados</option>
+              <option value="pendiente_verificacion">Pendiente de verificación</option>
+              <option value="pagado">Pagado confirmado</option>
+              <option value="en_preparacion">En preparación</option>
+              <option value="listo">Listo</option>
+              <option value="entregado">Entregado</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="exportBtn"><svg aria-hidden="true"><use href="#i-download"/></svg> Exportar CSV</button>
+        </div>
+
+        <div class="admin-grid">
+          <div class="card calendar-card">
+            <div class="calendar-head">
+              <div class="calendar-nav">
+                <button class="icon-btn" id="calPrev" aria-label="Mes anterior"><svg aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+                <button class="icon-btn" id="calNext" aria-label="Mes siguiente"><svg aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+                <button class="btn btn-ghost btn-sm" id="calToday">Hoy</button>
+              </div>
+              <h2 id="calLabel"></h2>
+            </div>
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+            <div class="calendar-legend">
+              <span><i class="dot s-pendiente"></i> Pendiente</span>
+              <span><i class="dot s-pagado"></i> Pagado</span>
+              <span><i class="dot s-preparacion"></i> En preparación</span>
+              <span><i class="dot s-listo"></i> Listo</span>
+              <span><i class="dot s-entregado"></i> Entregado</span>
+              <span><i class="dot s-cancelado"></i> Cancelado</span>
+            </div>
+          </div>
+
+          <div class="card admin-list-card">
+            <div class="admin-list-head">
+              <h2>Pedidos</h2>
+              <span class="count-pill" id="adminListCount">0</span>
+            </div>
+            <div class="admin-list" id="adminList"></div>
+          </div>
+        </div>
+
+        <div class="admin-local-note">
+          <svg aria-hidden="true"><use href="#i-sparkle"/></svg>
+          <p><strong>Modo local:</strong> los pedidos se guardan en este navegador. Para verlos desde otro dispositivo, conectá una base de datos (mirá el README).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL ORDEN ==================== -->
+  <div class="modal" id="orderModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Detalle del pedido">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card order-modal-card" id="orderModalBody"></div>
+  </div>
+
+  <!-- ==================== TOAST Y CONFETI ==================== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
