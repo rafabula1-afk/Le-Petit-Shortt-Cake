@@ -278,18 +278,32 @@
     <!-- ==================== RECETA / NOSOTRAS ==================== -->
     <section class="section layout" id="nosotras">
       <div class="card recipe-card" data-reveal>
-        <div class="recipe-media">
-          <img src="assets/productos/receta.webp" alt="Jengibre, canela y limón: los ingredientes de la receta secreta" loading="lazy">
-          <span class="media-sticker">Receta secreta</span>
-        </div>
         <div class="recipe-copy">
           <p class="eyebrow">Nuestra receta secreta</p>
           <h2>Jengibre, canela<br>y limón</h2>
           <p class="lead">Perfeccionamos la mezcla de glaseado para intensificar el sabor del jengibre, conseguir la textura perfecta y alargar la vida útil de las mangas.</p>
-          <div class="ingredient-row">
-            <span class="ingredient"><svg aria-hidden="true"><use href="#i-ginger"/></svg> Jengibre</span>
-            <span class="ingredient"><svg aria-hidden="true"><use href="#i-star"/></svg> Canela</span>
-            <span class="ingredient"><svg aria-hidden="true"><use href="#i-snow"/></svg> Limón</span>
+          <div class="ingredient-gallery" aria-label="Ingredientes destacados de la receta">
+            <figure class="ingredient-figure">
+              <div class="ingredient-circle">
+                <svg class="ingredient-fallback" aria-hidden="true"><use href="#i-ginger"/></svg>
+                <img src="assets/secciones/jengibre.png" alt="Jengibre" loading="lazy" data-fallback>
+              </div>
+              <figcaption>JENGIBRE</figcaption>
+            </figure>
+            <figure class="ingredient-figure">
+              <div class="ingredient-circle">
+                <svg class="ingredient-fallback" aria-hidden="true"><use href="#i-star"/></svg>
+                <img src="assets/secciones/canela.png" alt="Canela" loading="lazy" data-fallback>
+              </div>
+              <figcaption>CANELA</figcaption>
+            </figure>
+            <figure class="ingredient-figure">
+              <div class="ingredient-circle">
+                <svg class="ingredient-fallback" aria-hidden="true"><use href="#i-sparkle"/></svg>
+                <img src="assets/secciones/limon.png" alt="Limón" loading="lazy" data-fallback>
+              </div>
+              <figcaption>LIMÓN</figcaption>
+            </figure>
           </div>
           <p class="signature">“Una pizca de magia y mucho amor.”</p>
         </div>
@@ -336,16 +350,27 @@
 
     <!-- ==================== YOUTUBE ==================== -->
     <section class="section layout" id="tutorial">
-      <div class="card embed-card embed-card-reverse" data-reveal>
+      <div class="card embed-card embed-card-reverse tutorial-card" data-reveal>
         <div class="embed-copy">
           <p class="eyebrow">Paso a paso</p>
           <h2>Cómo armar<br>tu casita</h2>
-          <p>Muy pronto vas a poder ver el video tutorial con todos los secretos para armar y decorar tu casita como una profesional.</p>
-          <a class="btn btn-youtube" id="youtubeLink" target="_blank" rel="noopener" hidden>
-            <svg aria-hidden="true"><use href="#i-youtube"/></svg> Ver en YouTube
+          <p>Armá y decorá tu casita de jengibre con nuestro video tutorial. Te mostramos cada detalle, paso a paso.</p>
+        </div>
+        <div class="tutorial-media">
+          <div class="tutorial-frame" id="youtubeSlot">
+            <div class="tutorial-thumb">
+              <svg class="tutorial-fallback" aria-hidden="true"><use href="#i-house"/></svg>
+              <img src="assets/secciones/tutorial-casita.webp" alt="Casita de jengibre armada y decorada" loading="lazy" data-fallback>
+              <a class="tutorial-play" id="youtubePlay" target="_blank" rel="noopener" aria-disabled="true" aria-label="Mirar tutorial en YouTube">
+                <svg aria-hidden="true"><use href="#i-youtube"/></svg>
+              </a>
+              <span class="tutorial-soon">Muy pronto</span>
+            </div>
+          </div>
+          <a class="tutorial-watch" id="youtubeLink" target="_blank" rel="noopener" aria-disabled="true">
+            Mirar en YouTube <svg aria-hidden="true"><use href="#i-arrow"/></svg>
           </a>
         </div>
-        <div class="embed-media" id="youtubeSlot"></div>
       </div>
     </section>
 

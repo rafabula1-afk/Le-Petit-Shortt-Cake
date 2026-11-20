@@ -605,7 +605,7 @@
       if (adminEmail) adminEmail.value = SB.adminEmail || "";
       if (adminLoginHint) {
         adminLoginHint.textContent =
-          "Ingresá con el correo y la contraseña de la administradora para ver el calendario de pedidos.";
+          "Ingresá con las credenciales del panel para ver el calendario de pedidos.";
       }
     }
 
@@ -630,37 +630,60 @@
         }
       } else {
         spotifySlot.innerHTML = `
-          <div class="embed-placeholder">
-            <svg aria-hidden="true"><use href="#i-spotify"/></svg>
-            <div class="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-            <strong>Playlist muy pronto</strong>
-            <span>Mientras tanto, poné tu música navideña favorita.</span>
+          <div class="embed-placeholder spotify-placeholder">
+            <div class="spotify-cover">
+              <img src="assets/secciones/playlist-christmas-hits.webp" alt="" data-fallback>
+              <svg aria-hidden="true"><use href="#i-spotify"/></svg>
+            </div>
+            <div class="spotify-placeholder-copy">
+              <strong>Playlist muy pronto</strong>
+              <span>Mientras tanto, poné tu música navideña favorita.</span>
+            </div>
           </div>`;
       }
     }
 
     const youtubeSlot = $("#youtubeSlot");
     const youtubeLink = $("#youtubeLink");
-    if (youtubeSlot) {
-      if (CFG.youtubeEmbed) {
-        youtubeSlot.innerHTML = `
-          <iframe class="video-frame" src="${esc(CFG.youtubeEmbed)}"
-            title="Video tutorial de Le Petit Shortt Cake" loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>`;
-        if (CFG.youtubeUrl && youtubeLink) {
-          youtubeLink.href = CFG.youtubeUrl;
-          youtubeLink.hidden = false;
-        }
-      } else {
-        youtubeSlot.innerHTML = `
-          <div class="embed-placeholder">
-            <svg aria-hidden="true"><use href="#i-youtube"/></svg>
-            <strong>Video tutorial muy pronto</strong>
-            <span>Estamos preparando el paso a paso para armar tu casita.</span>
-          </div>`;
-      }
+    const youtubePlay = $("#youtubePlay");
+    const youtubeSoon = $("#youtubeSlot .tutorial-soon");
+    if (youtubeSlot && CFG.youtubeEmbed) {
+      youtubeSlot.innerHTML = `
+        <iframe class="video-frame" src="${esc(CFG.youtubeEmbed)}"
+          title="Video tutorial de Le Petit Shortt Cake" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>`;
     }
+
+    if (youtubeSoon) youtubeSoon.hidden = Boolean(CFG.youtubeUrl || CFG.youtubeEmbed);
+
+    [youtubeLink, youtubePlay].forEach((link) => {
+      if (!link) return;
+      if (CFG.youtubeUrl) {
+        link.href = CFG.youtubeUrl;
+        link.removeAttribute("aria-disabled");
+      } else {
+        link.removeAttribute("href");
+        link.setAttribute("aria-disabled", "true");
+      }
+    });
+  }
+
+  function setupImageFallbacks() {
+    document.addEventListener(
+      "error",
+      (event) => {
+        const img = event.target;
+        if (img instanceof HTMLImageElement && img.hasAttribute("data-fallback")) {
+          img.classList.add("is-missing");
+        }
+      },
+      true
+    );
+
+    $$("img[data-fallback]").forEach((img) => {
+      if (img.complete && img.naturalWidth === 0) img.classList.add("is-missing");
+    });
   }
 
   /* ---------- Catálogo ---------- */
@@ -2489,6 +2512,7 @@
 
   async function init() {
     applyConfig();
+    setupImageFallbacks();
     renderFilters();
     renderCatalog();
     updateCartUI();

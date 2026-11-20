@@ -775,40 +775,7 @@ main section[id] {
 /* ---------- Receta ---------- */
 
 .recipe-card {
-  display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
   overflow: hidden;
-}
-
-.recipe-media {
-  position: relative;
-  min-height: 390px;
-  background: var(--pink-light);
-}
-
-.recipe-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
-}
-
-.media-sticker {
-  position: absolute;
-  left: 22px;
-  bottom: 22px;
-  z-index: 2;
-  padding: 9px 16px;
-  border-radius: 999px;
-  background: #fff;
-  font-family: var(--font-label);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--magenta);
-  box-shadow: var(--shadow-soft);
 }
 
 .recipe-copy {
@@ -823,40 +790,64 @@ main section[id] {
 }
 
 .recipe-copy .lead {
-  margin-bottom: 22px;
+  max-width: 62ch;
+  margin-bottom: 28px;
 }
 
-.ingredient-row {
+.ingredient-gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 24px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 72px);
+  margin-bottom: 34px;
 }
 
-.ingredient {
-  display: inline-flex;
+.ingredient-figure {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 9px 15px;
-  border-radius: 999px;
-  background: var(--pink-light);
-  font-family: var(--font-label);
-  font-size: 0.74rem;
-  font-weight: 600;
+  gap: 14px;
+  margin: 0;
+}
+
+.ingredient-circle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(132px, 17vw, 196px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--magenta-soft);
+  overflow: hidden;
+}
+
+.ingredient-fallback {
+  width: 46%;
+  height: 46%;
   color: var(--magenta);
+  opacity: 0.45;
 }
 
-.ingredient svg {
-  width: 18px;
-  height: 18px;
+.ingredient-circle img {
+  position: absolute;
+  inset: 12%;
+  width: 76%;
+  height: 76%;
+  z-index: 1;
+  object-fit: contain;
 }
 
-.ingredient:nth-child(2) svg {
-  color: #bf6d36;
+.ingredient-circle img.is-missing {
+  display: none;
 }
 
-.ingredient:nth-child(3) svg {
-  color: var(--green);
+.ingredient-figure figcaption {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--magenta);
 }
 
 .signature {
@@ -1301,6 +1292,176 @@ main section[id] {
 .embed-media iframe.video-frame {
   aspect-ratio: 16 / 9;
   height: auto;
+}
+
+/* ---------- Tutorial ---------- */
+
+.tutorial-media {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.tutorial-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 220px;
+  border-radius: 20px;
+  background: var(--pink-light);
+  overflow: hidden;
+}
+
+.tutorial-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.tutorial-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 32%;
+  color: var(--magenta);
+  opacity: 0.25;
+}
+
+.tutorial-thumb img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tutorial-thumb img.is-missing {
+  display: none;
+}
+
+.tutorial-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 48px;
+  border-radius: 13px;
+  background: #ff0033;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(255, 0, 51, 0.36);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.tutorial-play svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.tutorial-play:hover {
+  background: #d9002b;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.tutorial-play[aria-disabled="true"] {
+  cursor: default;
+}
+
+.tutorial-play[aria-disabled="true"]:hover {
+  transform: translate(-50%, -50%);
+}
+
+.tutorial-soon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--magenta);
+}
+
+.tutorial-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-end;
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--magenta);
+  text-decoration: none;
+}
+
+.tutorial-watch svg {
+  width: 16px;
+  height: 16px;
+}
+
+.tutorial-watch[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---------- Placeholder de Spotify con portada a la izquierda ---------- */
+
+.spotify-placeholder {
+  flex-direction: row;
+  align-items: center;
+  gap: 22px;
+  text-align: left;
+}
+
+.spotify-cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 118px;
+  width: 118px;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: linear-gradient(150deg, var(--magenta-soft), #fff);
+  overflow: hidden;
+}
+
+.spotify-cover img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotify-cover img.is-missing {
+  display: none;
+}
+
+.spotify-cover > svg {
+  width: 44px;
+  height: 44px;
+  color: var(--magenta);
+  opacity: 0.55;
+}
+
+.spotify-placeholder-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .embed-placeholder {
@@ -3313,12 +3474,12 @@ body.admin-open .site-footer {
     max-height: 460px;
   }
 
-  .recipe-card {
-    grid-template-columns: 1fr;
+  .ingredient-gallery {
+    gap: 18px;
   }
 
-  .recipe-media {
-    min-height: 300px;
+  .ingredient-circle {
+    width: clamp(112px, 26vw, 156px);
   }
 
   .social-grid {
@@ -3667,6 +3828,33 @@ body.admin-open .site-footer {
 
   .recipe-copy {
     padding: 26px 22px;
+  }
+
+  .ingredient-gallery {
+    gap: 14px 10px;
+  }
+
+  .ingredient-circle {
+    width: clamp(96px, 27vw, 120px);
+  }
+
+  .ingredient-figure {
+    gap: 10px;
+  }
+
+  .ingredient-figure figcaption {
+    font-size: 0.62rem;
+  }
+
+  .spotify-placeholder {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .spotify-cover {
+    flex-basis: auto;
+    width: 96px;
   }
 
   .includes-list {
