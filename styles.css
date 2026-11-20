@@ -4040,7 +4040,7 @@ body.admin-open .site-footer {
 
   .hero-copy {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) clamp(100px, 34vw, 120px);
+    grid-template-columns: minmax(0, 1fr) clamp(120px, 36vw, 132px);
     grid-template-areas:
       "eyebrow eyebrow"
       "title title"
@@ -4078,13 +4078,13 @@ body.admin-open .site-footer {
     align-items: flex-start;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 0;
   }
 
   .hero-actions .btn {
     width: auto;
-    min-height: clamp(36px, 8vw, 42px);
+    min-height: clamp(40px, 9vw, 46px);
     padding: 0 13px;
     font-size: 0.7rem;
   }
@@ -4103,6 +4103,7 @@ body.admin-open .site-footer {
     height: 100%;
     max-height: none;
     object-fit: contain;
+    transform: scale(1.06);
     filter: drop-shadow(0 10px 14px rgba(120, 10, 60, 0.16));
   }
 
@@ -4113,13 +4114,13 @@ body.admin-open .site-footer {
     flex-wrap: nowrap;
     justify-content: flex-start;
     justify-self: start;
-    gap: 8px;
-    margin-top: 14px;
+    gap: 10px;
+    margin-top: 16px;
     text-align: left;
   }
 
   .hero-trust li {
-    font-size: 0.66rem;
+    font-size: 0.68rem;
   }
 
   .marquee {
