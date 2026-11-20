@@ -4040,13 +4040,13 @@ body.admin-open .site-footer {
 
   .hero-copy {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 42%;
+    grid-template-columns: minmax(0, 1fr) 48%;
     grid-template-areas:
       "eyebrow eyebrow"
       "title title"
       "sub sub"
       "actions photo"
-      "trust trust";
+      "trust photo";
     align-content: start;
     padding: 18px 14px;
   }
@@ -4068,7 +4068,7 @@ body.admin-open .site-footer {
 
   .hero-sub {
     grid-area: sub;
-    margin-bottom: 16px;
+    margin-bottom: 22px;
     font-size: 0.92rem;
   }
 
@@ -4092,14 +4092,15 @@ body.admin-open .site-footer {
     display: grid;
     grid-area: photo;
     place-items: center;
-    align-self: center;
+    align-self: stretch;
     justify-self: end;
+    width: 100%;
   }
 
   .hero-photo-mobile img {
     width: 100%;
-    height: auto;
-    max-height: 190px;
+    height: 100%;
+    max-height: none;
     object-fit: contain;
     filter: drop-shadow(0 10px 14px rgba(120, 10, 60, 0.16));
   }
@@ -4107,12 +4108,12 @@ body.admin-open .site-footer {
   .hero-trust {
     grid-area: trust;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     flex-wrap: nowrap;
-    justify-self: end;
+    justify-self: start;
     gap: 6px;
-    margin-top: 12px;
-    text-align: right;
+    margin-top: 8px;
+    text-align: left;
   }
 
   .hero-trust li {
