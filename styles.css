@@ -4040,7 +4040,7 @@ body.admin-open .site-footer {
 
   .hero-copy {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) clamp(100px, 34vw, 120px);
     grid-template-areas:
       "eyebrow eyebrow"
       "title title"
@@ -4095,9 +4095,7 @@ body.admin-open .site-footer {
     place-items: center;
     align-self: stretch;
     justify-self: end;
-    width: auto;
-    max-width: 44%;
-    aspect-ratio: 935 / 1400;
+    width: 100%;
   }
 
   .hero-photo-mobile img {
@@ -4116,7 +4114,7 @@ body.admin-open .site-footer {
     justify-content: flex-start;
     justify-self: start;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 14px;
     text-align: left;
   }
 
