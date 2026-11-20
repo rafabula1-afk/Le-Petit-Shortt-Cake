@@ -2247,6 +2247,10 @@ p {
   background: #fff5f5;
 }
 
+.upload[hidden] {
+  display: none;
+}
+
 .pay-amount {
   display: flex;
   justify-content: space-between;
@@ -2283,21 +2287,65 @@ p {
 }
 
 .proof-preview {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
   gap: 10px;
   margin-top: 12px;
 }
 
-.proof-preview img {
+.proof-item {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.proof-item img {
   max-height: 220px;
   width: auto;
   border-radius: 14px;
   border: 1px solid #f0d9e4;
 }
 
-.proof-actions {
-  display: flex;
-  gap: 8px;
+.proof-remove {
+  align-self: stretch;
+  min-width: 92px;
+  padding: 10px 12px;
+  border: 1px solid #f0d9e4;
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--magenta-deep);
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.proof-remove:hover {
+  border-color: var(--magenta);
+  background: var(--pink-light);
+}
+
+.upload-mini {
+  min-height: 220px;
+  width: 148px;
+  padding: 14px;
+  border-radius: 16px;
+  align-self: stretch;
+}
+
+.upload-mini svg {
+  width: 28px;
+  height: 28px;
+}
+
+.upload-mini strong {
+  font-size: 0.88rem;
+}
+
+.upload-mini span {
+  font-size: 0.7rem;
 }
 
 .checkout-actions {
@@ -3041,6 +3089,12 @@ body.admin-open .site-footer {
   max-height: 220px;
   border-radius: 14px;
   border: 1px solid #f0d9e4;
+}
+
+.order-proof-item + .order-proof-item {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed #f0d9e4;
 }
 
 .order-admin-actions {

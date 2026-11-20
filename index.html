@@ -476,13 +476,13 @@
       </div>
 
       <ol class="checkout-steps" id="checkoutSteps">
-        <li data-step-dot="1"><span>1</span> Pedido</li>
+        <li data-step-dot="1"><span>1</span> Confirmar pedido</li>
         <li data-step-dot="2"><span>2</span> Pago</li>
-        <li data-step-dot="3"><span>3</span> Confirmación</li>
       </ol>
 
       <form id="checkoutForm" novalidate>
         <section class="checkout-panel is-active" data-step="1">
+          <p class="panel-title">Confirmá tu pedido</p>
           <div id="orderPreview"></div>
           <p class="panel-title">Datos de entrega</p>
           <div class="form-grid">
@@ -528,13 +528,13 @@
           <div class="method-grid" id="methodGrid"></div>
           <div class="pay-instructions" id="payInstructions"></div>
           <div id="proofSection">
-            <p class="panel-title">Captura del pago</p>
+            <p class="panel-title">Capturas del pago</p>
             <label class="upload" id="uploadBox" for="proofInput">
               <svg aria-hidden="true"><use href="#i-upload"/></svg>
               <strong>Subí la captura de tu pago *</strong>
-              <span>Imagen o captura de pantalla (JPG, PNG o WebP)</span>
+              <span>Imagen o captura de pantalla (JPG, PNG o WebP) · hasta 3</span>
             </label>
-            <input type="file" id="proofInput" accept="image/*" hidden>
+            <input type="file" id="proofInput" accept="image/*" multiple hidden>
             <div class="proof-preview" id="proofPreview"></div>
           </div>
           <div class="form-grid">
@@ -545,17 +545,12 @@
           </div>
           <p class="form-hint" id="proofHint">La captura del pago es obligatoria para este método.</p>
         </section>
-
-        <section class="checkout-panel" data-step="3">
-          <p class="panel-title">Confirmá tu pedido y pago</p>
-          <div id="checkoutSummary"></div>
-        </section>
       </form>
 
       <div class="checkout-actions" id="checkoutActions">
         <button class="btn btn-ghost" id="checkoutBack" type="button" hidden>Atrás</button>
-        <button class="btn btn-primary" id="checkoutNext" type="button">Continuar <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        <button class="btn btn-primary" id="checkoutConfirm" type="button" hidden>Confirmar pedido</button>
+        <button class="btn btn-primary" id="checkoutNext" type="button">Ir al pago <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <button class="btn btn-primary" id="checkoutConfirm" type="button" hidden>Aceptar y enviar pedido <svg aria-hidden="true"><use href="#i-check"/></svg></button>
       </div>
 
       <div class="checkout-success" id="checkoutSuccess" hidden>

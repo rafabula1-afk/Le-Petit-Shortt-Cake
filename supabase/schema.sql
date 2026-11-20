@@ -26,6 +26,7 @@ create table if not exists public.ordenes (
   payment_method text not null,
   payment_note text,
   proof_path text,
+  proof_paths text[] not null default '{}',
 
   status text not null default 'pendiente_verificacion',
   delivery_status text not null default 'por_asignar',

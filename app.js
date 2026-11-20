@@ -23,6 +23,7 @@
       })
     : null;
   const proofBucket = SB.proofBucket || "comprobantes";
+  const MAX_PROOFS = 3;
   const FX = CFG.exchange || {};
 
   /* ---------- Utilidades ---------- */
@@ -434,8 +435,7 @@
     checkout: {
       step: 1,
       method: Object.keys(CFG.payment || {})[0] || "pagoMovil",
-      proof: null,
-      proofName: "",
+      proofs: [],
       paymentNote: "",
       euroRate: Number(FX.manualEuroRate) || 0,
       rateSource: "tasa de respaldo",
@@ -488,7 +488,6 @@
   const checkoutBack = $("#checkoutBack");
   const checkoutNext = $("#checkoutNext");
   const checkoutConfirm = $("#checkoutConfirm");
-  const checkoutSummary = $("#checkoutSummary");
   const orderPreview = $("#orderPreview");
   const methodGrid = $("#methodGrid");
   const payInstructions = $("#payInstructions");
@@ -935,7 +934,12 @@
     if (proofHint) {
       proofHint.textContent = isCash
         ? "En efectivo no necesitás subir captura: pagás al recibir."
-        : "La captura del pago es obligatoria para confirmar el pedido.";
+        : "Subí entre 1 y 3 capturas. Son obligatorias para confirmar el pedido.";
+    }
+    if (checkoutConfirm) {
+      checkoutConfirm.innerHTML = isCash
+        ? 'Confirmar pedido <svg aria-hidden="true"><use href="#i-check"/></svg>'
+        : 'Aceptar y enviar pedido <svg aria-hidden="true"><use href="#i-check"/></svg>';
     }
     if (isCash) markUploadError(false);
   }
@@ -954,10 +958,9 @@
     });
 
     checkoutBack.hidden = step === 1;
-    checkoutNext.hidden = step === 3;
-    checkoutConfirm.hidden = step !== 3;
+    checkoutNext.hidden = step === 2;
+    checkoutConfirm.hidden = step !== 2;
 
-    if (step === 3) renderCheckoutSummary();
     if (checkoutCard) checkoutCard.scrollTop = 0;
   }
 
@@ -1023,18 +1026,16 @@
 
     if (step === 2) {
       capturePaymentFields();
-      if (state.checkout.method !== "efectivo" && !state.checkout.proof) {
+      if (
+        state.checkout.method !== "efectivo" &&
+        state.checkout.proofs.length === 0
+      ) {
         markUploadError(true);
         uploadBox?.scrollIntoView({ behavior: "smooth", block: "center" });
-        showToast("Subí la captura del pago para continuar.");
+        showToast("Subí al menos una captura del pago.");
         return false;
       }
       markUploadError(false);
-      return true;
-    }
-
-    if (step === 3) {
-      capturePaymentFields();
       return true;
     }
 
@@ -1045,8 +1046,7 @@
     state.checkout = {
       step: 1,
       method: Object.keys(CFG.payment || {})[0] || "pagoMovil",
-      proof: null,
-      proofName: "",
+      proofs: [],
       paymentNote: "",
       euroRate: Number(FX.manualEuroRate) || 0,
       rateSource: "tasa de respaldo",
@@ -1067,9 +1067,9 @@
     addressField.hidden = true;
     $("#custAddress").required = false;
     paymentNote.value = "";
-    proofPreview.innerHTML = "";
     proofInput.value = "";
     markUploadError(false);
+    renderProofPreview();
 
     $$(".field.has-error").forEach((field) => field.classList.remove("has-error"));
 
@@ -1155,66 +1155,16 @@
       </div>`;
   }
 
-  function renderCheckoutSummary() {
-    const customer = state.checkout.customer;
-    const items = cartDetails();
-    const method = (CFG.payment || {})[state.checkout.method];
-    const total = cartTotalValue();
-    const amount = paymentAmountInfo();
-    const isCash = state.checkout.method === "efectivo";
-
-    const paymentRows = [
-      method ? `<div class="summary-row"><span>Método</span><strong>${esc(method.label)}</strong></div>` : "",
-      `<div class="summary-row"><span>Monto a pagar</span><strong>${esc(amount.label)}</strong></div>`,
-      state.checkout.method === "pagoMovil"
-        ? `<div class="summary-row"><span>Tasa euro</span><strong>${esc(`Bs ${fmtAmount(amount.rate || 0)}`)}</strong></div>`
-        : "",
-      state.checkout.paymentNote
-        ? `<div class="summary-row"><span>Nota</span><strong>${esc(state.checkout.paymentNote)}</strong></div>`
-        : "",
-      isCash
-        ? `<div class="summary-row"><span>Pago</span><strong>Al recibir</strong></div>`
-        : state.checkout.proof
-          ? `<div class="summary-row"><span>Captura del pago</span><strong>Cargada ✓</strong></div>`
-          : `<div class="summary-row"><span>Captura del pago</span><strong>Faltante</strong></div>`,
-    ]
-      .filter(Boolean)
-      .join("");
-
-    checkoutSummary.innerHTML = `
-      <div class="summary-box">
-        <h3>Productos</h3>
-        <ul class="summary-items">
-          ${items
-            .map(
-              (item) =>
-                `<li><span>${item.qty} × ${esc(item.name)}</span><strong>${money(item.price * item.qty)}</strong></li>`
-            )
-            .join("")}
-        </ul>
-        <div class="summary-total"><span>Total</span><strong>${money(total)}</strong></div>
-      </div>
-      <div class="summary-box">
-        <h3>Cliente y entrega</h3>
-        <div class="summary-row"><span>Nombre</span><strong>${esc(customer?.name || "")}</strong></div>
-        <div class="summary-row"><span>WhatsApp</span><strong>${esc(customer?.phone || "")}</strong></div>
-        ${customer?.email ? `<div class="summary-row"><span>Correo</span><strong>${esc(customer.email)}</strong></div>` : ""}
-        <div class="summary-row"><span>Fecha deseada</span><strong>${formatDate(customer?.date)}</strong></div>
-        <div class="summary-row"><span>Entrega</span><strong>${esc(customer?.deliveryType || "")}</strong></div>
-        ${customer?.address ? `<div class="summary-row"><span>Dirección</span><strong>${esc(customer.address)}</strong></div>` : ""}
-        ${customer?.notes ? `<div class="summary-row"><span>Notas</span><strong>${esc(customer.notes)}</strong></div>` : ""}
-      </div>
-      <div class="summary-box">
-        <h3>Pago</h3>
-        ${paymentRows}
-      </div>`;
-  }
-
   /* ---------- Pedidos: adaptador local / Supabase ---------- */
 
   function orderToRow(order) {
     const customer = order.customer || {};
     const payment = order.payment || {};
+    const proofPaths = Array.isArray(payment.proofPaths)
+      ? payment.proofPaths
+      : payment.proofPath
+        ? [payment.proofPath]
+        : [];
     return {
       id: order.id,
       number: order.number,
@@ -1229,7 +1179,8 @@
       total: Number(order.total || 0),
       payment_method: payment.method || "efectivo",
       payment_note: payment.note || null,
-      proof_path: payment.proofPath || null,
+      proof_path: proofPaths[0] || null,
+      proof_paths: proofPaths,
       status: order.status || "pendiente_verificacion",
       delivery_status: order.deliveryStatus || "por_asignar",
       history: order.history || [],
@@ -1238,6 +1189,11 @@
   }
 
   function orderFromRow(row) {
+    const proofPaths = Array.isArray(row.proof_paths)
+      ? row.proof_paths.filter(Boolean)
+      : row.proof_path
+        ? [row.proof_path]
+        : [];
     const customer = {
       name: row.customer_name || "",
       phone: row.customer_phone || "",
@@ -1263,9 +1219,12 @@
       payment: {
         method: row.payment_method,
         note: row.payment_note || "",
-        proof: null,
-        proofPath: row.proof_path || null,
-        proofName: row.proof_path ? "comprobante" : "",
+        proofPaths,
+        proofPath: proofPaths[0] || null,
+        proofs: proofPaths.map((path, index) => ({
+          path,
+          name: `Captura ${index + 1}`,
+        })),
       },
       status: row.status,
       deliveryStatus: row.delivery_status || "por_asignar",
@@ -1354,8 +1313,11 @@
   }
 
   async function saveOrder(order) {
+    const proofs = Array.isArray(order.payment?.proofs)
+      ? order.payment.proofs
+      : [];
     const needsProof = order.payment?.method !== "efectivo";
-    if (needsProof && !order.payment?.proof && !order.payment?.proofPath) {
+    if (needsProof && proofs.length === 0 && !order.payment?.proofPath) {
       throw new Error("Falta la captura del pago");
     }
 
@@ -1363,31 +1325,32 @@
       const orders = getOrders();
       orders.unshift(order);
       const saved = saveJSON(KEYS.orders, orders);
-      if (!saved && order.payment?.proof) {
-        order.payment.proof = null;
-        order.payment.proofDropped = true;
-        throw new Error("No se pudo guardar la captura del pago");
+      if (!saved && proofs.length) {
+        throw new Error("No se pudieron guardar las capturas del pago");
       }
       state.admin.orders = orders;
       return order;
     }
 
-    let uploadedPath = null;
-    if (order.payment?.proof) {
-      const blob = await dataUrlToBlob(order.payment.proof);
-      const path = `${order.id}.${proofExtension(order.payment.proofName, blob.type)}`;
-      const { error: uploadError } = await supabase.storage
-        .from(proofBucket)
-        .upload(path, blob, {
-          contentType: blob.type || "image/jpeg",
-          upsert: false,
-        });
-      if (uploadError) throw uploadError;
-      uploadedPath = path;
-      order.payment.proofPath = path;
-    }
+    const uploadedPaths = [];
 
     try {
+      for (let index = 0; index < proofs.length; index += 1) {
+        const proof = proofs[index];
+        const blob = await dataUrlToBlob(proof.data);
+        const path = `${order.id}-${index + 1}.${proofExtension(proof.name, blob.type)}`;
+        const { error: uploadError } = await supabase.storage
+          .from(proofBucket)
+          .upload(path, blob, {
+            contentType: blob.type || "image/jpeg",
+            upsert: false,
+          });
+        if (uploadError) throw uploadError;
+        uploadedPaths.push(path);
+      }
+      order.payment.proofPaths = uploadedPaths;
+      order.payment.proofPath = uploadedPaths[0] || null;
+
       // Sin .select(): el público no tiene permiso de lectura (RLS).
       const { error: orderError } = await supabase
         .from("ordenes")
@@ -1400,11 +1363,11 @@
         if (itemsError) throw itemsError;
       }
     } catch (error) {
-      if (uploadedPath) {
+      if (uploadedPaths.length) {
         try {
-          await supabase.storage.from(proofBucket).remove([uploadedPath]);
+          await supabase.storage.from(proofBucket).remove(uploadedPaths);
         } catch (cleanupError) {
-          console.warn("No se pudo limpiar la captura", cleanupError);
+          console.warn("No se pudieron limpiar las capturas", cleanupError);
         }
       }
       throw error;
@@ -1446,17 +1409,23 @@
     const order = getOrders().find((entry) => entry.number === number);
     const { error } = await supabase.from("ordenes").delete().eq("number", number);
     if (error) throw error;
-    const path = order?.payment?.proofPath;
-    if (path) {
+    const paths = Array.isArray(order?.payment?.proofPaths)
+      ? order.payment.proofPaths
+      : order?.payment?.proofPath
+        ? [order.payment.proofPath]
+        : [];
+    if (paths.length) {
       const { error: storageError } = await supabase.storage
         .from(proofBucket)
-        .remove([path]);
-      if (storageError) console.warn("No se pudo borrar el comprobante", storageError);
+        .remove(paths);
+      if (storageError) console.warn("No se pudieron borrar las capturas", storageError);
     }
     await refreshOrders();
   }
 
   function orderWhatsAppMessage(order) {
+    const proofCount =
+      order.payment?.proofPaths?.length || order.payment?.proofs?.length || 0;
     const lines = [
       `Hola! Acabo de hacer el pedido ${order.number} en la web.`,
       "",
@@ -1474,7 +1443,7 @@
         : "",
       order.payment.method === "efectivo"
         ? "Pago al recibir."
-        : "Captura del pago cargada en la web.",
+        : `Captura(s) del pago cargada(s) en la web: ${proofCount}`,
       order.customer.notes ? `Notas: ${order.customer.notes}` : "",
     ];
     return lines.filter((line) => line !== null && line !== undefined).join("\n");
@@ -1489,10 +1458,12 @@
       showToast("Faltan datos del pedido. Revisá el carrito e intentá de nuevo.");
       return;
     }
-    if (state.checkout.method !== "efectivo" && !state.checkout.proof) {
+    if (
+      state.checkout.method !== "efectivo" &&
+      state.checkout.proofs.length === 0
+    ) {
       markUploadError(true);
-      setCheckoutStep(2);
-      showToast("Subí la captura del pago antes de confirmar.");
+      showToast("Subí al menos una captura antes de confirmar.");
       return;
     }
     if (state.checkout.submitting) return;
@@ -1527,11 +1498,18 @@
           state.checkout.method === "pagoMovil"
             ? `Tasa euro: Bs ${fmtAmount(amountInfo.rate || 0)} (${state.checkout.rateSource})`
             : "",
+          state.checkout.method !== "efectivo"
+            ? `Capturas: ${state.checkout.proofs.length}`
+            : "",
         ]
           .filter(Boolean)
           .join(" · "),
-        proof: state.checkout.proof,
-        proofName: state.checkout.proofName,
+        proofs: state.checkout.proofs.map((proof) => ({
+          data: proof.data,
+          name: proof.name,
+        })),
+        proofPaths: [],
+        proofPath: null,
       },
       status: "pendiente_verificacion",
       deliveryStatus: "por_asignar",
@@ -1571,7 +1549,7 @@
       successNote.textContent =
         order.payment?.method === "efectivo"
           ? "Guardá este número. Coordinaremos el pago al recibir por WhatsApp."
-          : "Guardá este número. Ya recibimos la captura del pago; la dueña lo verificará y te confirmará por WhatsApp.";
+          : "Guardá este número. Ya recibimos tus capturas del pago; la dueña las verificará y te confirmará por WhatsApp.";
     }
     const successWa = $("#successWa");
     successWa.href = waLink(orderWhatsAppMessage(order));
@@ -1611,24 +1589,35 @@
   }
 
   function renderProofPreview() {
-    if (!state.checkout.proof) {
+    const proofs = state.checkout.proofs;
+    uploadBox.hidden = proofs.length > 0;
+
+    if (proofs.length === 0) {
       proofPreview.innerHTML = "";
       return;
     }
+
     proofPreview.innerHTML = `
-      <img src="${state.checkout.proof}" alt="Comprobante de pago cargado">
-      <div class="proof-actions">
-        <button type="button" class="btn btn-ghost btn-sm" id="proofRemove">
-          <svg aria-hidden="true"><use href="#i-trash"/></svg> Quitar comprobante
-        </button>
-      </div>`;
-    $("#proofRemove")?.addEventListener("click", () => {
-      state.checkout.proof = null;
-      state.checkout.proofName = "";
-      proofInput.value = "";
-      markUploadError(false);
-      renderProofPreview();
-    });
+      ${proofs
+        .map(
+          (proof, index) => `
+          <div class="proof-item">
+            <img src="${proof.data}" alt="Captura ${index + 1}">
+            <button type="button" class="proof-remove" data-proof-remove="${index}">
+              <svg aria-hidden="true"><use href="#i-trash"/></svg> Quitar
+            </button>
+          </div>`
+        )
+        .join("")}
+      ${
+        proofs.length < MAX_PROOFS
+          ? `<label class="upload upload-mini" for="proofInput">
+              <svg aria-hidden="true"><use href="#i-upload"/></svg>
+              <strong>Agregar otra</strong>
+              <span>${MAX_PROOFS - proofs.length} disponible(s)</span>
+            </label>`
+          : ""
+      }`;
   }
 
   /* ---------- Admin ---------- */
@@ -1835,19 +1824,37 @@
       return;
     }
 
-    if (useSupabase && order.payment?.proofPath) {
-      try {
-        const { data, error } = await supabase.storage
-          .from(proofBucket)
-          .createSignedUrl(order.payment.proofPath, 60 * 60);
-        if (error) throw error;
-        order = {
-          ...order,
-          payment: { ...order.payment, proof: data?.signedUrl || null },
-        };
-      } catch (error) {
-        console.warn("No se pudo abrir el comprobante", error);
-      }
+    const proofPaths = Array.isArray(order.payment?.proofPaths)
+      ? order.payment.proofPaths
+      : order.payment?.proofPath
+        ? [order.payment.proofPath]
+        : [];
+    if (useSupabase && proofPaths.length) {
+      const signed = await Promise.all(
+        proofPaths.map(async (path) => {
+          try {
+            const { data, error } = await supabase.storage
+              .from(proofBucket)
+              .createSignedUrl(path, 60 * 60);
+            if (error) throw error;
+            return data?.signedUrl || null;
+          } catch (error) {
+            console.warn("No se pudo abrir el comprobante", error);
+            return null;
+          }
+        })
+      );
+      order = {
+        ...order,
+        payment: {
+          ...order.payment,
+          proofs: signed.map((url, index) => ({
+            path: proofPaths[index],
+            name: `Captura ${index + 1}`,
+            proof: url,
+          })),
+        },
+      };
     }
 
     const statusOptions = Object.entries(STATUSES)
@@ -1865,7 +1872,13 @@
       .join("");
 
     const method = CFG.payment?.[order.payment?.method];
-    const proof = order.payment?.proof;
+    const proofs = (
+      Array.isArray(order.payment?.proofs)
+        ? order.payment.proofs
+        : order.payment?.proof
+          ? [{ name: "comprobante", proof: order.payment.proof }]
+          : []
+    ).map((entry) => ({ ...entry, proof: entry.proof || entry.data || null }));
 
     orderModalBody.innerHTML = `
       <button type="button" class="modal-close" data-close-modal aria-label="Cerrar pedido">
@@ -1916,7 +1929,7 @@
           <p><strong>${esc(method?.label || order.payment?.method || "—")}</strong><br>
           ${order.payment?.amountLabel ? `Monto a pagar: ${esc(order.payment.amountLabel)}<br>` : ""}
           ${order.payment?.note ? `Detalle: ${esc(order.payment.note)}<br>` : ""}
-          ${proof ? "Captura del pago cargada ✓" : order.payment?.method === "efectivo" ? "Pago al recibir" : "Sin comprobante"}</p>
+          ${proofs.length ? `Captura(s) del pago cargada(s): ${proofs.length} ✓` : order.payment?.method === "efectivo" ? "Pago al recibir" : "Sin comprobante"}</p>
         </div>
         <div class="order-info">
           <h3>Registro</h3>
@@ -1925,7 +1938,23 @@
         </div>
       </div>
 
-      ${proof ? `<div class="order-proof"><h3 class="includes-title">Comprobante</h3><img src="${proof}" alt="Comprobante del pedido ${esc(order.number)}"><br><a href="${proof}" download="comprobante-${esc(order.number)}.jpg" class="btn btn-ghost btn-sm" style="margin-top:8px"><svg aria-hidden="true"><use href="#i-download"/></svg> Descargar comprobante</a></div>` : ""}
+      ${
+        proofs.length
+          ? `<div class="order-proof"><h3 class="includes-title">Comprobante${proofs.length > 1 ? "s" : ""}</h3>
+              ${proofs
+                .map(
+                  (entry, index) => `
+                  <div class="order-proof-item">
+                    ${entry.proof ? `<img src="${entry.proof}" alt="Comprobante ${index + 1} del pedido ${esc(order.number)}"><br>` : ""}
+                    <a href="${entry.proof || "#"}" ${entry.proof ? "download" : ""} class="btn btn-ghost btn-sm" style="margin-top:8px">
+                      <svg aria-hidden="true"><use href="#i-download"/></svg> Descargar captura ${index + 1}
+                    </a>
+                  </div>`
+                )
+                .join("")}
+            </div>`
+          : ""
+      }
 
       <div class="order-admin-actions">
         <div class="field">
@@ -2186,9 +2215,9 @@
         capturePaymentFields();
         state.checkout.method = methodButton.dataset.method;
         if (state.checkout.method === "efectivo") {
-          state.checkout.proof = null;
-          state.checkout.proofName = "";
+          state.checkout.proofs = [];
           proofInput.value = "";
+          markUploadError(false);
           renderProofPreview();
         }
         renderMethods();
@@ -2259,34 +2288,63 @@
     checkoutForm?.addEventListener("submit", (event) => event.preventDefault());
 
     checkoutNext?.addEventListener("click", () => {
-      if (!validateStep(state.checkout.step)) return;
-      setCheckoutStep(Math.min(3, state.checkout.step + 1));
+      if (!validateStep(1)) return;
+      setCheckoutStep(2);
     });
 
     checkoutBack?.addEventListener("click", () => {
       capturePaymentFields();
-      setCheckoutStep(Math.max(1, state.checkout.step - 1));
+      setCheckoutStep(1);
     });
 
-    checkoutConfirm?.addEventListener("click", confirmOrder);
+    checkoutConfirm?.addEventListener("click", () => {
+      if (!validateStep(2)) return;
+      confirmOrder();
+    });
     $("#successClose")?.addEventListener("click", () => closeModal(checkoutModal));
 
+    proofPreview?.addEventListener("click", (event) => {
+      const removeButton = event.target.closest("[data-proof-remove]");
+      if (!removeButton) return;
+      const index = Number(removeButton.dataset.proofRemove);
+      state.checkout.proofs.splice(index, 1);
+      proofInput.value = "";
+      markUploadError(false);
+      renderProofPreview();
+    });
+
     proofInput?.addEventListener("change", async (event) => {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      if (!file.type.startsWith("image/")) {
-        showToast("Subí una imagen del comprobante (JPG, PNG o WebP).");
-        return;
+      const files = Array.from(event.target.files || []);
+      event.target.value = "";
+      if (!files.length) return;
+
+      const available = MAX_PROOFS - state.checkout.proofs.length;
+      if (available <= 0) return;
+      const accepted = [];
+
+      for (const file of files.slice(0, available)) {
+        if (!file.type.startsWith("image/")) {
+          showToast("Subí imágenes del comprobante (JPG, PNG o WebP).");
+          continue;
+        }
+        try {
+          const data = await compressImage(file);
+          state.checkout.proofs.push({ data, name: file.name });
+          accepted.push(file);
+        } catch (error) {
+          console.error(error);
+          showToast("No pudimos procesar una imagen. Probá con otra.");
+        }
       }
-      try {
-        state.checkout.proof = await compressImage(file);
-        state.checkout.proofName = file.name;
+
+      if (accepted.length) {
         markUploadError(false);
         renderProofPreview();
-        showToast("Captura del pago cargada.");
-      } catch (error) {
-        console.error(error);
-        showToast("No pudimos procesar la imagen. Probá con otra.");
+        showToast(
+          accepted.length === 1
+            ? "Captura del pago cargada."
+            : `${accepted.length} capturas cargadas.`
+        );
       }
     });
 
