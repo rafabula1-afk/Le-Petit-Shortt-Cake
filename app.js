@@ -115,15 +115,16 @@
       return {
         fields,
         all: fields.map((field) => field.value).join("\n"),
+        allLabel: "Copiar todos",
         allDisabled: state.checkout.rateLoading,
       };
     }
 
     if (key === "zelle" || key === "binance") {
-      const email = String(method.email || "").trim();
       return {
-        fields: [{ key: "email", label: "Correo", value: email }],
-        all: email,
+        fields: [],
+        all: String(method.email || "").trim(),
+        allLabel: "Copiar correo",
         allDisabled: false,
       };
     }
@@ -542,6 +543,8 @@
   const proofInput = $("#proofInput");
   const proofPreview = $("#proofPreview");
   const paymentNote = $("#paymentNote");
+  const zelleHolderField = $("#zelleHolderField");
+  const zelleHolder = $("#zelleHolder");
   const deliveryType = $("#deliveryType");
   const addressField = $("#addressField");
   const deliveryDate = $("#deliveryDate");
@@ -996,6 +999,7 @@
 
   function capturePaymentFields() {
     if (paymentNote) state.checkout.paymentNote = paymentNote.value.trim();
+    if (zelleHolder) state.checkout.zelleHolder = zelleHolder.value.trim();
   }
 
   function renderMethods() {
@@ -1021,7 +1025,6 @@
 
     const amount = paymentAmountInfo();
     const copyData = paymentCopyData();
-    const copyAllLabel = copyData?.fields.length === 1 ? "Copiar correo" : "Copiar todos";
     const copyBlock = copyData
       ? `
         <div class="pay-copy">
@@ -1038,7 +1041,7 @@
               .join("")}
             <button type="button" class="copy-btn copy-all" data-copy-field="all"${copyData.allDisabled ? " disabled" : ""}>
               <svg aria-hidden="true"><use href="#i-copy"/></svg>
-              <span>${copyAllLabel}</span>
+              <span>${esc(copyData.allLabel)}</span>
             </button>
           </div>
           ${
@@ -1062,11 +1065,16 @@
       ${copyBlock}`;
 
     const isCash = state.checkout.method === "efectivo";
+    const isZelle = state.checkout.method === "zelle";
     if (proofSection) proofSection.hidden = isCash;
+    if (zelleHolderField) zelleHolderField.hidden = !isZelle;
+    if (!isZelle && zelleHolder) markFieldError(zelleHolder, false);
     if (proofHint) {
       proofHint.textContent = isCash
         ? "En efectivo no necesitás subir captura: pagás al recibir."
-        : "Subí entre 1 y 3 capturas. Son obligatorias para confirmar el pedido.";
+        : isZelle
+          ? "Subí entre 1 y 3 capturas y escribí el nombre del titular de la cuenta."
+          : "Subí entre 1 y 3 capturas. Son obligatorias para confirmar el pedido.";
     }
     if (checkoutConfirm) {
       checkoutConfirm.innerHTML = isCash
@@ -1158,6 +1166,15 @@
 
     if (step === 2) {
       capturePaymentFields();
+      if (state.checkout.method === "zelle") {
+        const holderOk = (state.checkout.zelleHolder || "").length >= 3;
+        markFieldError(zelleHolder, !holderOk);
+        if (!holderOk) {
+          zelleHolder?.scrollIntoView({ behavior: "smooth", block: "center" });
+          showToast("Escribí el nombre del titular de la cuenta Zelle.");
+          return false;
+        }
+      }
       if (
         state.checkout.method !== "efectivo" &&
         state.checkout.proofs.length === 0
@@ -1180,6 +1197,7 @@
       method: Object.keys(CFG.payment || {})[0] || "pagoMovil",
       proofs: [],
       paymentNote: "",
+      zelleHolder: "",
       euroRate: Number(FX.manualEuroRate) || 0,
       rateSource: "tasa de respaldo",
       rateLoading: FX.useLiveRate !== false,
@@ -1199,6 +1217,7 @@
     addressField.hidden = true;
     $("#custAddress").required = false;
     paymentNote.value = "";
+    if (zelleHolder) zelleHolder.value = "";
     proofInput.value = "";
     markUploadError(false);
     renderProofPreview();
@@ -1569,6 +1588,7 @@
       `Nombre: ${order.customer.name}`,
       `Entrega: ${formatDate(order.deliveryDate)} · ${order.customer.deliveryType}`,
       `Método de pago: ${CFG.payment?.[order.payment.method]?.label || order.payment.method}`,
+      order.payment.holderName ? `Titular Zelle: ${order.payment.holderName}` : "",
       order.payment.amountLabel ? `Monto a pagar: ${order.payment.amountLabel}` : "",
       order.payment.method === "pagoMovil" && order.payment.euroRate
         ? `Tasa euro: Bs ${fmtAmount(order.payment.euroRate)}`
@@ -1624,8 +1644,13 @@
         amountLabel: amountInfo.label,
         currency: amountInfo.currency,
         euroRate: amountInfo.rate,
+        holderName:
+          state.checkout.method === "zelle" ? state.checkout.zelleHolder : null,
         note: [
           state.checkout.paymentNote,
+          state.checkout.method === "zelle" && state.checkout.zelleHolder
+            ? `Titular Zelle: ${state.checkout.zelleHolder}`
+            : "",
           `Monto a pagar: ${amountInfo.label}`,
           state.checkout.method === "pagoMovil"
             ? `Tasa euro: Bs ${fmtAmount(amountInfo.rate || 0)} (${state.checkout.rateSource})`

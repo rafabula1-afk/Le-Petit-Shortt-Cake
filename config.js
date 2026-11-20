@@ -60,7 +60,7 @@ window.LPSC_CONFIG = {
       icon: "PM",
       hint: "Monto en bolívares",
       /* Datos exactos para copiar al banco (sin formato visual). */
-      bankCode: "0108",
+      bankCode: "0105",
       idNumber: "32012336",
       phone: "04246043896",
       instructions: [
