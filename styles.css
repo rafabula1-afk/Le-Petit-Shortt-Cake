@@ -731,6 +731,178 @@ main section[id] {
   margin-top: 74px;
 }
 
+/* ---------- Pares compactos ---------- */
+
+.section-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 48px;
+}
+
+.section-pair > .section {
+  margin-top: 0;
+  min-width: 0;
+}
+
+.section-pair > .section > .card {
+  height: 100%;
+}
+
+.section-pair .steps-card,
+.section-pair .recipe-copy {
+  padding: clamp(20px, 2.2vw, 28px);
+}
+
+.section-pair .steps-card h2,
+.section-pair .recipe-copy h2,
+.section-pair .embed-copy h2 {
+  font-size: 1.45rem;
+}
+
+.section-pair .steps-card h2 {
+  margin-bottom: 16px;
+}
+
+.section-pair .steps-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.section-pair .step {
+  padding: 12px;
+}
+
+.section-pair .step-num {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.section-pair .step h3 {
+  font-size: 0.86rem;
+}
+
+.section-pair .step p {
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.section-pair .steps-actions {
+  margin-top: 16px;
+  gap: 8px;
+}
+
+.section-pair .steps-actions .btn {
+  min-height: 38px;
+  padding: 0 12px;
+  font-size: 0.7rem;
+}
+
+.section-pair .recipe-copy h2 {
+  margin-bottom: 10px;
+}
+
+.section-pair .recipe-copy .lead {
+  margin-bottom: 18px;
+  font-size: 0.82rem;
+}
+
+.section-pair .ingredient-gallery {
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.section-pair .ingredient-figure {
+  gap: 8px;
+}
+
+.section-pair .ingredient-circle {
+  width: clamp(84px, 8vw, 120px);
+}
+
+.section-pair .ingredient-figure figcaption {
+  font-size: 0.6rem;
+}
+
+.section-pair .signature {
+  padding-left: 10px;
+  font-size: 0.82rem;
+}
+
+.section-pair .embed-card {
+  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: clamp(18px, 2vw, 26px);
+}
+
+.section-pair .embed-card-reverse .embed-copy,
+.section-pair .embed-card-reverse .embed-media {
+  order: initial;
+}
+
+.section-pair .embed-copy h2 {
+  margin-bottom: 8px;
+}
+
+.section-pair .embed-copy p {
+  margin-bottom: 12px;
+  font-size: 0.82rem;
+}
+
+.section-pair .embed-media {
+  min-height: 0;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.section-pair .embed-media iframe.spotify-frame {
+  height: 300px;
+}
+
+.section-pair .tutorial-frame {
+  min-height: 0;
+  border-radius: 14px;
+}
+
+.section-pair .tutorial-play {
+  width: 56px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.section-pair .tutorial-play svg {
+  width: 20px;
+  height: 20px;
+}
+
+.section-pair .tutorial-soon {
+  padding: 4px 8px;
+  font-size: 0.54rem;
+}
+
+.section-pair .tutorial-watch {
+  font-size: 0.68rem;
+}
+
+.section-pair .spotify-placeholder {
+  gap: 12px;
+}
+
+.section-pair .spotify-cover {
+  flex-basis: 88px;
+  width: 88px;
+}
+
+.section-pair .spotify-placeholder strong {
+  font-size: 1rem;
+}
+
+.section-pair .spotify-placeholder span {
+  font-size: 0.62rem;
+}
+
 .section-head {
   display: flex;
   align-items: center;
@@ -3893,6 +4065,191 @@ body.admin-open .site-footer {
 
   .admin-login {
     padding: 26px 22px;
+  }
+}
+
+/* ---------- Pares compactos en pantallas chicas ---------- */
+
+@media (max-width: 780px) {
+  .section-pair {
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .section-pair > .section > .card {
+    border-radius: 18px;
+  }
+
+  .section-pair .steps-card,
+  .section-pair .recipe-copy,
+  .section-pair .embed-card {
+    padding: 12px;
+  }
+
+  .section-pair .eyebrow {
+    margin-bottom: 4px;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+  }
+
+  .section-pair .steps-card h2,
+  .section-pair .recipe-copy h2,
+  .section-pair .embed-copy h2 {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
+  .section-pair .steps-card h2 {
+    margin-bottom: 10px;
+  }
+
+  .section-pair .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .section-pair .step {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    align-items: start;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 10px;
+  }
+
+  .section-pair .step-num {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 0;
+    font-size: 0.65rem;
+  }
+
+  .section-pair .step h3 {
+    margin: 0;
+    font-size: 0.62rem;
+    line-height: 1.15;
+  }
+
+  .section-pair .step p,
+  .section-pair .recipe-copy .lead,
+  .section-pair .signature,
+  .section-pair .embed-copy p,
+  .section-pair .spotify-placeholder span,
+  .section-pair .equalizer {
+    display: none;
+  }
+
+  .section-pair .steps-actions {
+    margin-top: 10px;
+    gap: 6px;
+  }
+
+  .section-pair .steps-actions .btn {
+    width: 100%;
+    min-height: 30px;
+    padding: 0 6px;
+    font-size: 0.58rem;
+  }
+
+  .section-pair .steps-actions .btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .section-pair .ingredient-gallery {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .section-pair .ingredient-figure {
+    gap: 4px;
+  }
+
+  .section-pair .ingredient-circle {
+    width: clamp(42px, 12vw, 64px);
+  }
+
+  .section-pair .ingredient-figure figcaption {
+    font-size: 0.46rem;
+    letter-spacing: 0.04em;
+  }
+
+  .section-pair .embed-card {
+    gap: 8px;
+  }
+
+  .section-pair .embed-copy h2 {
+    margin-bottom: 0;
+  }
+
+  .section-pair .embed-media {
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .section-pair .embed-media iframe.spotify-frame {
+    height: 220px;
+  }
+
+  .section-pair .tutorial-frame {
+    min-height: 0;
+    border-radius: 10px;
+  }
+
+  .section-pair .spotify-placeholder {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .section-pair .spotify-cover {
+    flex-basis: auto;
+    width: 56px;
+    border-radius: 8px;
+  }
+
+  .section-pair .spotify-cover > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .section-pair .spotify-placeholder strong {
+    font-size: 0.7rem;
+  }
+
+  .section-pair .tutorial-play {
+    width: 38px;
+    height: 26px;
+    border-radius: 6px;
+  }
+
+  .section-pair .tutorial-play svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .section-pair .tutorial-soon {
+    top: 5px;
+    left: 5px;
+    padding: 2px 5px;
+    font-size: 0.42rem;
+  }
+
+  .section-pair .tutorial-watch {
+    gap: 3px;
+    font-size: 0.56rem;
+  }
+
+  .section-pair .tutorial-watch svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .section-pair .btn-spotify,
+  .section-pair .btn-youtube {
+    min-height: 28px;
+    padding: 0 8px;
+    font-size: 0.56rem;
   }
 }
 
