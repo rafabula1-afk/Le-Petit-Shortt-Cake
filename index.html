@@ -675,6 +675,17 @@
     <div class="modal-card order-modal-card" id="orderModalBody"></div>
   </div>
 
+  <!-- ==================== AMPLIAR CAPTURA ==================== -->
+  <div class="modal proof-lightbox" id="proofLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Captura ampliada">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card proof-lightbox-card">
+      <button type="button" class="modal-close" data-close-modal aria-label="Cerrar captura">
+        <svg aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+      <img id="proofLightboxImg" src="" alt="Captura del pago ampliada">
+    </div>
+  </div>
+
   <!-- ==================== TOAST Y CONFETI ==================== -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>

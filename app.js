@@ -522,6 +522,8 @@
 
   const orderModal = $("#orderModal");
   const orderModalBody = $("#orderModalBody");
+  const proofLightbox = $("#proofLightbox");
+  const proofLightboxImg = $("#proofLightboxImg");
 
   const toast = $("#toast");
   const confettiLayer = $("#confettiLayer");
@@ -1601,10 +1603,12 @@
       ${proofs
         .map(
           (proof, index) => `
-          <div class="proof-item">
-            <img src="${proof.data}" alt="Captura ${index + 1}">
-            <button type="button" class="proof-remove" data-proof-remove="${index}">
-              <svg aria-hidden="true"><use href="#i-trash"/></svg> Quitar
+          <div class="proof-frame">
+            <img class="proof-image" src="${proof.data}" alt="Captura ${index + 1}"
+              data-proof-view="${index}" title="Ver captura completa">
+            <button type="button" class="proof-remove" data-proof-remove="${index}"
+              aria-label="Quitar captura ${index + 1}" title="Quitar captura ${index + 1}">
+              <svg aria-hidden="true"><use href="#i-trash"/></svg>
             </button>
           </div>`
         )
@@ -2305,12 +2309,23 @@
 
     proofPreview?.addEventListener("click", (event) => {
       const removeButton = event.target.closest("[data-proof-remove]");
-      if (!removeButton) return;
-      const index = Number(removeButton.dataset.proofRemove);
-      state.checkout.proofs.splice(index, 1);
-      proofInput.value = "";
-      markUploadError(false);
-      renderProofPreview();
+      if (removeButton) {
+        const index = Number(removeButton.dataset.proofRemove);
+        state.checkout.proofs.splice(index, 1);
+        proofInput.value = "";
+        markUploadError(false);
+        renderProofPreview();
+        return;
+      }
+
+      const viewImage = event.target.closest("[data-proof-view]");
+      if (!viewImage || !proofLightbox || !proofLightboxImg) return;
+      const index = Number(viewImage.dataset.proofView);
+      const proof = state.checkout.proofs[index];
+      if (!proof) return;
+      proofLightboxImg.src = proof.data;
+      proofLightboxImg.alt = `Captura ${index + 1} ampliada`;
+      openModal(proofLightbox);
     });
 
     proofInput?.addEventListener("change", async (event) => {
