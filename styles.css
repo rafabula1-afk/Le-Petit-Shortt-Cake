@@ -873,7 +873,7 @@ main section[id] {
 }
 
 .section-pair .embed-media iframe.spotify-frame {
-  height: 220px;
+  height: 180px;
 }
 
 .section-pair .tutorial-frame {
@@ -899,6 +899,21 @@ main section[id] {
 
 .section-pair .tutorial-watch {
   font-size: 0.68rem;
+}
+
+@media (min-width: 781px) {
+  .section-pair .embed-copy p {
+    display: none;
+  }
+
+  .section-pair .embed-copy h2 {
+    margin-bottom: 0;
+  }
+
+  .section-pair .embed-card {
+    gap: 10px;
+    padding: 18px;
+  }
 }
 
 .section-pair .spotify-placeholder {
@@ -4509,7 +4524,7 @@ body.admin-open .site-footer {
   }
 
   .section-pair .embed-media iframe.spotify-frame {
-    height: 220px;
+    height: 180px;
   }
 
   .section-pair .embed-media iframe.video-frame {
