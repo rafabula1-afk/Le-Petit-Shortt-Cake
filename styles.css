@@ -1450,10 +1450,10 @@ main section[id] {
   display: flex;
   flex: none;
   align-items: center;
-  gap: 0;
+  gap: 10px;
   min-width: 100vw;
   justify-content: flex-start;
-  margin-right: 0;
+  margin-right: 10px;
 }
 
 .gallery-track img {
