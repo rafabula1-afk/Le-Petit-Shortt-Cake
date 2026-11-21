@@ -1084,7 +1084,7 @@ main section[id] {
 .recipe-panel {
   max-width: 1160px;
   margin-inline: auto;
-  padding: clamp(20px, 2.4vw, 32px);
+  padding: clamp(14px, 1.4vw, 20px);
 }
 
 .recipe-split {
@@ -4333,7 +4333,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-section .recipe-content .ingredient-circle {
-    width: clamp(24px, 8vw, 34px);
+    width: clamp(30px, 10vw, 44px);
   }
 }
 
@@ -4618,7 +4618,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-split {
-    grid-template-columns: minmax(88px, 0.85fr) minmax(0, 1.15fr);
+    grid-template-columns: minmax(80px, 0.75fr) minmax(0, 1.25fr);
     gap: 8px;
   }
 
@@ -4636,7 +4636,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-content .ingredient-circle {
-    width: clamp(24px, 8vw, 34px);
+    width: clamp(30px, 10vw, 44px);
   }
 
   .recipe-content .ingredient-figure figcaption {
