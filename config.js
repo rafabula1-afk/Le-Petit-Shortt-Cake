@@ -15,10 +15,10 @@ window.LPSC_CONFIG = {
      Spotify: https://open.spotify.com/embed/playlist/ID
      YouTube: https://www.youtube.com/embed/ID
      Si quedan vacías, se muestra un cartel "muy pronto". */
-  spotifyEmbed: "",
-  youtubeEmbed: "",
-  spotifyUrl: "", // link normal de Spotify (opcional)
-  youtubeUrl: "", // link normal de YouTube (opcional)
+  spotifyEmbed: "https://open.spotify.com/embed/playlist/4sxxHuchM9Oz4n0GmNVS24",
+  youtubeEmbed: "https://www.youtube.com/embed/hzb7LBkBgjc",
+  spotifyUrl: "https://open.spotify.com/playlist/4sxxHuchM9Oz4n0GmNVS24?si=0rHOGsO1RUejxiTNwWMv3g&utm_source=copy-link&pi=HoRCzEYlTtOQQ", // link normal de Spotify (opcional)
+  youtubeUrl: "https://youtube.com/shorts/hzb7LBkBgjc?si=93OT41nuGZvXDGoa", // link normal de YouTube (opcional)
 
   /* ---------- Precios ---------- */
   currency: "Ref.",

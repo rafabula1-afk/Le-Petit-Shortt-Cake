@@ -1603,8 +1603,10 @@ main section[id] {
 }
 
 .embed-media iframe.video-frame {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 9 / 16;
+  width: min(100%, 300px);
   height: auto;
+  margin-inline: auto;
 }
 
 /* ---------- Tutorial ---------- */
@@ -4481,6 +4483,7 @@ body.admin-open .site-footer {
   }
 
   .section-pair .embed-media {
+    min-height: 0;
     padding: 4px;
     border-radius: 10px;
   }
