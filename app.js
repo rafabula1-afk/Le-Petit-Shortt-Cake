@@ -458,6 +458,22 @@
     },
   ];
 
+  const EXTRA_ORDER = [
+    "manga",
+    "mini-casita",
+    "muneco-mini",
+    "dulces",
+    "pesebre-2d",
+    "gigante",
+    "arbolito",
+    "reyes",
+  ];
+
+  const extraPosition = (id) => {
+    const position = EXTRA_ORDER.indexOf(id);
+    return position < 0 ? EXTRA_ORDER.length : position;
+  };
+
   const STATUSES = {
     pendiente_verificacion: {
       label: "Pendiente de verificación",
@@ -838,6 +854,7 @@
         <section class="catalog-section">
           <div class="catalog-section-grid">
             ${PRODUCTS.filter((product) => product.category === "extras")
+              .sort((a, b) => extraPosition(a.id) - extraPosition(b.id))
               .map(productCard)
               .join("")}
           </div>
