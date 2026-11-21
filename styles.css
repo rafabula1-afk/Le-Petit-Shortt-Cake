@@ -990,18 +990,11 @@ main section[id] {
   overflow: hidden;
 }
 
-.ingredient-fallback {
-  width: 54%;
-  height: 54%;
-  color: var(--magenta);
-  opacity: 0.45;
-}
-
 .ingredient-circle img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: 2.5%;
+  width: 95%;
+  height: 95%;
   z-index: 1;
   object-fit: contain;
 }
