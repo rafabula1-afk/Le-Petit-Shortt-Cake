@@ -1960,6 +1960,13 @@ main section[id] {
   margin-bottom: 40px;
 }
 
+@media (min-width: 781px) {
+  #redes.section,
+  .site-footer {
+    margin-top: 28px;
+  }
+}
+
 .footer-card {
   display: grid;
   grid-template-columns: 1.5fr 0.7fr 0.8fr;
