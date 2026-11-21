@@ -1120,7 +1120,7 @@ main section[id] {
 
 .recipe-story {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(170px, 20vw, 230px);
+  grid-template-columns: minmax(0, 1fr) clamp(153px, 18vw, 207px);
   align-items: center;
   gap: 12px;
   padding-right: 10px;
@@ -4648,7 +4648,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-story {
-    grid-template-columns: minmax(0, 1fr) clamp(76px, 24vw, 100px);
+    grid-template-columns: minmax(0, 1fr) clamp(68px, 22vw, 90px);
     gap: 6px;
     padding-right: 4px;
   }
