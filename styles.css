@@ -1442,9 +1442,18 @@ main section[id] {
 
 .gallery-track {
   display: flex;
-  gap: 18px;
   width: max-content;
   animation: marquee 48s linear infinite;
+}
+
+.gallery-group {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 18px;
+  min-width: 100vw;
+  justify-content: space-around;
+  margin-right: 18px;
 }
 
 .gallery-track img {
