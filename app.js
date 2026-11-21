@@ -316,7 +316,7 @@
       price: 1.5,
       short: "Para sumar color y detalles a tus galletas.",
       description:
-        "Manga pastelera individual con glaseado listo para usar. Elegí el color al coordinar tu pedido.",
+        "Manga pastelera individual con glaseado listo para usar. Elige el color al coordinar tu pedido.",
       includes: ["1 manga de glaseado", "Colores a elección"],
       size: "",
       people: "Extra",
@@ -331,7 +331,7 @@
       price: 2.5,
       short: "El topping perfecto para tu casita.",
       description:
-        "Porción de 100 gramos de dulces y gomitas variadas para decorar y completar tu kit.",
+        "Porción de 100 gramos de dulces y gomitas variadas para decorar y complementar tu kit.",
       includes: ["100 g de dulces y gomitas surtidas"],
       size: "",
       people: "Extra",
@@ -346,9 +346,8 @@
       price: 6,
       short: "Una casita individual con su manga de glaseado.",
       description:
-        "Mini casita de jengibre con una mini manga de glaseado. Ideal para regalar o como detalle individual.",
+        "Mini casita de jengibre con una mini manga de glaseado. Ideal para regalar como detalle individual o como extra para tu kit de grupo.",
       includes: ["1 mini casita", "1 mini manga de glaseado"],
-      size: "5 × 5 × 5 cm",
       people: "Extra",
       image: "assets/productos/extra-mini-casita.webp",
       icon: "i-house",
@@ -406,11 +405,11 @@
       price: 10,
       short: "Un pesebre en 2D con sus personajes principales.",
       description:
-        "Pesebre 2D con las galletas de Jesús, María y José, más cinco mini mangas de glaseado para decorar.",
+        "Pesebre 2D con las galletas de Jesús, María y José, más cinco minimangas de colores para decorar.",
       includes: [
         "Pesebre 2D de galleta",
         "Jesús, María y José",
-        "5 mini mangas de glaseado",
+        "5 minimangas de colores",
       ],
       size: "",
       people: "Extra",
