@@ -1084,26 +1084,26 @@ main section[id] {
 .recipe-panel {
   max-width: 1160px;
   margin-inline: auto;
-  padding: 0;
+  padding: 0 clamp(1px, 0.25vw, 3px);
 }
 
 .recipe-split {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0;
-  align-items: stretch;
+  grid-template-columns: minmax(140px, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(8px, 1.5vw, 20px);
+  align-items: center;
 }
 
 .recipe-photo {
   display: grid;
   place-items: center;
   align-self: stretch;
-  aspect-ratio: 461 / 1024;
 }
 
 .recipe-photo img {
   width: 100%;
   height: 100%;
+  max-height: 520px;
   object-fit: contain;
   filter: drop-shadow(0 12px 18px rgba(120, 10, 60, 0.18));
 }
@@ -1113,13 +1113,13 @@ main section[id] {
 }
 
 .recipe-panel > .eyebrow {
-  margin: 4px 0 2px clamp(12px, 1.6vw, 22px);
+  margin: 8px 0 10px clamp(12px, 1.6vw, 22px);
   text-align: left;
 }
 
 .recipe-content .ingredient-gallery {
   gap: clamp(6px, 1.5vw, 18px);
-  margin-bottom: 2px;
+  margin-bottom: 6px;
 }
 
 .recipe-content .ingredient-circle {
@@ -1127,7 +1127,7 @@ main section[id] {
 }
 
 .recipe-content .signature {
-  margin-bottom: 2px;
+  margin-bottom: 8px;
   padding-left: 0;
   border-left: 0;
   font-size: clamp(0.95rem, 1.8vw, 1.35rem);
@@ -4548,7 +4548,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel > .eyebrow {
-    margin: 2px 0 2px 10px;
+    margin: 6px 0 6px 12px;
     font-size: 0.5rem;
     letter-spacing: 0.06em;
   }
@@ -4614,17 +4614,21 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel {
-    padding: 0;
+    padding: 0 1px;
   }
 
   .recipe-split {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 0;
+    grid-template-columns: minmax(80px, 0.75fr) minmax(0, 1.25fr);
+    gap: 6px;
+  }
+
+  .recipe-photo img {
+    max-height: 340px;
   }
 
   .recipe-content .ingredient-gallery {
     gap: 2px;
-    margin-bottom: 1px;
+    margin-bottom: 4px;
   }
 
   .recipe-content .ingredient-figure {
@@ -4641,7 +4645,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-content .signature {
-    margin-bottom: 2px;
+    margin-bottom: 6px;
     font-size: 0.55rem;
     line-height: 1.2;
   }
