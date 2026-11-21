@@ -1468,7 +1468,7 @@ main section[id] {
 
 @media (min-width: 781px) {
   .gallery-track {
-    animation-duration: 90s;
+    animation-duration: 120s;
   }
 }
 
