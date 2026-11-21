@@ -1537,7 +1537,7 @@ main section[id] {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .social-card {
