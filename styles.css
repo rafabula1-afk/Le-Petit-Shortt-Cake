@@ -833,6 +833,14 @@ main section[id] {
   padding: clamp(18px, 2vw, 26px);
 }
 
+.section-pair #musica .embed-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.section-pair #musica .embed-card > .btn-spotify {
+  justify-self: center;
+}
+
 .section-pair .embed-card-reverse .embed-copy,
 .section-pair .embed-card-reverse .embed-media {
   order: initial;
