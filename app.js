@@ -256,7 +256,7 @@
       includes: [
         "5 mini casitas y mini muñecos",
         "100 g de dulces y gomitas",
-        "5 mangas pasteleras con glaseado: verde, rojo y blanco",
+        "3 mangas pasteleras con glaseado: verde, rojo y blanco",
       ],
       size: "5 × 5 × 5 cm",
       people: "5 mini casitas",
