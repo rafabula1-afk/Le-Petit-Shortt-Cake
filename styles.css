@@ -1098,6 +1098,7 @@ main section[id] {
 .recipe-photo {
   position: relative;
   align-self: stretch;
+  min-height: clamp(0px, 32vw, 380px);
 }
 
 .recipe-photo img {
