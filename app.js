@@ -436,12 +436,26 @@
   ];
 
   const CATEGORIES = [
-    { id: "todos", label: "Todos" },
     { id: "casitas", label: "Casitas" },
     { id: "grupos", label: "Grupos" },
     { id: "pesebre", label: "Pesebre" },
     { id: "adviento", label: "Adviento" },
     { id: "extras", label: "Little Extras" },
+  ];
+
+  const FILTERS = [
+    { id: "kits", label: "Kits" },
+    { id: "extras", label: "Little Extras" },
+  ];
+
+  const KIT_SECTIONS = [
+    { id: "lo-mas-pedido", label: "Lo más pedido", categories: ["casitas"] },
+    { id: "grupos", label: "Grupos", categories: ["grupos"] },
+    {
+      id: "tradiciones",
+      label: "Tradiciones",
+      categories: ["pesebre", "adviento"],
+    },
   ];
 
   const STATUSES = {
@@ -476,7 +490,7 @@
 
   const state = {
     cart: loadArray(KEYS.cart),
-    filter: "todos",
+    filter: "kits",
     detailQty: 1,
     checkout: {
       step: 1,
@@ -769,11 +783,11 @@
   /* ---------- Catálogo ---------- */
 
   function renderFilters() {
-    filters.innerHTML = CATEGORIES.map(
-      (category) => `
-        <button type="button" class="filter-btn ${state.filter === category.id ? "is-active" : ""}"
-          data-filter="${category.id}" role="tab" aria-selected="${state.filter === category.id}">
-          ${category.label}
+    filters.innerHTML = FILTERS.map(
+      (filter) => `
+        <button type="button" class="filter-btn ${state.filter === filter.id ? "is-active" : ""}"
+          data-filter="${filter.id}" role="tab" aria-selected="${state.filter === filter.id}">
+          ${filter.label}
         </button>`
     ).join("");
   }
@@ -814,10 +828,28 @@
   }
 
   function renderCatalog() {
-    const list = PRODUCTS.filter(
-      (product) => state.filter === "todos" || product.category === state.filter
-    );
-    catalogGrid.innerHTML = list.map(productCard).join("");
+    if (state.filter === "extras") {
+      catalogGrid.innerHTML = `
+        <section class="catalog-section">
+          <div class="catalog-section-grid">
+            ${PRODUCTS.filter((product) => product.category === "extras")
+              .map(productCard)
+              .join("")}
+          </div>
+        </section>`;
+    } else {
+      catalogGrid.innerHTML = KIT_SECTIONS.map(
+        (section) => `
+          <section class="catalog-section">
+            <h3 class="catalog-section-title">${esc(section.label)}</h3>
+            <div class="catalog-section-grid">
+              ${PRODUCTS.filter((product) => section.categories.includes(product.category))
+                .map(productCard)
+                .join("")}
+            </div>
+          </section>`
+      ).join("");
+    }
     observeReveals();
   }
 

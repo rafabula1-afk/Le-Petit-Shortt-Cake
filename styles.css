@@ -1254,13 +1254,35 @@ main section[id] {
 
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 22px;
+}
+
+.catalog-section {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 14px;
+}
+
+.catalog-section-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--magenta);
+}
+
+.catalog-section-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
 }
 
 .product-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 230px;
   background: #fff;
   border-radius: 26px;
   overflow: hidden;
@@ -1277,9 +1299,11 @@ main section[id] {
   position: relative;
   display: grid;
   place-items: center;
-  width: 100%;
-  height: 250px;
-  padding: 22px;
+  flex: 0 0 40%;
+  width: 40%;
+  min-height: 230px;
+  height: auto;
+  padding: 16px;
   border: 0;
   background: linear-gradient(160deg, #fff1f7, var(--magenta-soft));
   overflow: hidden;
@@ -1336,7 +1360,8 @@ main section[id] {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 20px 22px 22px;
+  min-width: 0;
+  padding: 18px 20px;
 }
 
 .product-cat {
@@ -1450,8 +1475,10 @@ main section[id] {
 }
 
 .product-card--extra .product-media {
-  height: 148px;
-  padding: 14px;
+  flex-basis: 34%;
+  width: 34%;
+  min-height: 170px;
+  padding: 12px;
 }
 
 .product-icon {
@@ -1467,6 +1494,16 @@ main section[id] {
 .product-icon svg {
   width: 56px;
   height: 56px;
+}
+
+.product-card--extra .product-icon {
+  width: 72px;
+  height: 72px;
+}
+
+.product-card--extra .product-icon svg {
+  width: 42px;
+  height: 42px;
 }
 
 .product-card--extra .product-name {
@@ -4083,8 +4120,42 @@ body.admin-open .site-footer {
     grid-template-columns: 1fr;
   }
 
+  .catalog-section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-section-title {
+    font-size: 1.25rem;
+  }
+
   .product-media {
-    height: 230px;
+    flex-basis: 38%;
+    width: 38%;
+    min-height: 190px;
+    padding: 10px;
+  }
+
+  .product-card--extra .product-media {
+    flex-basis: 34%;
+    width: 34%;
+    min-height: 150px;
+    padding: 10px;
+  }
+
+  .product-body {
+    padding: 14px;
+  }
+
+  .product-name {
+    font-size: 1.05rem;
+  }
+
+  .product-desc {
+    font-size: 0.8rem;
+  }
+
+  .product-price {
+    font-size: 1.2rem;
   }
 
   .gallery-track img {
