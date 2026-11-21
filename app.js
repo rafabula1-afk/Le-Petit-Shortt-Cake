@@ -535,6 +535,8 @@
 
   const filters = $("#filters");
   const catalogGrid = $("#catalogGrid");
+  const catalogSwitch = $("#catalogSwitch");
+  const catalogSwitchLabel = $("#catalogSwitchLabel");
 
   const productModal = $("#productModal");
   const productModalBody = $("#productModalBody");
@@ -688,9 +690,6 @@
       link.href = CFG.tiktok || "#";
     });
 
-    const priceNote = $("#priceNote");
-    if (priceNote) priceNote.textContent = CFG.priceNote || "";
-
     const deliveryNote = $("#deliveryNote");
     if (deliveryNote) deliveryNote.textContent = CFG.deliveryNote || "";
 
@@ -790,6 +789,12 @@
           ${filter.label}
         </button>`
     ).join("");
+
+    if (!catalogSwitch || !catalogSwitchLabel) return;
+    const goingToExtras = state.filter !== "extras";
+    const label = goingToExtras ? "Ver Little Extras" : "Volver a Kits";
+    catalogSwitchLabel.textContent = label;
+    catalogSwitch.setAttribute("aria-label", label);
   }
 
   function productMedia(product) {
@@ -2345,6 +2350,15 @@
             ? data?.all
             : data?.fields.find((field) => field.key === key)?.value;
         if (value) copyToClipboard(value);
+        return;
+      }
+
+      const catalogSwitchButton = event.target.closest("[data-catalog-switch]");
+      if (catalogSwitchButton) {
+        state.filter = state.filter === "extras" ? "kits" : "extras";
+        renderFilters();
+        renderCatalog();
+        $("#catalogo")?.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
 

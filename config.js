@@ -22,7 +22,6 @@ window.LPSC_CONFIG = {
 
   /* ---------- Precios ---------- */
   currency: "Ref.",
-  priceNote: "Precios de referencia. Se confirman al coordinar el pedido.",
 
   /* ---------- Panel de administración ----------
      Con Supabase activo, el acceso es con el usuario creado en Auth.

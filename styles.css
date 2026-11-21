@@ -1269,7 +1269,7 @@ main section[id] {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--magenta);
+  color: #fff;
 }
 
 .catalog-section-grid {
@@ -1518,14 +1518,24 @@ main section[id] {
   font-size: 1.25rem;
 }
 
-.price-note {
-  margin-top: 18px;
-  text-align: center;
-  font-family: var(--font-label);
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 2px 8px rgba(90, 0, 45, 0.25);
+.catalog-switch {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.catalog-switch .btn {
+  background: #fff;
+  border-color: #fff;
+  color: var(--magenta);
+  box-shadow: 0 10px 24px rgba(90, 0, 45, 0.22);
+}
+
+.catalog-switch .btn:hover {
+  background: var(--pink-light);
+  border-color: var(--pink-light);
+  color: var(--magenta-deep);
+  box-shadow: 0 14px 30px rgba(90, 0, 45, 0.28);
 }
 
 /* ---------- Galería ---------- */
