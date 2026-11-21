@@ -1443,7 +1443,7 @@ main section[id] {
 .gallery-track {
   display: flex;
   width: max-content;
-  animation: marquee 48s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 
 .gallery-group {
