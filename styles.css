@@ -4658,6 +4658,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-content .lead {
+    max-width: 40ch;
     font-size: 0.5rem;
     line-height: 1.25;
   }
