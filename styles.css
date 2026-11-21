@@ -1447,10 +1447,6 @@ main section[id] {
   animation: marquee 48s linear infinite;
 }
 
-.gallery-track:hover {
-  animation-play-state: paused;
-}
-
 .gallery-track img {
   height: 230px;
   width: auto;
