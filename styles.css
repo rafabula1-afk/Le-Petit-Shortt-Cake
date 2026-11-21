@@ -1115,11 +1115,15 @@ main section[id] {
 }
 
 @media (min-width: 781px) {
+  .recipe-panel {
+    padding-top: 10px;
+  }
+
   .recipe-photo img {
     left: auto;
     right: 0;
     object-position: right top;
-    transform: translateX(clamp(8px, 1.5vw, 20px)) scale(0.81);
+    transform: translateX(calc(clamp(8px, 1.5vw, 20px) / 2)) scale(0.81);
     transform-origin: right top;
   }
 }
