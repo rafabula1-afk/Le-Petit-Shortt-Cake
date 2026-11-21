@@ -972,6 +972,15 @@ main section[id] {
   color: var(--ink-soft);
 }
 
+.section-head.catalog-head .catalog-subtitle {
+  margin-top: 8px;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--magenta);
+}
+
 .section-head-art {
   display: flex;
   gap: 10px;
