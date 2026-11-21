@@ -1466,6 +1466,12 @@ main section[id] {
   object-fit: cover;
 }
 
+@media (min-width: 781px) {
+  .gallery-track {
+    animation-duration: 90s;
+  }
+}
+
 /* ---------- Redes ---------- */
 
 .social-grid {
