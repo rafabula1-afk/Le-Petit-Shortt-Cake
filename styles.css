@@ -1126,6 +1126,7 @@ main section[id] {
 }
 
 .recipe-panel > .eyebrow {
+  justify-content: flex-end;
   margin: 14px clamp(18px, 2.2vw, 30px) 4px;
   text-align: right;
 }
@@ -4561,6 +4562,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel > .eyebrow {
+    justify-content: flex-end;
     margin: 10px 18px 2px;
     font-size: 0.5rem;
     letter-spacing: 0.06em;
