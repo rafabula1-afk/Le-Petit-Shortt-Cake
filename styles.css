@@ -1112,6 +1112,10 @@ main section[id] {
     padding-top: 10px;
   }
 
+  .recipe-panel > .eyebrow {
+    padding-bottom: 10px;
+  }
+
   .recipe-photo img {
     left: auto;
     right: 0;
