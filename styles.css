@@ -981,33 +981,6 @@ main section[id] {
   color: var(--magenta);
 }
 
-.section-head-art {
-  display: flex;
-  gap: 10px;
-  flex: none;
-  color: var(--magenta);
-}
-
-.section-head-art svg {
-  width: 58px;
-  height: 58px;
-  padding: 12px;
-  border-radius: 20px;
-  background: var(--pink-light);
-}
-
-.section-head-art svg:nth-child(2) {
-  color: #bf6d36;
-  background: #fff3e9;
-  transform: rotate(8deg);
-}
-
-.section-head-art svg:nth-child(3) {
-  color: var(--red);
-  background: #ffecec;
-  transform: rotate(-7deg);
-}
-
 /* ---------- Receta ---------- */
 
 .recipe-card {
@@ -4128,11 +4101,6 @@ body.admin-open .site-footer {
   .section-head {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .section-head-art {
-    align-self: flex-end;
-    margin-top: -20px;
   }
 
   .catalog-grid {
