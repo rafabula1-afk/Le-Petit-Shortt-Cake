@@ -207,11 +207,10 @@
       id: "casita",
       name: "Casita de jengibre",
       category: "casitas",
-      price: 22,
+      price: 20,
       badge: "La favorita",
       short: "La clásica casita para armar y decorar en familia.",
-      description:
-        "Nuestra casita de jengibre viene con todas las galletas y los dulces para armar una escena navideña completa. Ideal para compartir en familia y sacar fotos hermosas.",
+      description: "Ideal para compartir en familia y sacar fotos hermosas.",
       includes: [
         "Galleta fachada y contrafachada",
         "2 paredes y 2 techos de galleta",
@@ -230,15 +229,14 @@
       id: "munecos",
       name: "Muñecos de jengibre",
       category: "grupos",
-      price: 15,
+      price: 16,
       badge: "Personalizable",
       short: "15 muñecos medianos y 5 mangas de colores para decorar.",
       description:
         "Una opción pensada para grupos: cada persona puede decorar su propio muñeco de jengibre. Se puede personalizar dependiendo de las necesidades del cliente.",
       includes: [
         "15 muñecos de jengibre medianos",
-        "5 mangas pasteleras con glaseado",
-        "Blanco, rojo, verde, amarillo y azul",
+        "5 mangas pasteleras con glaseado: blanco, rojo, verde, amarillo y azul",
         "Personalizable a pedido",
       ],
       size: "10 × 5 cm",
@@ -250,15 +248,15 @@
       id: "minicasitas",
       name: "Minicasitas de jengibre",
       category: "grupos",
-      price: 16,
+      price: 15,
+      badge: "Personalizable",
       short: "Una aldea en miniatura con 5 casitas y mini muñecos.",
       description:
         "Cinco mini casitas y mini muñecos de jengibre con dulces y mangas de glaseado para armar una aldea entera. Perfectas como regalo o para mesas dulces.",
       includes: [
         "5 mini casitas y mini muñecos",
         "100 g de dulces y gomitas",
-        "5 mangas pasteleras con glaseado",
-        "Verde, rojo y amarillo",
+        "5 mangas pasteleras con glaseado: verde, rojo y blanco",
       ],
       size: "5 × 5 × 5 cm",
       people: "5 mini casitas",
@@ -269,7 +267,7 @@
       id: "pesebre",
       name: "Pesebre de jengibre",
       category: "pesebre",
-      price: 35,
+      price: 30,
       badge: "Edición especial",
       short: "El pesebre completo con personajes y 10 mangas de glaseado.",
       description:
@@ -277,7 +275,7 @@
       includes: [
         "Fachada y contrafachada de galleta",
         "2 paredes y 2 techos",
-        "10 mangas pasteleras con glaseado",
+        "10 mangas de glaseado de colores distintos",
         "Jesús, María, José y el ángel",
         "Melchor, Gaspar y Baltasar",
         "Buey, mula, pastor y oveja",
@@ -291,14 +289,15 @@
       id: "coronas",
       name: "Coronas de Adviento",
       category: "adviento",
-      price: 25,
+      price: 35,
       badge: "Suscripción",
       short: "Una corona con vela y oración cada domingo de Adviento.",
       description:
         "Suscripción especial de Adviento: se entrega una corona con vela y oración cada domingo, hasta completar las cuatro coronas de la temporada.",
       includes: [
         "Galleta base y galletas estructura",
-        "Sprinkles y vela",
+        "Sprinkles",
+        "Vela",
         "Manga con glaseado verde",
         "Mini manga con glaseado rojo",
         "Oración para cada domingo",
@@ -306,6 +305,7 @@
       ],
       size: "10 cm",
       people: "4 domingos",
+      persons: "2 personas",
       image: "assets/productos/coronas.webp",
       tone: "adviento",
     },
@@ -836,6 +836,7 @@
           <p class="product-desc">${esc(product.short)}</p>
           <div class="product-meta">
             ${product.size ? `<span>${esc(product.size)}</span>` : ""}
+            ${product.persons ? `<span>${esc(product.persons)}</span>` : ""}
             ${product.people ? `<span>${esc(product.people)}</span>` : ""}
           </div>
           <div class="product-foot">
@@ -1023,6 +1024,7 @@
           <p class="detail-desc">${esc(product.description)}</p>
           <div class="detail-meta">
             ${product.size ? `<span>${esc(product.size)}</span>` : ""}
+            ${product.persons ? `<span>${esc(product.persons)}</span>` : ""}
             ${product.people ? `<span>${esc(product.people)}</span>` : ""}
           </div>
           <p class="includes-title">Contenido del kit</p>
