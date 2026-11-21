@@ -1084,7 +1084,7 @@ main section[id] {
 .recipe-panel {
   max-width: 1160px;
   margin-inline: auto;
-  padding: clamp(8px, 1vw, 14px);
+  padding: clamp(8px, 1vw, 14px) clamp(2px, 0.4vw, 6px);
 }
 
 .recipe-split {
@@ -1113,7 +1113,7 @@ main section[id] {
 }
 
 .recipe-panel > .eyebrow {
-  margin-bottom: 14px;
+  margin: 2px 0 14px clamp(6px, 1vw, 14px);
   text-align: left;
 }
 
@@ -1135,10 +1135,10 @@ main section[id] {
 }
 
 .recipe-content .lead {
-  max-width: 60ch;
+  max-width: 54ch;
   margin: 0 auto;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
+  line-height: 1.45;
   text-align: center;
 }
 
@@ -4548,7 +4548,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel > .eyebrow {
-    margin-bottom: 8px;
+    margin: 2px 0 8px 6px;
     font-size: 0.5rem;
     letter-spacing: 0.06em;
   }
@@ -4614,7 +4614,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel {
-    padding: 7px 5px;
+    padding: 7px 2px;
   }
 
   .recipe-split {
@@ -4651,8 +4651,8 @@ body.admin-open .site-footer {
   }
 
   .recipe-content .lead {
-    font-size: 0.52rem;
-    line-height: 1.3;
+    font-size: 0.5rem;
+    line-height: 1.25;
   }
 }
 
