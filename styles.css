@@ -827,6 +827,10 @@ main section[id] {
   font-size: 0.82rem;
 }
 
+.section-pair > .section > .card.embed-card {
+  height: auto;
+}
+
 .section-pair .embed-card {
   align-items: start;
   align-content: start;
@@ -869,7 +873,7 @@ main section[id] {
 }
 
 .section-pair .embed-media iframe.spotify-frame {
-  height: 300px;
+  height: 220px;
 }
 
 .section-pair .tutorial-frame {
