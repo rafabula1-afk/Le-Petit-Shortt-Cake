@@ -914,6 +914,31 @@ main section[id] {
     gap: 10px;
     padding: 18px;
   }
+
+  .section-pair > .section > .card.embed-card {
+    height: 100%;
+  }
+
+  .section-pair #tutorial .embed-card {
+    grid-template-rows: auto 1fr;
+  }
+
+  .section-pair #tutorial .tutorial-media {
+    align-self: stretch;
+  }
+
+  .section-pair #tutorial .tutorial-frame {
+    flex: 1;
+  }
+
+  .tutorial-frame iframe.video-frame {
+    width: 100%;
+    height: 100%;
+    place-self: stretch;
+    border: 0;
+    border-radius: 14px;
+    display: block;
+  }
 }
 
 .section-pair .spotify-placeholder {
