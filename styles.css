@@ -1081,76 +1081,47 @@ main section[id] {
   margin-top: 18px;
 }
 
-.recipe-pair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  align-items: stretch;
-}
-
-.recipe-ingredients,
-.recipe-story {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-  padding: clamp(20px, 2.4vw, 32px);
-}
-
-.recipe-ingredients .eyebrow {
-  margin-bottom: 18px;
+.recipe-panel {
+  max-width: 1160px;
+  margin-inline: auto;
+  padding: clamp(24px, 3vw, 40px);
   text-align: center;
 }
 
-.recipe-ingredients .ingredient-gallery {
-  gap: clamp(12px, 2.4vw, 36px);
+.recipe-panel .eyebrow {
   margin-bottom: 18px;
 }
 
-.recipe-ingredients .ingredient-circle {
+.recipe-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 44px);
+  margin-bottom: 18px;
+}
+
+.recipe-panel .ingredient-gallery {
+  gap: clamp(12px, 2.4vw, 36px);
+  margin-bottom: 0;
+}
+
+.recipe-panel .ingredient-circle {
   width: clamp(72px, 10vw, 132px);
 }
 
-.recipe-section .signature {
-  margin-top: auto;
+.recipe-panel .signature {
   padding-left: 0;
   border-left: 0;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   text-align: center;
 }
 
-.recipe-story {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  padding-right: 10px;
-  padding-bottom: 8px;
-}
-
-.recipe-story-img {
-  position: relative;
-  z-index: 1;
-  display: block;
-  align-self: flex-end;
-  width: clamp(64px, 8vw, 92px);
-  height: auto;
-  margin-top: 80px;
-  margin-right: -6px;
-  object-fit: contain;
-  transform: scale(1.47);
-  transform-origin: bottom right;
-  filter: drop-shadow(0 12px 18px rgba(120, 10, 60, 0.18));
-}
-
-.recipe-story .lead {
-  position: relative;
-  z-index: 2;
-  align-self: stretch;
-  max-width: none;
-  margin-bottom: 0;
+.recipe-panel .lead {
+  max-width: 72ch;
+  margin: 0 auto;
   font-size: 1rem;
   line-height: 1.6;
-  text-align: left;
+  text-align: center;
 }
 
 /* ---------- Filtros y catálogo ---------- */
@@ -4343,8 +4314,8 @@ body.admin-open .site-footer {
     padding: 26px 22px;
   }
 
-  .recipe-section .recipe-ingredients .ingredient-circle {
-    width: clamp(34px, 10vw, 46px);
+  .recipe-section .recipe-panel .ingredient-circle {
+    width: clamp(28px, 9vw, 38px);
   }
 }
 
@@ -4552,9 +4523,14 @@ body.admin-open .site-footer {
     padding: 12px;
   }
 
-  .steps-section .eyebrow,
-  .recipe-ingredients .eyebrow {
+  .steps-section .eyebrow {
     margin-bottom: 4px;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+  }
+
+  .recipe-panel .eyebrow {
+    margin-bottom: 10px;
     font-size: 0.55rem;
     letter-spacing: 0.06em;
   }
@@ -4619,58 +4595,40 @@ body.admin-open .site-footer {
     height: 12px;
   }
 
-  .recipe-pair {
-    gap: 10px;
+  .recipe-panel {
+    padding: 12px 8px;
   }
 
-  .recipe-ingredients,
-  .recipe-story {
-    padding: 10px 8px;
-    border-radius: 18px;
+  .recipe-horizontal {
+    gap: 8px;
+    margin-bottom: 10px;
   }
 
-  .recipe-ingredients .eyebrow {
-    margin-bottom: 8px;
-  }
-
-  .recipe-ingredients .ingredient-gallery {
+  .recipe-panel .ingredient-gallery {
     gap: 4px;
-    margin-bottom: 8px;
   }
 
-  .recipe-ingredients .ingredient-figure {
+  .recipe-panel .ingredient-figure {
     gap: 3px;
   }
 
-  .recipe-ingredients .ingredient-circle {
-    width: clamp(44px, 11vw, 64px);
+  .recipe-panel .ingredient-circle {
+    width: clamp(30px, 9vw, 42px);
   }
 
-  .recipe-ingredients .ingredient-figure figcaption {
-    font-size: 0.42rem;
+  .recipe-panel .ingredient-figure figcaption {
+    font-size: 0.38rem;
     letter-spacing: 0.02em;
   }
 
-  .recipe-section .signature {
-    font-size: 0.6rem;
+  .recipe-panel .signature {
+    font-size: 0.62rem;
     line-height: 1.2;
   }
 
-  .recipe-story {
-    gap: 6px;
-    padding-right: 4px;
-    padding-bottom: 4px;
-  }
-
-  .recipe-story-img {
-    width: clamp(48px, 14vw, 64px);
-    margin-top: 45px;
-    margin-right: -3px;
-  }
-
-  .recipe-story .lead {
-    font-size: 0.56rem;
-    line-height: 1.3;
+  .recipe-panel .lead {
+    font-size: 0.6rem;
+    line-height: 1.4;
   }
 }
 
