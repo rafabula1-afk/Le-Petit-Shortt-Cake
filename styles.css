@@ -1091,18 +1091,19 @@ main section[id] {
   display: grid;
   grid-template-columns: minmax(140px, 0.75fr) minmax(0, 1.25fr);
   gap: clamp(8px, 1.5vw, 20px);
+  padding-top: 8px;
   align-items: start;
 }
 
 .recipe-photo {
   display: grid;
   place-items: center;
-  align-self: start;
+  align-self: stretch;
 }
 
 .recipe-photo img {
   width: 100%;
-  height: auto;
+  height: 100%;
   max-height: 520px;
   object-fit: contain;
   filter: drop-shadow(0 12px 18px rgba(120, 10, 60, 0.18));
@@ -4620,6 +4621,7 @@ body.admin-open .site-footer {
   .recipe-split {
     grid-template-columns: minmax(80px, 0.75fr) minmax(0, 1.25fr);
     gap: 6px;
+    padding-top: 6px;
   }
 
   .recipe-photo img {
