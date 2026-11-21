@@ -1120,23 +1120,29 @@ main section[id] {
 
 .recipe-story {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(153px, 18vw, 207px);
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) clamp(64px, 8vw, 92px);
+  align-items: end;
   gap: 12px;
   padding-right: 10px;
-  overflow: hidden;
+  padding-bottom: 8px;
 }
 
 .recipe-story-img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
   margin-right: -6px;
   object-fit: contain;
+  transform: scale(1.55);
+  transform-origin: bottom right;
   filter: drop-shadow(0 12px 18px rgba(120, 10, 60, 0.18));
 }
 
 .recipe-story .lead {
+  position: relative;
+  z-index: 2;
   max-width: none;
   margin-bottom: 0;
   font-size: 1rem;
@@ -4648,9 +4654,10 @@ body.admin-open .site-footer {
   }
 
   .recipe-story {
-    grid-template-columns: minmax(0, 1fr) clamp(68px, 22vw, 90px);
+    grid-template-columns: minmax(0, 1fr) clamp(48px, 14vw, 64px);
     gap: 6px;
     padding-right: 4px;
+    padding-bottom: 4px;
   }
 
   .recipe-story-img {
