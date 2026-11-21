@@ -1084,13 +1084,13 @@ main section[id] {
 .recipe-panel {
   max-width: 1160px;
   margin-inline: auto;
-  padding: clamp(8px, 1vw, 14px) clamp(2px, 0.4vw, 6px);
+  padding: clamp(4px, 0.6vw, 8px) clamp(1px, 0.25vw, 3px);
 }
 
 .recipe-split {
   display: grid;
   grid-template-columns: minmax(140px, 0.75fr) minmax(0, 1.25fr);
-  gap: clamp(16px, 3vw, 40px);
+  gap: clamp(8px, 1.5vw, 20px);
   align-items: center;
 }
 
@@ -1113,13 +1113,13 @@ main section[id] {
 }
 
 .recipe-panel > .eyebrow {
-  margin: 2px 0 14px clamp(6px, 1vw, 14px);
+  margin: 8px 0 10px clamp(12px, 1.6vw, 22px);
   text-align: left;
 }
 
 .recipe-content .ingredient-gallery {
   gap: clamp(6px, 1.5vw, 18px);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .recipe-content .ingredient-circle {
@@ -1127,7 +1127,7 @@ main section[id] {
 }
 
 .recipe-content .signature {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   padding-left: 0;
   border-left: 0;
   font-size: clamp(0.95rem, 1.8vw, 1.35rem);
@@ -4548,7 +4548,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel > .eyebrow {
-    margin: 2px 0 8px 6px;
+    margin: 6px 0 6px 12px;
     font-size: 0.5rem;
     letter-spacing: 0.06em;
   }
@@ -4614,12 +4614,12 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel {
-    padding: 7px 2px;
+    padding: 4px 1px;
   }
 
   .recipe-split {
     grid-template-columns: minmax(80px, 0.75fr) minmax(0, 1.25fr);
-    gap: 8px;
+    gap: 6px;
   }
 
   .recipe-photo img {
@@ -4628,7 +4628,7 @@ body.admin-open .site-footer {
 
   .recipe-content .ingredient-gallery {
     gap: 2px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
   .recipe-content .ingredient-figure {
@@ -4645,7 +4645,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-content .signature {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-size: 0.55rem;
     line-height: 1.2;
   }
