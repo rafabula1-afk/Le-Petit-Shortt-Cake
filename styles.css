@@ -991,17 +991,17 @@ main section[id] {
 }
 
 .ingredient-fallback {
-  width: 46%;
-  height: 46%;
+  width: 54%;
+  height: 54%;
   color: var(--magenta);
   opacity: 0.45;
 }
 
 .ingredient-circle img {
   position: absolute;
-  inset: 12%;
-  width: 76%;
-  height: 76%;
+  inset: 6%;
+  width: 88%;
+  height: 88%;
   z-index: 1;
   object-fit: contain;
 }
@@ -1084,7 +1084,7 @@ main section[id] {
 .recipe-panel {
   max-width: 1160px;
   margin-inline: auto;
-  padding: clamp(14px, 1.4vw, 20px);
+  padding: clamp(8px, 1vw, 14px);
 }
 
 .recipe-split {
@@ -1118,12 +1118,12 @@ main section[id] {
 }
 
 .recipe-content .ingredient-gallery {
-  gap: clamp(8px, 2vw, 24px);
-  margin-bottom: 14px;
+  gap: clamp(6px, 1.5vw, 18px);
+  margin-bottom: 10px;
 }
 
 .recipe-content .ingredient-circle {
-  width: clamp(78px, 10vw, 130px);
+  width: clamp(90px, 12vw, 150px);
 }
 
 .recipe-content .signature {
@@ -4333,7 +4333,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-section .recipe-content .ingredient-circle {
-    width: clamp(30px, 10vw, 44px);
+    width: clamp(36px, 12vw, 54px);
   }
 }
 
@@ -4614,7 +4614,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-panel {
-    padding: 10px 8px;
+    padding: 7px 5px;
   }
 
   .recipe-split {
@@ -4627,8 +4627,8 @@ body.admin-open .site-footer {
   }
 
   .recipe-content .ingredient-gallery {
-    gap: 3px;
-    margin-bottom: 8px;
+    gap: 2px;
+    margin-bottom: 6px;
   }
 
   .recipe-content .ingredient-figure {
@@ -4636,7 +4636,7 @@ body.admin-open .site-footer {
   }
 
   .recipe-content .ingredient-circle {
-    width: clamp(30px, 10vw, 44px);
+    width: clamp(36px, 12vw, 54px);
   }
 
   .recipe-content .ingredient-figure figcaption {
