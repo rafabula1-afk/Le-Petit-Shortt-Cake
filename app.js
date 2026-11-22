@@ -300,8 +300,8 @@
       ],
       size: "15 × 15 cm",
       people: "5 a 10 personas",
-      image: "assets/kits/pesebre-01.jpg",
-      images: ["assets/kits/pesebre-01.jpg", "assets/kits/pesebre-02.jpg"],
+      image: "assets/kits/pesebre-02.jpg",
+      images: ["assets/kits/pesebre-02.jpg", "assets/kits/pesebre-01.jpg"],
       tone: "pesebre",
     },
     {
