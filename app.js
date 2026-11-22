@@ -1107,13 +1107,14 @@
     if (!product) return;
 
     state.detailQty = 1;
+    const hasGallery = (product.images?.length || 0) > 1;
 
     productModalBody.innerHTML = `
       <button type="button" class="modal-close" data-close-modal aria-label="Cerrar detalle">
         <svg aria-hidden="true"><use href="#i-close"/></svg>
       </button>
       <div class="product-detail">
-        <div class="detail-media tone-${product.tone}">${productGallery(product)}</div>
+        <div class="detail-media tone-${product.tone}${hasGallery ? " detail-media--gallery" : ""}">${productGallery(product)}</div>
         <div class="detail-body">
           <p class="product-cat">${categoryLabel(product.category)}</p>
           <h2>${esc(product.name)}</h2>
