@@ -526,7 +526,6 @@
     cart: loadArray(KEYS.cart),
     filter: "kits",
     detailQty: 1,
-    galleryScrollUntil: 0,
     checkout: {
       step: 1,
       method: Object.keys(CFG.payment || {})[0] || "pagoMovil",
@@ -837,14 +836,14 @@
     return product.image ? [product.image] : [];
   }
 
-  function productGallery(product, openDetail = false) {
+  function productGallery(product) {
     const images = galleryImages(product);
     if (!images.length) {
       return `<span class="product-icon"><svg aria-hidden="true"><use href="#${product.icon}"/></svg></span>`;
     }
     const multiple = images.length > 1;
     return `
-      <div class="product-gallery${multiple ? " product-gallery--multiple" : ""}" data-gallery data-index="0"${openDetail ? ` data-open-product="${product.id}"` : ""} aria-label="Fotos de ${esc(product.name)}">
+      <div class="product-gallery" data-gallery data-index="0" aria-label="Fotos de ${esc(product.name)}">
         <div class="product-gallery-track" data-gallery-track>
           ${images
             .map(
@@ -915,17 +914,16 @@
       if (dotIndex === index) dot.setAttribute("aria-current", "true");
       else dot.removeAttribute("aria-current");
     });
-    state.galleryScrollUntil = Date.now() + 350;
   }
 
   function productCard(product) {
     const isExtra = product.category === "extras";
     return `
       <article class="product-card tone-${product.tone} ${isExtra ? "product-card--extra" : ""}" data-reveal>
-        <div class="product-media">
-          ${productGallery(product, true)}
+        <button type="button" class="product-media" data-open-product="${product.id}" aria-label="Ver detalle de ${esc(product.name)}">
+          ${productMedia(product)}
           ${product.badge ? `<span class="product-badge">${esc(product.badge)}</span>` : ""}
-        </div>
+        </button>
         <div class="product-body">
           <p class="product-cat">${categoryLabel(product.category)}</p>
           <h3 class="product-name">
@@ -2501,13 +2499,6 @@
 
       const openProductButton = event.target.closest("[data-open-product]");
       if (openProductButton) {
-        if (
-          openProductButton.classList.contains("product-gallery") &&
-          Date.now() < state.galleryScrollUntil
-        ) {
-          state.galleryScrollUntil = 0;
-          return;
-        }
         openProduct(openProductButton.dataset.openProduct);
         return;
       }

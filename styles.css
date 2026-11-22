@@ -1331,10 +1331,6 @@ main section[id] {
   padding: inherit;
 }
 
-.product-gallery[data-open-product] {
-  cursor: pointer;
-}
-
 .product-gallery-track {
   display: flex;
   width: 100%;
@@ -1364,10 +1360,6 @@ main section[id] {
   max-height: 100%;
   width: auto;
   object-fit: contain;
-}
-
-.product-card:hover .product-gallery--multiple img {
-  transform: none;
 }
 
 .product-gallery-nav {
@@ -1439,7 +1431,6 @@ main section[id] {
   top: 14px;
   left: 14px;
   z-index: 2;
-  pointer-events: none;
   padding: 6px 11px;
   border-radius: 999px;
   background: var(--magenta);
