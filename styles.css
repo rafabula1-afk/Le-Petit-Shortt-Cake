@@ -1335,8 +1335,7 @@ main section[id] {
   display: flex;
   width: 100%;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -1358,14 +1357,17 @@ main section[id] {
 }
 
 .product-gallery-slide img {
-  width: 100%;
-  height: 100%;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
 }
 
-/* El tope genérico de .detail-media img recortaba las fotos: dentro del carrusel manda el cuadro del slide. */
+/* Tope en píxeles para que ninguna foto se desborde ni se corte dentro del cuadro. */
 .detail-media .product-gallery-slide img {
-  max-height: none;
+  max-height: 372px;
 }
 
 .product-gallery-nav {
@@ -4341,6 +4343,10 @@ body.admin-open .site-footer {
   .detail-media--gallery {
     height: 360px;
     min-height: 0;
+  }
+
+  .detail-media .product-gallery-slide img {
+    max-height: 336px;
   }
 
   .detail-media img {
