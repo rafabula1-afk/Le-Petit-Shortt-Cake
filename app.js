@@ -222,7 +222,13 @@
       ],
       size: "15 × 15 × 15 cm",
       people: "2 a 4 personas",
-      image: "assets/productos/casita.webp",
+      image: "assets/kits/casa-01.jpg",
+      images: [
+        "assets/kits/casa-01.jpg",
+        "assets/kits/casa-02.jpg",
+        "assets/kits/casa-03.jpg",
+        "assets/kits/casa-04.jpg",
+      ],
       tone: "casitas",
     },
     {
@@ -241,7 +247,13 @@
       ],
       size: "10 × 5 cm",
       people: "Ideal para grupos",
-      image: "assets/productos/munecos.webp",
+      image: "assets/kits/muñeco-01.jpg",
+      images: [
+        "assets/kits/muñeco-01.jpg",
+        "assets/kits/muñeco-02.jpg",
+        "assets/kits/muñeco-03.jpg",
+        "assets/kits/muñeco-04.jpg",
+      ],
       tone: "grupos",
     },
     {
@@ -260,7 +272,13 @@
       ],
       size: "5 × 5 × 5 cm",
       people: "5 mini casitas",
-      image: "assets/productos/minicasitas.webp",
+      image: "assets/kits/minicasitas-01.jpg",
+      images: [
+        "assets/kits/minicasitas-01.jpg",
+        "assets/kits/minicasitas-02.jpg",
+        "assets/kits/minicasitas-03.jpg",
+        "assets/kits/minicasitas-04.jpg",
+      ],
       tone: "grupos",
     },
     {
@@ -282,7 +300,8 @@
       ],
       size: "15 × 15 cm",
       people: "5 a 10 personas",
-      image: "assets/productos/pesebre.webp",
+      image: "assets/kits/pesebre-01.jpg",
+      images: ["assets/kits/pesebre-01.jpg", "assets/kits/pesebre-02.jpg"],
       tone: "pesebre",
     },
     {
@@ -507,6 +526,7 @@
     cart: loadArray(KEYS.cart),
     filter: "kits",
     detailQty: 1,
+    galleryScrollUntil: 0,
     checkout: {
       step: 1,
       method: Object.keys(CFG.payment || {})[0] || "pagoMovil",
@@ -812,6 +832,49 @@
     catalogSwitch.setAttribute("aria-label", label);
   }
 
+  function galleryImages(product) {
+    if (product.images?.length) return product.images;
+    return product.image ? [product.image] : [];
+  }
+
+  function productGallery(product, openDetail = false) {
+    const images = galleryImages(product);
+    if (!images.length) {
+      return `<span class="product-icon"><svg aria-hidden="true"><use href="#${product.icon}"/></svg></span>`;
+    }
+    const multiple = images.length > 1;
+    return `
+      <div class="product-gallery${multiple ? " product-gallery--multiple" : ""}" data-gallery data-index="0"${openDetail ? ` data-open-product="${product.id}"` : ""} aria-label="Fotos de ${esc(product.name)}">
+        <div class="product-gallery-track" data-gallery-track>
+          ${images
+            .map(
+              (src, index) => `
+            <div class="product-gallery-slide">
+              <img src="${esc(src)}" alt="${esc(product.name)} — foto ${index + 1} de ${images.length}" loading="${index === 0 ? "eager" : "lazy"}">
+            </div>`
+            )
+            .join("")}
+        </div>
+        ${multiple
+          ? `
+        <button type="button" class="product-gallery-nav product-gallery-nav--prev" data-gallery-step="-1" aria-label="Foto anterior">
+          <svg aria-hidden="true"><use href="#i-chevron-left"/></svg>
+        </button>
+        <button type="button" class="product-gallery-nav product-gallery-nav--next" data-gallery-step="1" aria-label="Foto siguiente">
+          <svg aria-hidden="true"><use href="#i-chevron-right"/></svg>
+        </button>
+        <div class="product-gallery-dots">
+          ${images
+            .map(
+              (_, index) =>
+                `<button type="button" class="product-gallery-dot${index === 0 ? " is-active" : ""}" data-gallery-dot="${index}" aria-label="Ver foto ${index + 1} de ${images.length}"${index === 0 ? ' aria-current="true"' : ""}></button>`
+            )
+            .join("")}
+        </div>`
+          : ""}
+      </div>`;
+  }
+
   function productMedia(product) {
     if (product.image) {
       return `<img src="${esc(product.image)}" alt="${esc(product.name)}" loading="lazy">`;
@@ -819,14 +882,50 @@
     return `<span class="product-icon"><svg aria-hidden="true"><use href="#${product.icon}"/></svg></span>`;
   }
 
+  function galleryIndex(track) {
+    if (!track?.clientWidth) return 0;
+    const count = track.children.length || 1;
+    return Math.max(0, Math.min(count - 1, Math.round(track.scrollLeft / track.clientWidth)));
+  }
+
+  function goToGallery(gallery, index) {
+    const track = gallery?.querySelector("[data-gallery-track]");
+    const count = track?.children.length || 0;
+    if (!track || count < 2) return;
+    const next = Math.max(0, Math.min(count - 1, index));
+    track.scrollTo({ left: next * track.clientWidth, behavior: "smooth" });
+  }
+
+  function stepGallery(gallery, delta) {
+    const track = gallery?.querySelector("[data-gallery-track]");
+    const count = track?.children.length || 0;
+    if (!track || count < 2) return;
+    const next = (galleryIndex(track) + delta + count) % count;
+    track.scrollTo({ left: next * track.clientWidth, behavior: "smooth" });
+  }
+
+  function syncGallery(track) {
+    const gallery = track?.closest(".product-gallery");
+    if (!gallery) return;
+    const index = galleryIndex(track);
+    if (Number(gallery.dataset.index) === index) return;
+    gallery.dataset.index = String(index);
+    gallery.querySelectorAll("[data-gallery-dot]").forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === index);
+      if (dotIndex === index) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+    state.galleryScrollUntil = Date.now() + 350;
+  }
+
   function productCard(product) {
     const isExtra = product.category === "extras";
     return `
       <article class="product-card tone-${product.tone} ${isExtra ? "product-card--extra" : ""}" data-reveal>
-        <button type="button" class="product-media" data-open-product="${product.id}" aria-label="Ver detalle de ${esc(product.name)}">
-          ${productMedia(product)}
+        <div class="product-media">
+          ${productGallery(product, true)}
           ${product.badge ? `<span class="product-badge">${esc(product.badge)}</span>` : ""}
-        </button>
+        </div>
         <div class="product-body">
           <p class="product-cat">${categoryLabel(product.category)}</p>
           <h3 class="product-name">
@@ -1016,7 +1115,7 @@
         <svg aria-hidden="true"><use href="#i-close"/></svg>
       </button>
       <div class="product-detail">
-        <div class="detail-media tone-${product.tone}">${productMedia(product)}</div>
+        <div class="detail-media tone-${product.tone}">${productGallery(product)}</div>
         <div class="detail-body">
           <p class="product-cat">${categoryLabel(product.category)}</p>
           <h2>${esc(product.name)}</h2>
@@ -2388,8 +2487,27 @@
         return;
       }
 
+      const galleryStep = event.target.closest("[data-gallery-step]");
+      if (galleryStep) {
+        stepGallery(galleryStep.closest(".product-gallery"), Number(galleryStep.dataset.galleryStep));
+        return;
+      }
+
+      const galleryDot = event.target.closest("[data-gallery-dot]");
+      if (galleryDot) {
+        goToGallery(galleryDot.closest(".product-gallery"), Number(galleryDot.dataset.galleryDot));
+        return;
+      }
+
       const openProductButton = event.target.closest("[data-open-product]");
       if (openProductButton) {
+        if (
+          openProductButton.classList.contains("product-gallery") &&
+          Date.now() < state.galleryScrollUntil
+        ) {
+          state.galleryScrollUntil = 0;
+          return;
+        }
         openProduct(openProductButton.dataset.openProduct);
         return;
       }
@@ -2502,6 +2620,15 @@
         siteHeader?.classList.toggle("is-scrolled", window.scrollY > 12);
       },
       { passive: true }
+    );
+
+    document.addEventListener(
+      "scroll",
+      (event) => {
+        const track = event.target.closest?.("[data-gallery-track]");
+        if (track) syncGallery(track);
+      },
+      true
     );
 
     document.addEventListener("keydown", (event) => {
