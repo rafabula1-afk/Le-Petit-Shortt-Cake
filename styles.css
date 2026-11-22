@@ -1362,6 +1362,11 @@ main section[id] {
   object-fit: contain;
 }
 
+/* El tope genérico de .detail-media img recortaba las fotos: dentro del carrusel manda el slide. */
+.detail-media .product-gallery-slide img {
+  max-height: 100%;
+}
+
 .product-gallery-nav {
   position: absolute;
   top: 50%;
@@ -4322,7 +4327,8 @@ body.admin-open .site-footer {
   }
 
   .detail-media {
-    min-height: 260px;
+    min-height: 340px;
+    padding: 12px;
   }
 
   .detail-media img {
