@@ -1356,15 +1356,14 @@ main section[id] {
 }
 
 .product-gallery-slide img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-/* El tope genérico de .detail-media img recortaba las fotos: dentro del carrusel manda el slide. */
+/* El tope genérico de .detail-media img recortaba las fotos: dentro del carrusel manda el cuadro del slide. */
 .detail-media .product-gallery-slide img {
-  max-height: 100%;
+  max-height: none;
 }
 
 .product-gallery-nav {
