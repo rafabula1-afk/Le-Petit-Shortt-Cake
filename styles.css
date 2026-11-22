@@ -1295,9 +1295,10 @@ main section[id] {
 .tone-grupos .product-media { background: linear-gradient(160deg, #effcf3, #d8f6e4); }
 .tone-pesebre .product-media { background: linear-gradient(160deg, #eefaff, #d6f1fa); }
 .tone-adviento .product-media { background: linear-gradient(160deg, #f7f0ff, #ead9f9); }
-.tone-extras .product-media { background: linear-gradient(160deg, #fff8ec, #ffe9cf); }
-
-/* La manga de glaseado es blanca: va sobre rosa para que se distinga. */
+/* Todos los extras van sobre el mismo rosa para que se distingan. */
+.tone-extras .product-media,
+.tone-extras.cart-item-media,
+.tone-extras.detail-media,
 .tone-extras-claro .product-media,
 .tone-extras-claro.cart-item-media,
 .tone-extras-claro.detail-media {
