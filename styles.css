@@ -4222,6 +4222,26 @@ body.admin-open .site-footer {
 
   .header-actions {
     margin-left: auto;
+    gap: 6px;
+  }
+
+  /* En telefono el botón de WhatsApp muestra el texto, como en PC. */
+  .header-wa span {
+    display: inline;
+  }
+
+  .header-wa {
+    width: auto;
+    min-height: 40px;
+    padding: 0 10px;
+    gap: 6px;
+    font-size: 0.68rem;
+  }
+
+  .cart-btn,
+  .menu-btn {
+    width: 44px;
+    height: 44px;
   }
 
   .nav {
