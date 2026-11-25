@@ -1058,6 +1058,11 @@ main section[id] {
   color: var(--magenta);
 }
 
+.section-head.catalog-head .catalog-hint {
+  margin-top: 6px;
+  font-size: 0.82rem;
+}
+
 /* ---------- Receta ---------- */
 
 .recipe-card {

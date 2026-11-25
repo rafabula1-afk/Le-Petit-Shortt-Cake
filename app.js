@@ -210,7 +210,7 @@
       category: "casitas",
       price: 20,
       badge: "La favorita",
-      short: "La clásica casita para armar y decorar en familia.",
+      short: "Ideal para compartir en familia y sacar fotos hermosas.",
       description: "Ideal para compartir en familia y sacar fotos hermosas.",
       includes: [
         "Galleta fachada y contrafachada",
@@ -754,7 +754,7 @@
   function applyConfig() {
     $$('[data-link="whatsapp"]').forEach((link) => {
       link.href = waLink(
-        link.dataset.waMessage || "Hola! Quiero hacer un pedido en Le Petit Shortt Cake."
+        link.dataset.waMessage || "Hola! Tengo una duda sobre los kits de Le Petit Shortt Cake."
       );
     });
 
