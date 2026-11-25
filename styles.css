@@ -2166,6 +2166,13 @@ main section[id] {
 .step:nth-child(3) .step-num { background: var(--sky); box-shadow: 0 8px 16px rgba(45, 171, 208, 0.3); }
 .step:nth-child(4) .step-num { background: var(--green); color: #0b4a22; box-shadow: 0 8px 16px rgba(88, 228, 119, 0.35); }
 
+/* En el instructivo todos los números mantienen el fucsia del paso 1. */
+.section-pair .instructions-steps .step .step-num {
+  background: var(--magenta);
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(219, 29, 116, 0.28);
+}
+
 .step h3 {
   margin-bottom: 6px;
   font-size: 1.02rem;
