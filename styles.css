@@ -4815,6 +4815,11 @@ body.admin-open .site-footer {
     display: none;
   }
 
+  /* El instructivo sí muestra el texto de cada paso en telefono. */
+  .section-pair .instructions-steps .step p {
+    display: block;
+  }
+
   .section-pair .steps-actions {
     margin-top: 10px;
     gap: 6px;
