@@ -745,6 +745,19 @@ main section[id] {
   height: 100%;
 }
 
+.section-pair #tutorial {
+  order: 1;
+}
+
+.section-pair #musica {
+  order: 2;
+}
+
+.section-pair #instrucciones {
+  grid-column: 1 / -1;
+  order: 3;
+}
+
 .section-pair .steps-card,
 .section-pair .recipe-copy {
   padding: clamp(20px, 2.2vw, 28px);
@@ -794,6 +807,70 @@ main section[id] {
   min-height: 38px;
   padding: 0 12px;
   font-size: 0.7rem;
+}
+
+.section-pair .instructions-card {
+  padding: clamp(18px, 2.2vw, 28px);
+}
+
+.section-pair .instructions-card > summary {
+  display: grid;
+  grid-template-areas:
+    "eyebrow chevron"
+    "title chevron"
+    "hint chevron";
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 14px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.section-pair .instructions-card > summary::-webkit-details-marker {
+  display: none;
+}
+
+.section-pair .instructions-card > summary:focus-visible {
+  outline: 2px solid var(--magenta);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
+.section-pair .instructions-card .eyebrow {
+  grid-area: eyebrow;
+  margin-bottom: 0;
+}
+
+.section-pair .instructions-card h2 {
+  grid-area: title;
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.section-pair .instructions-hint {
+  grid-area: hint;
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+}
+
+.section-pair .instructions-chevron {
+  grid-area: chevron;
+  width: 20px;
+  height: 20px;
+  color: var(--magenta);
+  transition: transform 0.2s ease;
+}
+
+.section-pair .instructions-card[open] .instructions-chevron {
+  transform: rotate(90deg);
+}
+
+.section-pair .instructions-steps {
+  margin-top: 18px;
+}
+
+.section-pair .instructions-steps strong {
+  color: var(--magenta);
 }
 
 .section-pair .recipe-copy h2 {
@@ -4647,6 +4724,32 @@ body.admin-open .site-footer {
     grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 36px;
+  }
+
+  .section-pair #instrucciones {
+    grid-column: auto;
+    order: 2;
+  }
+
+  .section-pair #musica {
+    order: 3;
+  }
+
+  .section-pair .instructions-card h2 {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
+  .section-pair .instructions-card > summary {
+    column-gap: 8px;
+  }
+
+  .section-pair .instructions-hint {
+    font-size: 0.6rem;
+  }
+
+  .section-pair .instructions-steps {
+    margin-top: 12px;
   }
 
   .section-pair > .section > .card {
