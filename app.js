@@ -754,7 +754,7 @@
   function applyConfig() {
     $$('[data-link="whatsapp"]').forEach((link) => {
       link.href = waLink(
-        link.dataset.waMessage || "Hola! Tengo una duda sobre los kits de Le Petit Shortt Cake."
+        link.dataset.waMessage || "Hola! Tengo una duda sobre..."
       );
     });
 
