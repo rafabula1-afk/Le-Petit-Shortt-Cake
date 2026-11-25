@@ -275,9 +275,9 @@
       image: "assets/kits/11.webp",
       images: [
         "assets/kits/11.webp",
-        "assets/kits/12.webp",
         "assets/kits/13.webp",
         "assets/kits/14.webp",
+        "assets/kits/12.webp",
       ],
       tone: "grupos",
     },
