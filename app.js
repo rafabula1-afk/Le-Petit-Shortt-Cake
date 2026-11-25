@@ -71,18 +71,19 @@
         rate,
         note: state.checkout.rateLoading
           ? "Calculando la tasa euro…"
-          : `Tasa euro: Bs ${fmtAmount(rate)} por cada EUR · ${state.checkout.rateSource}.`,
+          : `Tasa euro: Bs ${fmtAmount(rate)}`,
       };
     }
+    const currency = state.checkout.method === "binance" ? "USDT" : "USD";
     return {
       amount: total,
-      currency: "USD",
-      label: `USD ${fmtAmount(total)}`,
+      currency,
+      label: `${currency} ${fmtAmount(total)}`,
       rate: null,
       note:
         state.checkout.method === "efectivo"
           ? "Se paga al recibir el pedido."
-          : "Precio en dólares.",
+          : `Precio en ${currency}.`,
     };
   }
 
@@ -770,7 +771,6 @@
 
     if (useSupabase) {
       if (adminEmailField) adminEmailField.hidden = false;
-      if (adminEmail) adminEmail.value = SB.adminEmail || "";
       if (adminLoginHint) {
         adminLoginHint.textContent =
           "Ingresá con las credenciales del panel para ver el calendario de pedidos.";
@@ -1768,33 +1768,6 @@
     await refreshOrders();
   }
 
-  function orderWhatsAppMessage(order) {
-    const proofCount =
-      order.payment?.proofPaths?.length || order.payment?.proofs?.length || 0;
-    const lines = [
-      `Hola! Acabo de hacer el pedido ${order.number} en la web.`,
-      "",
-      ...order.items.map(
-        (item) => `• ${item.qty} × ${item.name} — ${money(item.price * item.qty)}`
-      ),
-      "",
-      `Total: ${money(order.total)}`,
-      `Nombre: ${order.customer.name}`,
-      `Entrega: ${formatDate(order.deliveryDate)} · ${order.customer.deliveryType}`,
-      `Método de pago: ${CFG.payment?.[order.payment.method]?.label || order.payment.method}`,
-      order.payment.holderName ? `Titular Zelle: ${order.payment.holderName}` : "",
-      order.payment.amountLabel ? `Monto a pagar: ${order.payment.amountLabel}` : "",
-      order.payment.method === "pagoMovil" && order.payment.euroRate
-        ? `Tasa euro: Bs ${fmtAmount(order.payment.euroRate)}`
-        : "",
-      order.payment.method === "efectivo"
-        ? "Pago al recibir."
-        : `Captura(s) del pago cargada(s) en la web: ${proofCount}`,
-      order.customer.notes ? `Notas: ${order.customer.notes}` : "",
-    ];
-    return lines.filter((line) => line !== null && line !== undefined).join("\n");
-  }
-
   async function confirmOrder() {
     capturePaymentFields();
     const customer = state.checkout.customer;
@@ -1902,9 +1875,6 @@
           ? "Guardá este número. Coordinaremos el pago al recibir por WhatsApp."
           : "Guardá este número. Ya recibimos tus capturas del pago; el equipo las verificará y te confirmará por WhatsApp.";
     }
-    const successWa = $("#successWa");
-    successWa.href = waLink(orderWhatsAppMessage(order));
-
     burstConfetti(55);
     checkoutCard.scrollTop = 0;
   }

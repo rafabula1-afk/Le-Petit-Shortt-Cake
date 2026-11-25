@@ -2390,12 +2390,6 @@ main section[id] {
   color: var(--magenta);
 }
 
-.cart-note {
-  margin-bottom: 14px;
-  font-size: 0.76rem;
-  color: var(--ink-soft);
-}
-
 .empty-cart {
   display: flex;
   flex-direction: column;
@@ -3205,6 +3199,10 @@ main section[id] {
 
 .checkout-success h2 {
   margin-bottom: 8px;
+}
+
+.checkout-success .eyebrow {
+  justify-content: center;
 }
 
 .checkout-success > p:not(.eyebrow) {

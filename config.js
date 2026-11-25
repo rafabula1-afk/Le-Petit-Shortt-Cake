@@ -37,7 +37,6 @@ window.LPSC_CONFIG = {
     url: "https://ymwtfxkhpxvxfemsvgtv.supabase.co",
     anonKey:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inltd3RmeGtocHh2eGZlbXN2Z3R2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxNDU0MjksImV4cCI6MjExMDcyMTQyOX0.z6z5HKen_nD135Mmp19KN56ErjE9ziHSbhDJTiphJmI",
-    adminEmail: "lepetitshorttcake@gmail.com",
     proofBucket: "comprobantes",
   },
 
@@ -78,7 +77,7 @@ window.LPSC_CONFIG = {
     binance: {
       label: "Binance",
       icon: "₿",
-      hint: "USDT / cripto",
+      hint: "USDT",
       email: "malaurashortt@gmail.com",
       instructions: ["Correo: malaurashortt@gmail.com"],
     },
