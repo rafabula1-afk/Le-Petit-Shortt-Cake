@@ -685,15 +685,56 @@
 
   /* ---------- Modales y foco ---------- */
 
+  const mobileScrollLock = window.matchMedia("(max-width: 780px)");
+  let lockedScrollY = null;
+
+  function unlockBodyScroll() {
+    if (lockedScrollY === null) return;
+    const y = lockedScrollY;
+    lockedScrollY = null;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    const root = document.documentElement;
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, y);
+    root.style.scrollBehavior = previousBehavior;
+  }
+
+  function lockBodyScroll() {
+    if (lockedScrollY !== null) return;
+    lockedScrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+
   function syncBodyLock() {
     const hasOpenModal = Boolean($(".modal.is-open"));
     const cartOpen = cartDrawer.classList.contains("is-open");
-    document.body.classList.toggle("no-scroll", hasOpenModal || cartOpen);
+    const shouldLock = hasOpenModal || cartOpen;
+    document.body.classList.toggle("no-scroll", shouldLock);
+
+    if (shouldLock && mobileScrollLock.matches) {
+      lockBodyScroll();
+    } else {
+      unlockBodyScroll();
+    }
   }
 
   function openModal(modal) {
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
+    const card = modal.querySelector(".modal-card");
+    if (card) {
+      card.setAttribute("tabindex", "-1");
+      card.focus({ preventScroll: true });
+    }
     syncBodyLock();
   }
 
@@ -2449,6 +2490,8 @@
   /* ---------- Eventos globales ---------- */
 
   function setupEvents() {
+    mobileScrollLock.addEventListener("change", syncBodyLock);
+
     document.addEventListener("click", (event) => {
       const closer = event.target.closest("[data-close-modal]");
       if (closer) {
